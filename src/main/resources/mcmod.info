@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tow",
+  "name": "The One Wrench",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/tow",
+  "updateUrl": "",
+  "authorList": ["nhave"],
+  "credits": "",
+  "logoFile": "assets/tow/textures/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
