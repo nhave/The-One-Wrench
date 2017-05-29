@@ -4,6 +4,9 @@ itemGroup.tow.shaders=TOW: Shaders
 
 //---Items---//
 item.tow.wrench.name=OmniWrench G4
+item.tow.claw.name=OmniWrench Claw Module
+item.tow.handle.name=OmniWrench Handle Module
+item.tow.piston.name=OmniWrench Piston Module
 item.tow.shader.name=Item Shader
 item.tow.shaderremover.name=Shader Remover
 item.tow.icons.name=TOW Mod Icons

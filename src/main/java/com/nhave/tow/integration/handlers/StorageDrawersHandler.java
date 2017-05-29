@@ -64,7 +64,7 @@ public class StorageDrawersHandler extends WrenchHandler
 				    }
 				}
 			}
-			if (block instanceof BlockDrawers)
+			if (block instanceof BlockDrawers || block instanceof BlockController)
 			{
 				if (mode == ModItems.modeTune || mode == ModItems.modeUtil)
 				{
