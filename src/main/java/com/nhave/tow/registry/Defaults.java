@@ -16,6 +16,8 @@ public class Defaults
     public static final boolean enableActuallyAdditions = true;
     public static final boolean enableStorageDrawers = true;
     public static final boolean enableRFTools = true;
+    public static final boolean enableTeslaCoreLib = true;
+    public static final boolean enableEmbers = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;
@@ -24,4 +26,6 @@ public class Defaults
     public static final boolean enableTechReborn = true;
     public static final boolean trCutWires = true;
     public static final boolean trRotation = false;
+    //Integration - Embers
+    public static final boolean allowEmbersDismantle = true;
 }

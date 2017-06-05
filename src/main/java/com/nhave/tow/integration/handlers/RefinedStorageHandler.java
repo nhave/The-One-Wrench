@@ -35,38 +35,56 @@ public class RefinedStorageHandler extends WrenchHandler implements IDataWipe
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
         ItemStack stack = player.getHeldItem(hand);
-
-        if (mode == ModItems.modeWrench && player.isSneaking())
+        
+        if (mode == ModItems.modeRotate && tile instanceof TileNode) return EnumActionResult.FAIL;
+        
+        if (mode == ModItems.modeWrench)
 		{
             if (tile instanceof TileNode)
             {
-            	if (!world.isRemote)
+            	if (player.isSneaking())
             	{
-	                NBTTagCompound data = new NBTTagCompound();
-	
-	                ((TileNode) tile).writeConfiguration(data);
-	
-	                ItemStack tileStack = state.getBlock().getDrops(world, pos, state, 0).get(0);
-	
-	                if (!tileStack.hasTagCompound())
-	                {
-	                    tileStack.setTagCompound(new NBTTagCompound());
-	                }
-	
-	                tileStack.getTagCompound().setTag(BlockNode.NBT_REFINED_STORAGE_DATA, data);
-	
-	                world.setBlockToAir(pos);
-	
-	                InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), tileStack);
-	                
-	                return EnumActionResult.SUCCESS;
+	            	if (!world.isRemote)
+	            	{
+		                NBTTagCompound data = new NBTTagCompound();
+		
+		                ((TileNode) tile).writeConfiguration(data);
+		
+		                ItemStack tileStack = state.getBlock().getDrops(world, pos, state, 0).get(0);
+		
+		                if (!tileStack.hasTagCompound())
+		                {
+		                    tileStack.setTagCompound(new NBTTagCompound());
+		                }
+		
+		                tileStack.getTagCompound().setTag(BlockNode.NBT_REFINED_STORAGE_DATA, data);
+		
+		                world.setBlockToAir(pos);
+		
+		                InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), tileStack);
+		                
+		                return EnumActionResult.SUCCESS;
+	            	}
+	            	else
+					{
+						SoundEvent soundName = block.getSoundType(state, world, pos, player).getPlaceSound();
+						player.playSound(soundName, 1.0F, 0.6F);
+						player.swingArm(EnumHand.MAIN_HAND);
+					}
             	}
             	else
-				{
-					SoundEvent soundName = block.getSoundType(state, world, pos, player).getPlaceSound();
-					player.playSound(soundName, 1.0F, 0.6F);
-					player.swingArm(EnumHand.MAIN_HAND);
-				}
+            	{
+            		if (block.rotateBlock(world, pos, side))
+        		    {
+        				world.markChunkDirty(pos, null);
+        		    	if (!world.isRemote) return EnumActionResult.SUCCESS;
+        				else
+        				{
+        					player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+        					player.swingArm(EnumHand.MAIN_HAND);
+        				}
+        		    }
+            	}
             }
         }
         else if (mode == ModItems.modeTune)

@@ -11,14 +11,13 @@ import com.nhave.tow.registry.ModItems;
 import com.nhave.tow.shaders.Shader;
 import com.nhave.tow.shaders.ShaderRegistry;
 
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class ItemShader extends ItemBase implements IItemColor, IItemQuality
+public class ItemShader extends ItemBase implements IItemQuality
 {
 	public ItemShader(String name)
 	{
@@ -71,13 +70,6 @@ public class ItemShader extends ItemBase implements IItemColor, IItemQuality
 			}
 		}
 		else list.add(new ItemStack(item));
-	}
-
-	@Override
-	public int getColorFromItemstack(ItemStack stack, int pass)
-	{
-		if (getShader(stack) != null && pass == 1) return getShader(stack).getShaderColor();
-		return 16777215;
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ tooltip.tow.mode.tune=Tuning
 tooltip.tow.mode.none=None
 tooltip.tow.mode.util=Utility
 tooltip.tow.mode.smartwrench=Smart Wrench
+tooltip.tow.mode.embers=Embers
 tooltip.tow.shader.current=Current Shader
 tooltip.tow.shader.none=No Shader
 tooltip.tow.shader.appliesto=Can apply to

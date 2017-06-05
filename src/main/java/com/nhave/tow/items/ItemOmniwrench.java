@@ -15,7 +15,6 @@ import com.nhave.nhc.client.widget.WidgetBase;
 import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.items.ItemChroma;
 import com.nhave.nhc.network.Key;
-import com.nhave.nhc.shaders.ShaderManager;
 import com.nhave.nhc.util.ItemUtil;
 import com.nhave.nhc.util.StringUtils;
 import com.nhave.tow.client.widget.WidgetWrench;
@@ -32,7 +31,6 @@ import cofh.api.item.IToolHammer;
 import li.cil.oc.api.internal.Wrench;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +45,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOmniwrench extends ItemBase implements IItemColor, IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptor, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench
+public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptor, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench
 {
 	public ItemOmniwrench(String name)
 	{
@@ -58,13 +56,6 @@ public class ItemOmniwrench extends ItemBase implements IItemColor, IWidgetContr
 	}
 	
 	/* =========================================================== Client Code ===============================================================*/
-	
-	@Override
-	public int getColorFromItemstack(ItemStack stack, int pass)
-	{
-		boolean chromaSupport = !hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma());
-		return pass == 1 && chromaSupport ? ShaderManager.getChroma(stack).getColor() : 16777215;
-	}
 
 	@Override
 	@SideOnly(Side.CLIENT)

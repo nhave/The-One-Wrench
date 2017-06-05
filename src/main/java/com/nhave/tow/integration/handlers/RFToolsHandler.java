@@ -1,5 +1,6 @@
 package com.nhave.tow.integration.handlers;
 
+import com.nhave.tow.integration.IDataWipe;
 import com.nhave.tow.integration.WrenchHandler;
 import com.nhave.tow.integration.modes.WrenchModeRFTools;
 import com.nhave.tow.items.ItemOmniwrench;
@@ -26,12 +27,11 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class RFToolsHandler extends WrenchHandler
+public class RFToolsHandler extends WrenchHandler implements IDataWipe
 {
 	public RFToolsHandler()
 	{
 		ModIntegration.modeRFTools = ModeRegistry.register(new WrenchModeRFTools("smartwrench", GameRegistry.makeItemStack("rftools:smartwrench", 0, 1, null)));
-		//ModIntegration.modeRFTools = ModeRegistry.register(new WrenchModeRFTools("smartwrench", null));
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
@@ -152,4 +152,17 @@ public class RFToolsHandler extends WrenchHandler
 		    }
     	}
     }
+	
+	@Override
+	public boolean wipeData(ItemStack stack)
+	{
+		boolean result = false;
+		GlobalCoordinate b = RFToolsHandler.getCurrentBlock(stack);
+        if (b != null)
+        {
+        	setCurrentBlock(stack, null);
+        	result = true;
+        }
+		return result;
+	}
 }

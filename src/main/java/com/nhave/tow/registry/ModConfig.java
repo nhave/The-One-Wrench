@@ -28,6 +28,8 @@ public class ModConfig
     public static boolean enableActuallyAdditions = Defaults.enableActuallyAdditions;
     public static boolean enableStorageDrawers = Defaults.enableStorageDrawers;
     public static boolean enableRFTools = Defaults.enableRFTools;
+    public static boolean enableTeslaCoreLib = Defaults.enableTeslaCoreLib;
+    public static boolean enableEmbers = Defaults.enableEmbers;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -36,6 +38,8 @@ public class ModConfig
     public static boolean enableTechReborn = Defaults.enableTechReborn;
     public static boolean trCutWires = Defaults.trCutWires;
     public static boolean trRotation = Defaults.trRotation;
+    //Integration - Embers
+    public static boolean allowEmbersDismantle = Defaults.allowEmbersDismantle;
 	
 	public ModConfig(boolean isClient)
 	{
@@ -87,6 +91,8 @@ public class ModConfig
 		enableTechReborn = config.get("integration", "EnableTechReborn", Defaults.enableTechReborn, "Enable Tech Reborn Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableTechReborn);
 		enableStorageDrawers = config.get("integration", "EnableStorageDrawers", Defaults.enableStorageDrawers, "Enable Storage Drawers Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableStorageDrawers);
 		enableRFTools = config.get("integration", "EnableRFTools", Defaults.enableRFTools, "Enable RFTools Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableRFTools);
+		enableTeslaCoreLib = config.get("integration", "EnableTeslaCoreLib", Defaults.enableTeslaCoreLib, "Enable Tesla Core Lib Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableTeslaCoreLib);
+		enableEmbers = config.get("integration", "EnableEmbers", Defaults.enableEmbers, "Enable Embers Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableEmbers);
 	    //Integration - IC2
 		config.setCategoryComment("integration.industrialcraft", "Configuration for IC2 Integrations");
 		ic2CutWires = config.get("integration.industrialcraft", "CutWires", Defaults.ic2CutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.ic2CutWires);
@@ -95,6 +101,9 @@ public class ModConfig
 		config.setCategoryComment("integration.techreborn", "Configuration for Tech Reborn Integrations");
 		trCutWires = config.get("integration.techreborn", "CutWires", Defaults.trCutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.trCutWires);
 		trRotation = config.get("integration.techreborn", "ClassicMode", Defaults.trRotation, "Enable IC2 styled Wrench behavior").setRequiresMcRestart(true).getBoolean(Defaults.trRotation);
+	    //Integration - Embers
+		config.setCategoryComment("integration.embers", "Configuration for Embers Integrations");
+		allowEmbersDismantle = config.get("integration.embers", "AllowEmbersDismantling", Defaults.allowEmbersDismantle, "Allow dismantling of Embers machines").setRequiresMcRestart(true).getBoolean(Defaults.allowEmbersDismantle);
 		
 	}
 	

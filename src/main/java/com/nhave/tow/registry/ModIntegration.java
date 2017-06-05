@@ -4,6 +4,7 @@ import com.nhave.tow.client.integration.RFToolsClientEventHandler;
 import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.integration.handlers.ActuallyAdditionsHandler;
+import com.nhave.tow.integration.handlers.EmbersHandler;
 import com.nhave.tow.integration.handlers.ExtremeReactorsHandler;
 import com.nhave.tow.integration.handlers.IndustrialCraftHandler;
 import com.nhave.tow.integration.handlers.IntegratedDynamicsHandler;
@@ -12,6 +13,9 @@ import com.nhave.tow.integration.handlers.RFToolsHandler;
 import com.nhave.tow.integration.handlers.RefinedStorageHandler;
 import com.nhave.tow.integration.handlers.StorageDrawersHandler;
 import com.nhave.tow.integration.handlers.TechRebornHandler;
+import com.nhave.tow.integration.handlers.TeslaCoreLibHandler;
+import com.nhave.tow.integration.modes.WrenchModeEmbers;
+import com.nhave.tow.wrenchmodes.ModeRegistry;
 import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +26,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ModIntegration
 {
 	public static WrenchMode modeRFTools;
+	public static WrenchMode modeEmbers;
 	
 	public static void postInit(FMLPostInitializationEvent event)
 	{
@@ -111,7 +116,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new ActuallyAdditionsHandler(), "Actually Additions");;
+				WrenchRegistry.register(new ActuallyAdditionsHandler(), "Actually Additions");
 			}
 			catch (Exception e) {}
 		}
@@ -119,7 +124,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new TechRebornHandler(ModConfig.trCutWires, ModConfig.trRotation), "Tech Reborn");;
+				WrenchRegistry.register(new TechRebornHandler(ModConfig.trCutWires, ModConfig.trRotation), "Tech Reborn");
 			}
 			catch (Exception e) {}
 		}
@@ -127,7 +132,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new StorageDrawersHandler(), "Storage Drawers");;
+				WrenchRegistry.register(new StorageDrawersHandler(), "Storage Drawers");
 			}
 			catch (Exception e) {}
 		}
@@ -146,6 +151,22 @@ public class ModIntegration
 				}
 				catch (Exception e) {}
 			}
+		}
+		if (Loader.isModLoaded("teslacorelib") && ModConfig.enableTeslaCoreLib)
+		{
+			try
+			{
+				WrenchRegistry.register(new TeslaCoreLibHandler(), "Tesla Core Lib");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("embers") && ModConfig.enableEmbers)
+		{
+			try
+			{
+				WrenchRegistry.register(new EmbersHandler(), "Embers");
+			}
+			catch (Exception e) {}
 		}
 	}
 }

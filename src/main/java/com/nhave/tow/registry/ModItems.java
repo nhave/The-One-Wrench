@@ -7,6 +7,7 @@ import com.nhave.tow.Reference;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionMetaItem;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionShader;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionWrench;
+import com.nhave.tow.client.render.ItemColorHandler;
 import com.nhave.tow.items.ItemBase;
 import com.nhave.tow.items.ItemMeta;
 import com.nhave.tow.items.ItemOmniwrench;
@@ -24,13 +25,14 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItems
 {
@@ -123,6 +125,7 @@ public class ModItems
 		GameRegistry.register(itemShaderPackOverwatch);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void registerRenders()
 	{
 		ModelBakery.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + itemOmniWrench.getRegistryName().getResourcePath()));
@@ -147,16 +150,18 @@ public class ModItems
 		registerRender(itemShaderPackDestiny);
 		registerRender(itemShaderPackOverwatch);
 		
-		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler((IItemColor)itemOmniWrench, itemOmniWrench);
-		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler((IItemColor)itemShader, itemShader);
+		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemColorHandler.INSTANCE, itemOmniWrench);
+		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemColorHandler.INSTANCE, itemShader);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void registerRender(Item item)
 	{
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 		renderItem.getItemModelMesher().register(item, 0, new ModelResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath(), "inventory"));
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void registerMetaRender(Item item, int loop, boolean single)
 	{
 		for (int i = 0; i < loop; ++i)
@@ -168,6 +173,7 @@ public class ModItems
 		registerRenderMesh(item, new CustomMeshDefinitionMetaItem(single));
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void registerRenderMesh(Item item, ItemMeshDefinition mesh)
 	{
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
