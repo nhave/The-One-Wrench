@@ -33,23 +33,28 @@ public class ModCrafting
 			'Z', ModItems.itemComp.getItem("handle", 1)});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackBase),
 			new Object[] {"XYX", "YZY", "XYX",
-			'X', Items.GOLD_NUGGET,
+			'X', "nuggetGold",
 			'Y', "dyeWhite",
 			'Z', Items.REDSTONE}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackBooster),
 			new Object[] {"XYX", "YZY", "XYX",
-			'X', Items.GOLD_NUGGET,
+			'X', "nuggetGold",
 			'Y', "dyeRed",
 			'Z', Items.EMERALD}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackDestiny),
 			new Object[] {"XYX", "YZY", "XYX",
-			'X', Items.GOLD_NUGGET,
+			'X', "nuggetGold",
 			'Y', "dyeGreen",
 			'Z', Items.EMERALD}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackOverwatch),
 			new Object[] {"XYX", "YZY", "XYX",
-			'X', Items.GOLD_NUGGET,
+			'X', "nuggetGold",
 			'Y', "dyeOrange",
 			'Z', Items.EMERALD}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderRemover),
+			new Object[] {"XYX", "YZY", "XYX",
+			'X', "nuggetGold",
+			'Y', "nuggetIron",
+			'Z', Items.WATER_BUCKET}));
 	}
 }
