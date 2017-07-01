@@ -23,7 +23,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import teamroots.embers.block.BlockAdvancedEdge;
+import teamroots.embers.block.BlockInfernoForgeEdge;
+import teamroots.embers.block.BlockItemPipe;
+import teamroots.embers.block.BlockItemPump;
 import teamroots.embers.block.BlockMechEdge;
+import teamroots.embers.block.BlockPipe;
+import teamroots.embers.block.BlockPump;
 import teamroots.embers.block.BlockStoneEdge;
 import teamroots.embers.block.BlockTEBase;
 import teamroots.embers.block.IDial;
@@ -51,24 +57,48 @@ public class EmbersHandler extends WrenchHandler implements IDataWipe
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 		
-		if ((mode == ModItems.modeWrench || mode == ModItems.modeRotate) && (block instanceof BlockTEBase || block instanceof IDial || block instanceof BlockMechEdge || block instanceof BlockStoneEdge))
+		if ((mode == ModItems.modeWrench || mode == ModItems.modeRotate) && (block instanceof BlockTEBase || block instanceof IDial || block instanceof BlockMechEdge || block instanceof BlockStoneEdge || block instanceof BlockAdvancedEdge || block instanceof BlockInfernoForgeEdge))
 		{
 			if (mode == ModItems.modeRotate)
 		    {
 		    	return EnumActionResult.FAIL;
 		    }
+			
+			boolean isEdge = (block instanceof BlockMechEdge || block instanceof BlockAdvancedEdge || block instanceof BlockInfernoForgeEdge);
 	    	
-	    	if (ModConfig.allowEmbersDismantle && player.isSneaking())
+	    	if (player.isSneaking())
 			{
-	    		DismantleHelper.dismantleBlock(world, pos, state, player, true);
-				player.swingArm(EnumHand.MAIN_HAND);
-				if (!world.isRemote) return EnumActionResult.SUCCESS;
+	    		if (ModConfig.allowEmbersDismantle)
+	    		{
+		    		DismantleHelper.dismantleBlock(world, pos, state, player, (isEdge ? false : true));
+					player.swingArm(EnumHand.MAIN_HAND);
+					if (!world.isRemote) return EnumActionResult.SUCCESS;
+					else
+					{
+						player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+						player.swingArm(EnumHand.MAIN_HAND);
+					}
+	    		}
+			}
+	    	else if (block instanceof BlockItemPipe || block instanceof BlockItemPump || block instanceof BlockPipe || block instanceof BlockPump)
+	    	{
+	    		if (!world.isRemote)
+				{
+					ItemStack heldItem = player.getHeldItem(hand).copy();
+		    		ItemStack hammer = GameRegistry.makeItemStack("embers:tinker_hammer", 0, 1, null);
+					
+					player.setHeldItem(hand, hammer);
+					block.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+					player.setHeldItem(hand, heldItem);
+					return EnumActionResult.SUCCESS;
+				}
 				else
 				{
 					player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
-			}
+	    	}
 		}
 		else if (mode == ModIntegration.modeEmbers)
 		{

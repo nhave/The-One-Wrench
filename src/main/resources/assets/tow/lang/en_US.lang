@@ -86,6 +86,7 @@ shader.tow.main.cryostatic=Cryostatic
 shader.tow.main.racer=Racer
 shader.tow.main.crystals=Crystals
 shader.tow.main.gen4=Generation IV
+shader.tow.main.zerodawn=Zero Dawn
 //---Destiny Shaders---//
 shader.tow.destiny.newmonarchy=New Monarchy
 shader.tow.destiny.deadorbit=Dead Orbit

@@ -58,6 +58,7 @@ public class ModShaders
 			ShaderRegistry.registerShader(RARE_SHADERS, 15, true, new Shader("main.racer", Reference.MODID + ":shaders/main/racer", Reference.MODID + ":shader", 4980736, false).setQualityColor(StringUtils.LIGHT_BLUE));
 			ShaderRegistry.registerShader(RARE_SHADERS, 15, true, new Shader("main.crystals", Reference.MODID + ":shaders/main/crystals", Reference.MODID + ":shader", 10149341, false).setQualityColor(StringUtils.LIGHT_BLUE));
 			ShaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new ShaderModeSpecific("main.gen4", Reference.MODID + ":shaders/main/gen4", Reference.MODID + ":shader", ColorUtils.white, true).setQualityColor(StringUtils.ORANGE));
+			ShaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.zerodawn", Reference.MODID + ":shaders/main/zerodawn", Reference.MODID + ":shader", 6367010, false).setQualityColor(StringUtils.ORANGE));
 			
 			if (ModConfig.enableDestinyShaders)
 			{

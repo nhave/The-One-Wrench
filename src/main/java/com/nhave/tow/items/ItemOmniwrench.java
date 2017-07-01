@@ -1,6 +1,7 @@
 package com.nhave.tow.items;
 
 import java.util.List;
+import java.util.Set;
 
 import com.nhave.nhc.api.items.IChromaAcceptor;
 import com.nhave.nhc.api.items.IHudItem;
@@ -27,6 +28,7 @@ import com.nhave.tow.wrenchmodes.ModeRegistry;
 import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import appeng.api.implementations.items.IAEWrench;
+import blusunrize.immersiveengineering.api.tool.ITool;
 import cofh.api.item.IToolHammer;
 import li.cil.oc.api.internal.Wrench;
 import net.minecraft.block.Block;
@@ -45,7 +47,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptor, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench
+public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptor, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
 {
 	public ItemOmniwrench(String name)
 	{
@@ -194,6 +196,19 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 		return EnumActionResult.PASS;
 	}
 	
+	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState)
+	{
+		return super.getHarvestLevel(stack, toolClass, player, blockState);
+	}
+	
+	@Override
+	public Set<String> getToolClasses(ItemStack stack)
+	{
+		
+		return super.getToolClasses(stack);
+	}
+	
 	/* =========================================================== Interface: IMouseWheel, IKeyBound ===============================================================*/
 	
 	@Override
@@ -292,5 +307,13 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	public boolean canWrench(ItemStack wrench, EntityPlayer player, BlockPos pos)
 	{
 		return getWrenchMode(wrench) == ModItems.modeWrench;
+	}
+	
+	/* =========================================================== Interface: ITool ===============================================================*/
+	
+	@Override
+	public boolean isTool(ItemStack item)
+	{
+		return true;
 	}
 }

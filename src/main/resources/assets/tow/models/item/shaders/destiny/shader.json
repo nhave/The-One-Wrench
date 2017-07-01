@@ -1,5 +1,5 @@
 {
-    "parent": "item/generated",
+    "parent": "tow:item/omniwrench",
     "textures":
     {
         "layer0": "tow:items/shaders/destiny/shader_0",

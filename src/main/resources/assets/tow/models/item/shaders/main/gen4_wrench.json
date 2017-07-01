@@ -1,5 +1,5 @@
 {
-    "parent": "item/handheld",
+    "parent": "tow:item/omniwrench",
     "textures":
     {
         "layer0": "tow:items/shaders/main/gen4_wrench_0",
