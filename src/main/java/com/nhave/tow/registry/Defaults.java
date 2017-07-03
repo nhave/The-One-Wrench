@@ -17,9 +17,7 @@ public class Defaults
     public static final boolean enableStorageDrawers = true;
     public static final boolean enableRFTools = true;
     public static final boolean enableTeslaCoreLib = true;
-    public static final boolean enableEmbers = true;
     public static final boolean enableImmersiveEngineering = true;
-    public static final boolean enableForestry = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;
@@ -29,5 +27,12 @@ public class Defaults
     public static final boolean trCutWires = true;
     public static final boolean trRotation = false;
     //Integration - Embers
+    public static final boolean enableEmbers = true;
     public static final boolean allowEmbersDismantle = true;
+    //Integration - Forestry
+    public static final boolean enableForestry = true;
+    public static final boolean frFarmBlocks = true;
+    public static final boolean frGreenhouseBlocks = true;
+    public static final boolean frAlvearyBlocks = true;
+    public static final boolean frMachineBlocks = true;
 }

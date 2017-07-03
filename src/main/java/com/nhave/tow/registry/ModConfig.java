@@ -29,9 +29,7 @@ public class ModConfig
     public static boolean enableStorageDrawers = Defaults.enableStorageDrawers;
     public static boolean enableRFTools = Defaults.enableRFTools;
     public static boolean enableTeslaCoreLib = Defaults.enableTeslaCoreLib;
-    public static boolean enableEmbers = Defaults.enableEmbers;
     public static boolean enableImmersiveEngineering = Defaults.enableImmersiveEngineering;
-    public static boolean enableForestry = Defaults.enableForestry;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -41,7 +39,14 @@ public class ModConfig
     public static boolean trCutWires = Defaults.trCutWires;
     public static boolean trRotation = Defaults.trRotation;
     //Integration - Embers
+    public static boolean enableEmbers = Defaults.enableEmbers;
     public static boolean allowEmbersDismantle = Defaults.allowEmbersDismantle;
+    //Integration - Forestry
+    public static boolean enableForestry = Defaults.enableForestry;
+    public static boolean frFarmBlocks = Defaults.frFarmBlocks;
+    public static boolean frGreenhouseBlocks = Defaults.frGreenhouseBlocks;
+    public static boolean frAlvearyBlocks = Defaults.frAlvearyBlocks;
+    public static boolean frMachineBlocks = Defaults.frMachineBlocks;
 	
 	public ModConfig(boolean isClient)
 	{
@@ -108,6 +113,12 @@ public class ModConfig
 	    //Integration - Embers
 		config.setCategoryComment("integration.embers", "Configuration for Embers Integrations");
 		allowEmbersDismantle = config.get("integration.embers", "AllowEmbersDismantling", Defaults.allowEmbersDismantle, "Allow dismantling of Embers machines").setRequiresMcRestart(true).getBoolean(Defaults.allowEmbersDismantle);
+	    //Integration - Forestry
+		config.setCategoryComment("integration.forestry", "Configuration for Forestry Integrations");
+		frFarmBlocks = config.get("integration.forestry", "DismantleFarmBlocks", Defaults.frFarmBlocks, "Allow dismantling of Forestry Farm Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frFarmBlocks);
+		frGreenhouseBlocks = config.get("integration.forestry", "DismantleGreenhouseBlocks", Defaults.frGreenhouseBlocks, "Allow dismantling of Forestry Greenhouse Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frGreenhouseBlocks);
+		frAlvearyBlocks = config.get("integration.forestry", "DismantleAlvearyBlocks", Defaults.frAlvearyBlocks, "Allow dismantling of Forestry Alveary Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frAlvearyBlocks);
+		frMachineBlocks = config.get("integration.forestry", "DismantleMachineBlocks", Defaults.frMachineBlocks, "Allow dismantling of Forestry Machine Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frMachineBlocks);
 		
 	}
 	

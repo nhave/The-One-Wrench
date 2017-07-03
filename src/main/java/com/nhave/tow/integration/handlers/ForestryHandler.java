@@ -31,6 +31,19 @@ import net.minecraft.world.World;
 
 public class ForestryHandler extends WrenchHandler
 {
+	private boolean farmBlocks;
+	private boolean greenhouseBlocks;
+	private boolean alvearyBlocks;
+	private boolean machineBlocks;
+	
+	public ForestryHandler(boolean farmBlocks, boolean greenhouseBlocks, boolean alvearyBlocks, boolean machineBlocks)
+	{
+		this.farmBlocks = farmBlocks;
+		this.greenhouseBlocks = greenhouseBlocks;
+		this.alvearyBlocks = alvearyBlocks;
+		this.machineBlocks = machineBlocks;
+	}
+	
 	@Override
 	public EnumActionResult onWrenchUseFirst(WrenchMode mode, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
 	{
@@ -67,7 +80,7 @@ public class ForestryHandler extends WrenchHandler
 	    }
 	    else if (mode == ModItems.modeWrench)
     	{
-    		if (player.isSneaking() && (block instanceof BlockFarm || block instanceof BlockGreenhouse || block instanceof BlockAlveary || (apiculture && block == PluginApiculture.getBlocks().apiary)))
+    		if (player.isSneaking() && ((this.farmBlocks && block instanceof BlockFarm) || (this.greenhouseBlocks && block instanceof BlockGreenhouse) || (this.alvearyBlocks && (block instanceof BlockAlveary || apiculture && block == PluginApiculture.getBlocks().apiary))))
     		{
     			DismantleHelper.dismantleBlock(world, pos, state, player, true);
     			if (!world.isRemote) return EnumActionResult.SUCCESS;
@@ -79,7 +92,7 @@ public class ForestryHandler extends WrenchHandler
     		}
     		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail)
 		    {
-	    		if (player.isSneaking())
+	    		if (player.isSneaking() && this.machineBlocks)
 				{
 		    		DismantleHelper.dismantleBlock(world, pos, state, player, true);
 	    			if (!world.isRemote) return EnumActionResult.SUCCESS;

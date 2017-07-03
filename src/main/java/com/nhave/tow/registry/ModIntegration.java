@@ -189,7 +189,7 @@ public class ModIntegration
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new ForestryHandler(), "Forestry");
+				TOWAPI.integrationRegistry.register(new ForestryHandler(ModConfig.frFarmBlocks, ModConfig.frGreenhouseBlocks, ModConfig.frAlvearyBlocks, ModConfig.frMachineBlocks), "Forestry");
 			}
 			catch (Exception e) {}
 		}
