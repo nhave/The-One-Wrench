@@ -1,14 +1,14 @@
 package com.nhave.tow.integration.handlers;
 
+import com.nhave.tow.api.TOWAPI;
+import com.nhave.tow.api.integration.IDataWipe;
+import com.nhave.tow.api.integration.WrenchHandler;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
-import com.nhave.tow.integration.IDataWipe;
-import com.nhave.tow.integration.WrenchHandler;
 import com.nhave.tow.integration.modes.WrenchModeEmbers;
 import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModIntegration;
 import com.nhave.tow.registry.ModItems;
-import com.nhave.tow.wrenchmodes.ModeRegistry;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -46,7 +46,7 @@ public class EmbersHandler extends WrenchHandler implements IDataWipe
 	
 	public EmbersHandler()
 	{
-		ModIntegration.modeEmbers = ModeRegistry.register(new WrenchModeEmbers("embers", GameRegistry.makeItemStack("embers:tinker_hammer", 0, 1, null)));
+		ModIntegration.modeEmbers = TOWAPI.modeRegistry.register(new WrenchModeEmbers("embers", GameRegistry.makeItemStack("embers:tinker_hammer", 0, 1, null)));
 	}
 	
 	@Override

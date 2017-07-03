@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,6 +16,13 @@ public class DismantleHelper
 {
 	private static final List<String> BLOCKS = new ArrayList<String>();
 	
+	/**
+	 * Allows the OmniWrench to pickup the {@link Block} when Sneak-Right-Clicked.
+	 * Add <b>/n</b> to the end to prevent the block from dropping additional Items.
+	 * Add <b>/p</b> to create a Silk Touch effect for the Block.
+	 * 
+	 * @param name The Blocks Resource Name <b>'minecraft:dirt'</b>
+	 */
 	public static void addBlock(String name)
 	{
 		BLOCKS.add(name);
@@ -44,6 +52,15 @@ public class DismantleHelper
 		dismantleBlock(world, blockPos, blockState, player, forceDrops);
 	}
 	
+	/**
+	 * Drops the {@link Block} as an {@link Item} in the {@link World}.
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param stack
+	 */
 	public static void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack)
 	{
 		float f = 0.3F;
@@ -55,11 +72,27 @@ public class DismantleHelper
     	world.spawnEntity(theItem);
 	}
 	
+	/**
+	 * Checks to see if the block can be picked up.
+	 * 
+	 * @param block
+	 * @param name
+	 * @return
+	 */
 	public static boolean checkBlock(Block block, String name)
 	{
 		return (block.getRegistryName().getResourceDomain() + ":" + block.getRegistryName().getResourcePath()).equals(name); 
 	}
 	
+	/**
+	 * Called by the OmniWrench upon Sneak-Right-Clinking a {@link Block}.
+	 * 
+	 * @param world
+	 * @param blockPos
+	 * @param blockState
+	 * @param player
+	 * @return
+	 */
 	public static boolean customDismantle(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player)
 	{
 		Block block = blockState.getBlock();

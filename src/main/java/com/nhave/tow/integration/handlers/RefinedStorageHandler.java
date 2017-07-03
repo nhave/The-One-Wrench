@@ -1,9 +1,9 @@
 package com.nhave.tow.integration.handlers;
 
-import com.nhave.tow.integration.IDataWipe;
-import com.nhave.tow.integration.WrenchHandler;
+import com.nhave.tow.api.integration.IDataWipe;
+import com.nhave.tow.api.integration.WrenchHandler;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.registry.ModItems;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 import com.raoulvdberge.refinedstorage.api.util.IWrenchable;
 import com.raoulvdberge.refinedstorage.block.BlockNode;
 import com.raoulvdberge.refinedstorage.tile.TileNode;

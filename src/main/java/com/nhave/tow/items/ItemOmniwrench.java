@@ -18,14 +18,14 @@ import com.nhave.nhc.items.ItemChroma;
 import com.nhave.nhc.network.Key;
 import com.nhave.nhc.util.ItemUtil;
 import com.nhave.nhc.util.StringUtils;
+import com.nhave.tow.api.shaders.Shader;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.client.widget.WidgetWrench;
 import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
-import com.nhave.tow.shaders.Shader;
 import com.nhave.tow.wrenchmodes.ModeRegistry;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import appeng.api.implementations.items.IAEWrench;
 import blusunrize.immersiveengineering.api.tool.ITool;
@@ -181,7 +181,15 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	    }
 	    else if (getWrenchMode(stack) == ModItems.modeRotate)
 	    {
-			if (block.rotateBlock(world, pos, side))
+	    	boolean doRotation = true;
+	    	for (int i = 0; i < WrenchRegistry.getCount(); ++i)
+		    {
+		    	if (WrenchRegistry.getHandler(i).preventBlockRotation(getWrenchMode(stack), player, world, pos))
+		    	{
+		    		doRotation = false;
+		    	}
+		    }
+			if (doRotation && block.rotateBlock(world, pos, side))
 		    {
 				world.markChunkDirty(pos, null);
 		    	if (!world.isRemote) return EnumActionResult.SUCCESS;

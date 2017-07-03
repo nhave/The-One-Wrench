@@ -4,6 +4,9 @@ import java.util.Map.Entry;
 
 import com.nhave.nhc.util.StringUtils;
 import com.nhave.tow.Reference;
+import com.nhave.tow.api.TOWAPI;
+import com.nhave.tow.api.shaders.Shader;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionMetaItem;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionShader;
 import com.nhave.tow.client.mesh.CustomMeshDefinitionWrench;
@@ -14,10 +17,7 @@ import com.nhave.tow.items.ItemOmniwrench;
 import com.nhave.tow.items.ItemShader;
 import com.nhave.tow.items.ItemShaderPack;
 import com.nhave.tow.items.ItemShaderRemover;
-import com.nhave.tow.shaders.Shader;
 import com.nhave.tow.shaders.ShaderRegistry;
-import com.nhave.tow.wrenchmodes.ModeRegistry;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 import com.nhave.tow.wrenchmodes.WrenchModeTune;
 
 import net.minecraft.client.Minecraft;
@@ -76,11 +76,11 @@ public class ModItems
 		itemShaderPackDestiny = new ItemShaderPack("shaderpackdestiny", ModShaders.DESTINY_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableDestinyShaders ? TAB_ITEMS : null);
 		itemShaderPackOverwatch = new ItemShaderPack("shaderpackoverwatch", ModShaders.OVERWATCH_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableOverwatchShaders ? TAB_ITEMS : null);
 		
-		modeWrench = ModeRegistry.register("wrench", new ItemStack(itemIcons, 1, 2));
-		modeRotate = ModeRegistry.register("rotate", new ItemStack(itemIcons, 1, 3));
-		modeTune = ModeRegistry.register(new WrenchModeTune("tune", new ItemStack(itemIcons, 1, 4)));
-		modeUtil = ModeRegistry.register("util", new ItemStack(itemIcons, 1, 5));
-		modeNone = ModeRegistry.register("none", new ItemStack(itemIcons, 1, 6));
+		modeWrench = TOWAPI.modeRegistry.register("wrench", new ItemStack(itemIcons, 1, 2));
+		modeRotate = TOWAPI.modeRegistry.register("rotate", new ItemStack(itemIcons, 1, 3));
+		modeTune = TOWAPI.modeRegistry.register(new WrenchModeTune("tune", new ItemStack(itemIcons, 1, 4)));
+		modeUtil = TOWAPI.modeRegistry.register("util", new ItemStack(itemIcons, 1, 5));
+		modeNone = TOWAPI.modeRegistry.register("none", new ItemStack(itemIcons, 1, 6));
 	}
 	
 	public static void addCreativeTabs()

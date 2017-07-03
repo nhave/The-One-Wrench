@@ -1,5 +1,6 @@
 package com.nhave.tow.shaders;
 
+import com.nhave.tow.api.shaders.Shader;
 import com.nhave.tow.items.ItemOmniwrench;
 import com.nhave.tow.registry.ModItems;
 

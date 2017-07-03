@@ -7,8 +7,8 @@ import com.nhave.nhc.api.items.IItemQuality;
 import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
+import com.nhave.tow.api.shaders.Shader;
 import com.nhave.tow.registry.ModItems;
-import com.nhave.tow.shaders.Shader;
 import com.nhave.tow.shaders.ShaderRegistry;
 
 import net.minecraft.creativetab.CreativeTabs;

@@ -1,10 +1,10 @@
 package com.nhave.tow.integration.handlers;
 
+import com.nhave.tow.api.integration.IDataWipe;
+import com.nhave.tow.api.integration.WrenchHandler;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
-import com.nhave.tow.integration.IDataWipe;
-import com.nhave.tow.integration.WrenchHandler;
 import com.nhave.tow.registry.ModItems;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import de.ellpeck.actuallyadditions.api.ActuallyAdditionsAPI;
 import de.ellpeck.actuallyadditions.mod.blocks.BlockColoredLamp;

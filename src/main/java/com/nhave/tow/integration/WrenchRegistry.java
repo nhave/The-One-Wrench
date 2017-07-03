@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nhave.tow.Reference;
+import com.nhave.tow.api.IIntegrationRegistry;
+import com.nhave.tow.api.integration.WrenchHandler;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModMetadata;
 
-public class WrenchRegistry
+public class WrenchRegistry implements IIntegrationRegistry
 {
 	private static final List<WrenchHandler> HANDLERS = new ArrayList<WrenchHandler>();
 
@@ -17,18 +19,18 @@ public class WrenchRegistry
 	@Mod.Metadata(Reference.MODID)
 	private static ModMetadata modMeta;
 	
-	public static void register(WrenchHandler handler, String name)
+	public void register(WrenchHandler handler, String name)
 	{
 		register(handler);
 		register(name);
 	}
 	
-	public static void register(WrenchHandler handler)
+	public void register(WrenchHandler handler)
 	{
 		HANDLERS.add(handler);
 	}
 	
-	public static void register(String name)
+	public void register(String name)
 	{
 		NAMES.add(name);
 		updateModMeta();

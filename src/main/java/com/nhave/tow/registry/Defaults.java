@@ -19,6 +19,7 @@ public class Defaults
     public static final boolean enableTeslaCoreLib = true;
     public static final boolean enableEmbers = true;
     public static final boolean enableImmersiveEngineering = true;
+    public static final boolean enableForestry = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;

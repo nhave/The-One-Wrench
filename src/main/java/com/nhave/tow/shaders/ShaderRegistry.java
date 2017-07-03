@@ -3,9 +3,11 @@ package com.nhave.tow.shaders;
 import java.util.List;
 import java.util.TreeMap;
 
+import com.nhave.tow.api.IShaderRegistry;
+import com.nhave.tow.api.shaders.Shader;
 import com.nhave.tow.registry.ModShaders;
 
-public class ShaderRegistry
+public class ShaderRegistry implements IShaderRegistry
 {
 	public static final TreeMap<String, Shader> SHADERS = new TreeMap<String, Shader>();
     
@@ -17,12 +19,12 @@ public class ShaderRegistry
      * @param shader
      *            The Shader to register.
      */
-    public static Shader registerShader(List<Shader> pool, int weight, boolean addAll, Shader shader) 
+    public Shader registerShader(List<Shader> pool, int weight, boolean addAll, Shader shader) 
     {
     	SHADERS.put(shader.getShaderName(), shader);
-		pool.add(shader);
     	for (int i = 0; i < weight; ++i)
     	{
+    		if (pool != null) pool.add(shader);
         	if (addAll) ModShaders.ALL_SHADERS.add(shader);
     	}
     	return shader;

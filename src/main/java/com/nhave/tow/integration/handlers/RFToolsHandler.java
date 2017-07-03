@@ -1,12 +1,12 @@
 package com.nhave.tow.integration.handlers;
 
-import com.nhave.tow.integration.IDataWipe;
-import com.nhave.tow.integration.WrenchHandler;
+import com.nhave.tow.api.TOWAPI;
+import com.nhave.tow.api.integration.IDataWipe;
+import com.nhave.tow.api.integration.WrenchHandler;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.integration.modes.WrenchModeRFTools;
 import com.nhave.tow.items.ItemOmniwrench;
 import com.nhave.tow.registry.ModIntegration;
-import com.nhave.tow.wrenchmodes.ModeRegistry;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import mcjty.lib.api.smartwrench.SmartWrenchSelector;
 import mcjty.lib.varia.GlobalCoordinate;
@@ -31,7 +31,7 @@ public class RFToolsHandler extends WrenchHandler implements IDataWipe
 {
 	public RFToolsHandler()
 	{
-		ModIntegration.modeRFTools = ModeRegistry.register(new WrenchModeRFTools("smartwrench", GameRegistry.makeItemStack("rftools:smartwrench", 0, 1, null)));
+		ModIntegration.modeRFTools = TOWAPI.modeRegistry.register(new WrenchModeRFTools("smartwrench", GameRegistry.makeItemStack("rftools:smartwrench", 0, 1, null)));
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
@@ -44,16 +44,6 @@ public class RFToolsHandler extends WrenchHandler implements IDataWipe
 			TileEntity tile = world.getTileEntity(pos);
 			GlobalCoordinate b = getCurrentBlock(stack);
 			
-			/*if (player.isSneaking() && tile != null && tile instanceof SmartWrenchSelector)
-            {
-				if (!world.isRemote)
-				{
-					if (b == null) setCurrentBlock(stack, new GlobalCoordinate(pos, world.provider.getDimension()));
-					else setCurrentBlock(stack, null);
-				}
-				else player.swingArm(hand);
-            }
-            else */
             if (!player.isSneaking() && b != null)
 	        {
 				if (!world.isRemote)

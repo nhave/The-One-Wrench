@@ -1,12 +1,14 @@
 package com.nhave.tow.registry;
 
+import com.nhave.tow.api.TOWAPI;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.client.integration.IEClientEventHandler;
 import com.nhave.tow.client.integration.RFToolsClientEventHandler;
 import com.nhave.tow.helpers.DismantleHelper;
-import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.integration.handlers.ActuallyAdditionsHandler;
 import com.nhave.tow.integration.handlers.EmbersHandler;
 import com.nhave.tow.integration.handlers.ExtremeReactorsHandler;
+import com.nhave.tow.integration.handlers.ForestryHandler;
 import com.nhave.tow.integration.handlers.ImmersiveEngineeringHandler;
 import com.nhave.tow.integration.handlers.IndustrialCraftHandler;
 import com.nhave.tow.integration.handlers.IntegratedDynamicsHandler;
@@ -16,7 +18,6 @@ import com.nhave.tow.integration.handlers.RefinedStorageHandler;
 import com.nhave.tow.integration.handlers.StorageDrawersHandler;
 import com.nhave.tow.integration.handlers.TechRebornHandler;
 import com.nhave.tow.integration.handlers.TeslaCoreLibHandler;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
@@ -39,7 +40,7 @@ public class ModIntegration
 		}
 		if (ModConfig.vanillaDismantle)
 		{
-			WrenchRegistry.register("Vanilla Dismantling");
+			TOWAPI.integrationRegistry.register("Vanilla Dismantling");
 			DismantleHelper.addBlock("minecraft:white_shulker_box/n");
 			DismantleHelper.addBlock("minecraft:orange_shulker_box/n");
 			DismantleHelper.addBlock("minecraft:magenta_shulker_box/n");
@@ -64,7 +65,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new OpenComputersHandler(), "Open Computers");
+				TOWAPI.integrationRegistry.register(new OpenComputersHandler(), "Open Computers");
 			}
 			catch (Exception e) {}
 		}
@@ -72,7 +73,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new RefinedStorageHandler(), "Refined Storage");
+				TOWAPI.integrationRegistry.register(new RefinedStorageHandler(), "Refined Storage");
 				DismantleHelper.addBlock("refinedstorage:machine_casing");
 				DismantleHelper.addBlock("refinedstorage:controller");
 				DismantleHelper.addBlock("refinedstorage:processing_pattern_encoder");
@@ -83,7 +84,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new IndustrialCraftHandler(ModConfig.ic2CutWires, ModConfig.ic2ClassicRotation), "Industrial Craft 2");
+				TOWAPI.integrationRegistry.register(new IndustrialCraftHandler(ModConfig.ic2CutWires, ModConfig.ic2ClassicRotation), "Industrial Craft 2");
 			}
 			catch (Exception e) {}
 		}
@@ -91,7 +92,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new ExtremeReactorsHandler(), "Extreme Reactors");
+				TOWAPI.integrationRegistry.register(new ExtremeReactorsHandler(), "Extreme Reactors");
 			}
 			catch (Exception e) {}
 		}
@@ -99,7 +100,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new IntegratedDynamicsHandler(), "Integrated Dynamics");
+				TOWAPI.integrationRegistry.register(new IntegratedDynamicsHandler(), "Integrated Dynamics");
 				DismantleHelper.addBlock("integrateddynamics:variablestore");
 				DismantleHelper.addBlock("integrateddynamics:logic_programmer");
 				DismantleHelper.addBlock("integrateddynamics:energy_battery");
@@ -116,7 +117,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new ActuallyAdditionsHandler(), "Actually Additions");
+				TOWAPI.integrationRegistry.register(new ActuallyAdditionsHandler(), "Actually Additions");
 			}
 			catch (Exception e) {}
 		}
@@ -124,7 +125,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new TechRebornHandler(ModConfig.trCutWires, ModConfig.trRotation), "Tech Reborn");
+				TOWAPI.integrationRegistry.register(new TechRebornHandler(ModConfig.trCutWires, ModConfig.trRotation), "Tech Reborn");
 			}
 			catch (Exception e) {}
 		}
@@ -132,7 +133,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new StorageDrawersHandler(), "Storage Drawers");
+				TOWAPI.integrationRegistry.register(new StorageDrawersHandler(), "Storage Drawers");
 			}
 			catch (Exception e) {}
 		}
@@ -140,7 +141,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new RFToolsHandler(), "RFTools");
+				TOWAPI.integrationRegistry.register(new RFToolsHandler(), "RFTools");
 			}
 			catch (Exception e) {}
 			if (event.getSide() == Side.CLIENT)
@@ -156,7 +157,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new TeslaCoreLibHandler(), "Tesla Core Lib");
+				TOWAPI.integrationRegistry.register(new TeslaCoreLibHandler(), "Tesla Core Lib");
 			}
 			catch (Exception e) {}
 		}
@@ -164,7 +165,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new EmbersHandler(), "Embers");
+				TOWAPI.integrationRegistry.register(new EmbersHandler(), "Embers");
 			}
 			catch (Exception e) {}
 		}
@@ -172,7 +173,7 @@ public class ModIntegration
 		{
 			try
 			{
-				WrenchRegistry.register(new ImmersiveEngineeringHandler(), "Immersive Engineering");
+				TOWAPI.integrationRegistry.register(new ImmersiveEngineeringHandler(), "Immersive Engineering");
 			}
 			catch (Exception e) {}
 			if (event.getSide() == Side.CLIENT)
@@ -183,6 +184,14 @@ public class ModIntegration
 				}
 				catch (Exception e) {}
 			}
+		}
+		if (Loader.isModLoaded("forestry") && ModConfig.enableForestry)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new ForestryHandler(), "Forestry");
+			}
+			catch (Exception e) {}
 		}
 	}
 }

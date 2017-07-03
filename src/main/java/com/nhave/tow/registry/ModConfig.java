@@ -31,6 +31,7 @@ public class ModConfig
     public static boolean enableTeslaCoreLib = Defaults.enableTeslaCoreLib;
     public static boolean enableEmbers = Defaults.enableEmbers;
     public static boolean enableImmersiveEngineering = Defaults.enableImmersiveEngineering;
+    public static boolean enableForestry = Defaults.enableForestry;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -95,6 +96,7 @@ public class ModConfig
 		enableTeslaCoreLib = config.get("integration", "EnableTeslaCoreLib", Defaults.enableTeslaCoreLib, "Enable Tesla Core Lib Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableTeslaCoreLib);
 		enableEmbers = config.get("integration", "EnableEmbers", Defaults.enableEmbers, "Enable Embers Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableEmbers);
 		enableImmersiveEngineering = config.get("integration", "EnableImmersiveEngineering", Defaults.enableImmersiveEngineering, "Enable Immersive Engineering Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableImmersiveEngineering);
+		enableForestry = config.get("integration", "EnableForestry", Defaults.enableForestry, "Enable Forestry Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableForestry);
 	    //Integration - IC2
 		config.setCategoryComment("integration.industrialcraft", "Configuration for IC2 Integrations");
 		ic2CutWires = config.get("integration.industrialcraft", "CutWires", Defaults.ic2CutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.ic2CutWires);

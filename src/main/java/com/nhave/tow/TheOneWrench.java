@@ -4,11 +4,14 @@ import java.io.File;
 
 import org.apache.logging.log4j.Logger;
 
+import com.nhave.tow.api.TOWAPI;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.proxy.CommonProxy;
 import com.nhave.tow.registry.ModCrafting;
 import com.nhave.tow.registry.ModIntegration;
 import com.nhave.tow.registry.ModItems;
+import com.nhave.tow.shaders.ShaderRegistry;
+import com.nhave.tow.wrenchmodes.ModeRegistry;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -31,6 +34,10 @@ public class TheOneWrench
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	TOWAPI.integrationRegistry = new WrenchRegistry();
+    	TOWAPI.modeRegistry = new ModeRegistry();
+    	TOWAPI.shaderRegistry = new ShaderRegistry();
+    	
     	logger = event.getModLog();
 		proxy.setupConfig(new File(event.getModConfigurationDirectory(), "theonewrench.cfg"));
 		

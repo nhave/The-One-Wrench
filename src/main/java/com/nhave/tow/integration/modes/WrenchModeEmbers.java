@@ -6,10 +6,10 @@ import com.nhave.nhc.api.items.IKeyBound;
 import com.nhave.nhc.network.Key;
 import com.nhave.nhc.network.KeyBinds;
 import com.nhave.nhc.util.StringUtils;
-import com.nhave.tow.integration.IDataWipe;
+import com.nhave.tow.api.integration.IDataWipe;
+import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.integration.handlers.EmbersHandler;
-import com.nhave.tow.wrenchmodes.WrenchMode;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
