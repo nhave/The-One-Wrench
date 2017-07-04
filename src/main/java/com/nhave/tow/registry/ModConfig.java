@@ -46,7 +46,11 @@ public class ModConfig
     public static boolean frFarmBlocks = Defaults.frFarmBlocks;
     public static boolean frGreenhouseBlocks = Defaults.frGreenhouseBlocks;
     public static boolean frAlvearyBlocks = Defaults.frAlvearyBlocks;
+    public static boolean frApiaryBlocks = Defaults.frApiaryBlocks;
+    public static boolean frBeeHouseBlocks = Defaults.frBeeHouseBlocks;
     public static boolean frMachineBlocks = Defaults.frMachineBlocks;
+    public static boolean frEngineBlocks = Defaults.frEngineBlocks;
+    public static boolean frMailBlocks = Defaults.frMailBlocks;
 	
 	public ModConfig(boolean isClient)
 	{
@@ -118,8 +122,11 @@ public class ModConfig
 		frFarmBlocks = config.get("integration.forestry", "DismantleFarmBlocks", Defaults.frFarmBlocks, "Allow dismantling of Forestry Farm Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frFarmBlocks);
 		frGreenhouseBlocks = config.get("integration.forestry", "DismantleGreenhouseBlocks", Defaults.frGreenhouseBlocks, "Allow dismantling of Forestry Greenhouse Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frGreenhouseBlocks);
 		frAlvearyBlocks = config.get("integration.forestry", "DismantleAlvearyBlocks", Defaults.frAlvearyBlocks, "Allow dismantling of Forestry Alveary Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frAlvearyBlocks);
+		frApiaryBlocks = config.get("integration.forestry", "DismantleApiaryBlocks", Defaults.frApiaryBlocks, "Allow dismantling of Forestry Apiary Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frApiaryBlocks);
+		frBeeHouseBlocks = config.get("integration.forestry", "DismantleBeeHouseBlocks", Defaults.frBeeHouseBlocks, "Allow dismantling of Forestry Bee House Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frBeeHouseBlocks);
 		frMachineBlocks = config.get("integration.forestry", "DismantleMachineBlocks", Defaults.frMachineBlocks, "Allow dismantling of Forestry Machine Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frMachineBlocks);
-		
+		frEngineBlocks = config.get("integration.forestry", "DismantleEngineBlocks", Defaults.frEngineBlocks, "Allow dismantling of Forestry Engine Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frEngineBlocks);
+		frMailBlocks = config.get("integration.forestry", "DismantleMailBlocks", Defaults.frMailBlocks, "Allow dismantling of Forestry Mail Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frMailBlocks);
 	}
 	
 	public static void loadClientConfig() {}

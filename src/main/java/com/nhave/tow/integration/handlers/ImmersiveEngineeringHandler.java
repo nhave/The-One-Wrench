@@ -9,6 +9,7 @@ import blusunrize.immersiveengineering.api.TargetingInfo;
 import blusunrize.immersiveengineering.api.energy.wires.IImmersiveConnectable;
 import blusunrize.immersiveengineering.api.energy.wires.ImmersiveNetHandler;
 import blusunrize.immersiveengineering.common.IESaveData;
+import blusunrize.immersiveengineering.common.blocks.BlockIEMultiblock;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IConfigurableSides;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IDirectionalTile;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IHammerInteraction;
@@ -42,7 +43,13 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 		
 		if (mode == ModItems.modeWrench)
 		{
-			if (tileEntity instanceof IConfigurableSides || (tileEntity instanceof IDirectionalTile && ((IDirectionalTile)tileEntity).canHammerRotate(side, hitX, hitY, hitZ, player)) || tileEntity instanceof IHammerInteraction)
+			EnumActionResult ret = tryFormMB(player, world, pos, side, hand);
+			if (ret != EnumActionResult.PASS)
+			{
+				if (world.isRemote && ret != EnumActionResult.PASS) Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
+				return ret;
+			}
+			else if (!(block instanceof BlockIEMultiblock) && (tileEntity instanceof IConfigurableSides || (tileEntity instanceof IDirectionalTile && ((IDirectionalTile)tileEntity).canHammerRotate(side, hitX, hitY, hitZ, player)) || tileEntity instanceof IHammerInteraction))
 			{
 				if (!world.isRemote)
 				{
@@ -61,12 +68,12 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
 			}
-			else
+			/*else
 			{
 				EnumActionResult ret = tryFormMB(player, world, pos, side, hand);
 				if (world.isRemote && ret != EnumActionResult.PASS) Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
 				return ret;
-			}
+			}*/
 		}
 		else if (mode == ModItems.modeTune && tileEntity instanceof IImmersiveConnectable)
 		{

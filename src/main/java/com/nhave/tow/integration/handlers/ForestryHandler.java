@@ -3,6 +3,7 @@ package com.nhave.tow.integration.handlers;
 import com.nhave.tow.api.integration.WrenchHandler;
 import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
+import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
 import forestry.apiculture.PluginApiculture;
@@ -31,17 +32,25 @@ import net.minecraft.world.World;
 
 public class ForestryHandler extends WrenchHandler
 {
-	private boolean farmBlocks;
-	private boolean greenhouseBlocks;
-	private boolean alvearyBlocks;
-	private boolean machineBlocks;
+	private boolean farmDismantle;
+	private boolean greenhouseDismantle;
+	private boolean alvearyDismantle;
+	private boolean apiaryDismantle;
+	private boolean beeHouseDismantle;
+	private boolean machineDismantle;
+	private boolean engineDismantle;
+	private boolean mailDismantle;
 	
-	public ForestryHandler(boolean farmBlocks, boolean greenhouseBlocks, boolean alvearyBlocks, boolean machineBlocks)
+	public ForestryHandler()
 	{
-		this.farmBlocks = farmBlocks;
-		this.greenhouseBlocks = greenhouseBlocks;
-		this.alvearyBlocks = alvearyBlocks;
-		this.machineBlocks = machineBlocks;
+		this.farmDismantle = ModConfig.frFarmBlocks;
+		this.greenhouseDismantle = ModConfig.frGreenhouseBlocks;
+		this.alvearyDismantle = ModConfig.frAlvearyBlocks;
+		this.apiaryDismantle = ModConfig.frApiaryBlocks;
+		this.beeHouseDismantle = ModConfig.frBeeHouseBlocks;
+		this.machineDismantle = ModConfig.frMachineBlocks;
+		this.engineDismantle = ModConfig.frEngineBlocks;
+		this.mailDismantle = ModConfig.frMailBlocks;
 	}
 	
 	@Override
@@ -80,7 +89,7 @@ public class ForestryHandler extends WrenchHandler
 	    }
 	    else if (mode == ModItems.modeWrench)
     	{
-    		if (player.isSneaking() && ((this.farmBlocks && block instanceof BlockFarm) || (this.greenhouseBlocks && block instanceof BlockGreenhouse) || (this.alvearyBlocks && (block instanceof BlockAlveary || apiculture && block == PluginApiculture.getBlocks().apiary))))
+    		if (player.isSneaking() && ((this.farmDismantle && block instanceof BlockFarm) || (this.greenhouseDismantle && block instanceof BlockGreenhouse) || (this.alvearyDismantle && block instanceof BlockAlveary) || (this.apiaryDismantle && apiculture && block == PluginApiculture.getBlocks().apiary) || (this.beeHouseDismantle && apiculture && block == PluginApiculture.getBlocks().beeHouse)))
     		{
     			DismantleHelper.dismantleBlock(world, pos, state, player, true);
     			if (!world.isRemote) return EnumActionResult.SUCCESS;
@@ -92,7 +101,7 @@ public class ForestryHandler extends WrenchHandler
     		}
     		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail)
 		    {
-	    		if (player.isSneaking() && this.machineBlocks)
+	    		if (player.isSneaking() && ((this.engineDismantle && block instanceof BlockEngine) || (this.machineDismantle && (block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR)) || (this.mailDismantle && block instanceof BlockMail)))
 				{
 		    		DismantleHelper.dismantleBlock(world, pos, state, player, true);
 	    			if (!world.isRemote) return EnumActionResult.SUCCESS;

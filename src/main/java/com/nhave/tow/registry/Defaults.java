@@ -34,5 +34,9 @@ public class Defaults
     public static final boolean frFarmBlocks = true;
     public static final boolean frGreenhouseBlocks = true;
     public static final boolean frAlvearyBlocks = true;
+    public static final boolean frApiaryBlocks = true;
+    public static final boolean frBeeHouseBlocks = false;
     public static final boolean frMachineBlocks = true;
+    public static final boolean frEngineBlocks = true;
+    public static final boolean frMailBlocks = true;
 }
