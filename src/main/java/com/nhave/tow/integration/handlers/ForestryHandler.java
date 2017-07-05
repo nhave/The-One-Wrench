@@ -9,6 +9,7 @@ import com.nhave.tow.registry.ModItems;
 import forestry.apiculture.PluginApiculture;
 import forestry.apiculture.blocks.BlockAlveary;
 import forestry.arboriculture.PluginArboriculture;
+import forestry.core.PluginCore;
 import forestry.core.blocks.BlockBase;
 import forestry.core.tiles.TileUtil;
 import forestry.energy.EnergyHelper;
@@ -60,6 +61,7 @@ public class ForestryHandler extends WrenchHandler
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
+	    boolean core = PluginCore.getBlocks() != null;
 	    boolean factory = PluginFactory.getBlocks() != null;
 	    boolean apiculture = PluginApiculture.getBlocks() != null;
 	    boolean arboriculture = PluginArboriculture.getBlocks() != null;
@@ -67,7 +69,7 @@ public class ForestryHandler extends WrenchHandler
 	    
 	    if (mode == ModItems.modeRotate)
 	    {
-	    	if ((apiculture && (block == PluginApiculture.getBlocks().beeHouse || block == PluginApiculture.getBlocks().apiary || block == PluginApiculture.getBlocks().beeChest)) || (arboriculture && block == PluginArboriculture.getBlocks().treeChest) || (lepidopterology && block == PluginLepidopterology.getBlocks().butterflyChest))
+	    	if ((core && block == PluginCore.getBlocks().escritoire) || (apiculture && (block == PluginApiculture.getBlocks().beeHouse || block == PluginApiculture.getBlocks().apiary || block == PluginApiculture.getBlocks().beeChest)) || (arboriculture && block == PluginArboriculture.getBlocks().treeChest) || (lepidopterology && block == PluginLepidopterology.getBlocks().butterflyChest))
 	    	{
 	    		EnumFacing newFacing = state.getValue(((BlockBase) block).FACING);
     	    	if (newFacing == EnumFacing.NORTH) newFacing = EnumFacing.EAST;
@@ -99,9 +101,9 @@ public class ForestryHandler extends WrenchHandler
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
     		}
-    		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail)
+    		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail || (core && block == PluginCore.getBlocks().analyzer))
 		    {
-	    		if (player.isSneaking() && ((this.engineDismantle && block instanceof BlockEngine) || (this.machineDismantle && (block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR)) || (this.mailDismantle && block instanceof BlockMail)))
+	    		if (player.isSneaking() && ((this.engineDismantle && block instanceof BlockEngine) || (this.machineDismantle && (block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || (core && block == PluginCore.getBlocks().analyzer))) || (this.mailDismantle && block instanceof BlockMail)))
 				{
 		    		DismantleHelper.dismantleBlock(world, pos, state, player, true);
 	    			if (!world.isRemote) return EnumActionResult.SUCCESS;
