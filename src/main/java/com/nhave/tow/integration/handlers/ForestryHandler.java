@@ -162,8 +162,9 @@ public class ForestryHandler extends WrenchHandler
 		
 		return EnumActionResult.PASS;
 	}
-	
-	public boolean preventBlockRotation(WrenchMode mode, EntityPlayer player, World world, BlockPos pos)
+
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
 	{
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();

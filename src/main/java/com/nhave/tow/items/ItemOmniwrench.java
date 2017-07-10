@@ -3,7 +3,7 @@ package com.nhave.tow.items;
 import java.util.List;
 import java.util.Set;
 
-import com.nhave.nhc.api.items.IChromaAcceptor;
+import com.nhave.nhc.api.items.IChromaAcceptorAdv;
 import com.nhave.nhc.api.items.IHudItem;
 import com.nhave.nhc.api.items.IInventoryItem;
 import com.nhave.nhc.api.items.IItemQuality;
@@ -47,7 +47,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptor, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
+public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
 {
 	public ItemOmniwrench(String name)
 	{
@@ -94,9 +94,9 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	@Override
 	public void addToolStationInfo(ItemStack stack, List list)
 	{
-		list.add(StringUtils.localize("tooltip.nhc.toolstation.chroma") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+		if (supportsChroma(stack)) list.add(StringUtils.localize("tooltip.nhc.toolstation.chroma") + ": " + StringUtils.format(StringUtils.limitString(getStackInSlot(stack, 0).getDisplayName(), 20), StringUtils.YELLOW, StringUtils.ITALIC));
 		String shader = (getStackInSlot(stack, 1) != null ? getStackInSlot(stack, 1).getDisplayName() : StringUtils.localize("tooltip.tow.shader.none"));
-		list.add(StringUtils.localize("tooltip.tow.toolstation.shader") + ": " + StringUtils.format(shader, StringUtils.YELLOW, StringUtils.ITALIC));
+		list.add(StringUtils.localize("tooltip.tow.toolstation.shader") + ": " + StringUtils.format(StringUtils.limitString(shader, 20), StringUtils.YELLOW, StringUtils.ITALIC));
 	}
 	
 	public static boolean hasShader(ItemStack stack)
@@ -125,6 +125,12 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	public void addWidgets(ItemStack stack, List<WidgetBase> list)
 	{
 		list.add(new WidgetWrench());
+	}
+	
+	@Override
+	public boolean supportsChroma(ItemStack stack)
+	{
+		return (!hasShader(stack) || getShader(stack).getSupportsChroma());
 	}
 	
 	/* =========================================================== Setup Code ===============================================================*/
@@ -164,10 +170,10 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	    for (int i = 0; i < WrenchRegistry.getCount(); ++i)
 	    {
 	    	EnumActionResult result = WrenchRegistry.getHandler(i).onWrenchUseFirst(this.getWrenchMode(stack), player, world, pos, side, hitX, hitY, hitZ, hand);
-	    	if (result != EnumActionResult.PASS) return result;
+	    	if (result != null && result != EnumActionResult.PASS) return result;
 	    }
-	    
-	    if (getWrenchMode(stack) == ModItems.modeWrench)
+	    	
+	    if (this.getWrenchMode(stack) == ModItems.modeWrench)
 	    {
 	    	if (player.isSneaking() && DismantleHelper.customDismantle(world, pos, bs, player))
 	    	{
@@ -179,12 +185,13 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 				}
 	    	}
 	    }
-	    else if (getWrenchMode(stack) == ModItems.modeRotate)
+	    else if (this.getWrenchMode(stack) == ModItems.modeRotate)
 	    {
 	    	boolean doRotation = true;
+	    	
 	    	for (int i = 0; i < WrenchRegistry.getCount(); ++i)
 		    {
-		    	if (WrenchRegistry.getHandler(i).preventBlockRotation(getWrenchMode(stack), player, world, pos))
+		    	if (WrenchRegistry.getHandler(i).preventBlockRotation(player, world, pos))
 		    	{
 		    		doRotation = false;
 		    	}

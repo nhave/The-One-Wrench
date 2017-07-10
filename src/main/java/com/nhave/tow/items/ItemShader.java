@@ -41,14 +41,20 @@ public class ItemShader extends ItemBase implements IItemQuality
 			list.add(StringUtils.RED + StringUtils.localize("tooltip.nhc.error.missingnbt"));
 			return;
 		}
-		TooltipHelper.addHiddenTooltip(list, "tooltip.tow.shader." + ItemNBTHelper.getString(stack, "SHADERS", "SHADER"), ";");
 		if (StringUtils.isShiftKeyDown())
 		{
+			TooltipHelper.addHiddenTooltip(list, "tooltip.tow.shader." + ItemNBTHelper.getString(stack, "SHADERS", "SHADER"), ";", StringUtils.GRAY);
+			
+			if (getShader(stack).getSupportsChroma()) list.add(StringUtils.format(StringUtils.localize("tooltip.tow.chroma.enabled"), StringUtils.YELLOW, StringUtils.ITALIC));
 			list.add(StringUtils.localize("tooltip.tow.shader.artist") + ": " + StringUtils.format(getShader(stack).getArtist(), StringUtils.YELLOW, StringUtils.ITALIC));
 			list.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
 			list.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
-		else list.add(StringUtils.shiftForInfo);
+		else
+		{
+			list.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
+			list.add(StringUtils.shiftForInfo);
+		}
 	}
 	
 	public Shader getShader(ItemStack stack)

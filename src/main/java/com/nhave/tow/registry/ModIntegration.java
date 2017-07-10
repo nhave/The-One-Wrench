@@ -13,11 +13,13 @@ import com.nhave.tow.integration.handlers.ImmersiveEngineeringHandler;
 import com.nhave.tow.integration.handlers.IndustrialCraftHandler;
 import com.nhave.tow.integration.handlers.IntegratedDynamicsHandler;
 import com.nhave.tow.integration.handlers.OpenComputersHandler;
+import com.nhave.tow.integration.handlers.PSIHandler;
 import com.nhave.tow.integration.handlers.RFToolsHandler;
 import com.nhave.tow.integration.handlers.RefinedStorageHandler;
 import com.nhave.tow.integration.handlers.StorageDrawersHandler;
 import com.nhave.tow.integration.handlers.TechRebornHandler;
 import com.nhave.tow.integration.handlers.TeslaCoreLibHandler;
+import com.nhave.tow.integration.handlers.XNetHandler;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
@@ -190,6 +192,22 @@ public class ModIntegration
 			try
 			{
 				TOWAPI.integrationRegistry.register(new ForestryHandler(), "Forestry");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("xnet") && ModConfig.enableXNet)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new XNetHandler(), "XNet");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("psi") && ModConfig.enablePSI)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new PSIHandler(), "PSI");
 			}
 			catch (Exception e) {}
 		}

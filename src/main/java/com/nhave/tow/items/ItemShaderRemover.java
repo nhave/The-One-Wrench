@@ -26,7 +26,11 @@ public class ItemShaderRemover extends ItemBase implements IItemQuality
 			list.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
 			list.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
-		else list.add(StringUtils.shiftForInfo);
+		else
+		{
+			list.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
+			list.add(StringUtils.shiftForInfo);
+		}
 	}
 	
 	@Override

@@ -68,12 +68,6 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
 			}
-			/*else
-			{
-				EnumActionResult ret = tryFormMB(player, world, pos, side, hand);
-				if (world.isRemote && ret != EnumActionResult.PASS) Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
-				return ret;
-			}*/
 		}
 		else if (mode == ModItems.modeTune && tileEntity instanceof IImmersiveConnectable)
 		{

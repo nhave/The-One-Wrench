@@ -76,6 +76,7 @@ public class ModShaders
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.wolfclaw", Reference.MODID + ":shaders/destiny/wolfclaw", Reference.MODID + ":shaders/destiny/shader", ColorUtils.brown, true).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.vex", Reference.MODID + ":shaders/destiny/vex", Reference.MODID + ":shaders/destiny/shader",13942416, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.hive", Reference.MODID + ":shaders/destiny/hive", Reference.MODID + ":shaders/destiny/shader", ColorUtils.lime, false).setQualityColor(StringUtils.PURPLE));
+				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.veist", Reference.MODID + ":shaders/destiny/veist", Reference.MODID + ":shaders/destiny/shader", 3816244, false).setQualityColor(StringUtils.PURPLE));
 			}
 			
 			if (ModConfig.enableOverwatchShaders)
@@ -91,6 +92,7 @@ public class ModShaders
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.symmetra", Reference.MODID + ":shaders/overwatch/symmetra", Reference.MODID + ":shaders/overwatch/shader", 8577272, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.lucio", Reference.MODID + ":shaders/overwatch/lucio", Reference.MODID + ":shaders/overwatch/shader", 4980600, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.sombra", Reference.MODID + ":shaders/overwatch/sombra", Reference.MODID + ":shaders/overwatch/shader", 2829662, false).setQualityColor(StringUtils.PURPLE));
+				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.doomfist", Reference.MODID + ":shaders/overwatch/doomfist", Reference.MODID + ":shaders/overwatch/shader", 16774585, false).setQualityColor(StringUtils.PURPLE));
 			}
 		}
 	}

@@ -44,13 +44,12 @@ public abstract class WrenchHandler
 	/**
 	 * Prevents the OmniWrench from using its default rotation method.
 	 * 
-	 * @param mode
 	 * @param player
 	 * @param world
 	 * @param pos
 	 * @return
 	 */
-	public boolean preventBlockRotation(WrenchMode mode, EntityPlayer player, World world, BlockPos pos)
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
 	{
 		return false;
 	}

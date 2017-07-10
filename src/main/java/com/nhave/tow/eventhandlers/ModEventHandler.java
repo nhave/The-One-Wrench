@@ -61,7 +61,6 @@ public class ModEventHandler
 	    if (stack != null && stack.getItem() instanceof ItemOmniwrench)
 	    {
 	    	ItemOmniwrench wrench = (ItemOmniwrench) stack.getItem();
-	    	//if (wrench.getWrenchMode(stack) == ModItems.modeRotate) evt.setUseBlock(Result.DENY);
 	    	for (int i = 0; i < WrenchRegistry.getCount(); ++i)
 		    {
 		    	if (WrenchRegistry.getHandler(i).shouldDenyBlockActivate(wrench.getWrenchMode(stack), evt.getEntityPlayer(), evt.getWorld(), evt.getPos()))

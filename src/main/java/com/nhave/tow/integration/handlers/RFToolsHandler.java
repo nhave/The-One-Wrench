@@ -135,10 +135,19 @@ public class RFToolsHandler extends WrenchHandler implements IDataWipe
 				
 				if (!event.getWorld().isRemote)
 				{
-					if (b == null) setCurrentBlock(stack, new GlobalCoordinate(event.getPos(), event.getWorld().provider.getDimension()));
-					else setCurrentBlock(stack, null);
+					if (b == null)
+					{
+						setCurrentBlock(stack, new GlobalCoordinate(event.getPos(), event.getWorld().provider.getDimension()));
+		                Logging.message(player, TextFormatting.YELLOW + "Selected block");
+					}
+					else
+					{
+						setCurrentBlock(stack, null);
+		                Logging.message(player, TextFormatting.YELLOW + "Cleared selected block");
+					}
 				}
 				else player.swingArm(event.getHand());
+				event.setCanceled(true);
 		    }
     	}
     }

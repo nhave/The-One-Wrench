@@ -26,6 +26,7 @@ tooltip.tow.mode.none=None
 tooltip.tow.mode.util=Utility
 tooltip.tow.mode.smartwrench=Smart Wrench
 tooltip.tow.mode.embers=Embers
+tooltip.tow.shader=OmniWrench Shader
 tooltip.tow.shader.current=Current Shader
 tooltip.tow.shader.none=No Shader
 tooltip.tow.shader.appliesto=Can apply to
@@ -37,9 +38,8 @@ tooltip.tow.shader.main.temple=Something suggest that;the people of old knew;of 
 tooltip.tow.shader.main.steam=Steam Power Baby!;I have now idea how;this even works.
 tooltip.tow.shader.main.scorpion=Tell me, was this wrench design;inspired by a scorpion?;No, what makes you think that.
 tooltip.tow.shader.main.gen4=Prepare for the;fourth generation;OmniWrench.
-tooltip.tow.shader.destiny.queensguard=Supports Chroma!
-tooltip.tow.shader.destiny.wolfclaw=Supports Chroma!
 tooltip.tow.shader.overwatch.sombra=4861636b2074686520776f726c6421
+tooltip.tow.chroma.enabled=Chroma Enabled
 tooltip.tow.chroma.current=Active Chroma
 tooltip.tow.mouse.use=Use
 tooltip.tow.mouse.wheel=Mouse Wheel
@@ -101,6 +101,7 @@ shader.tow.destiny.queensguard=Queens Guard
 shader.tow.destiny.wolfclaw=Wolf's Claw
 shader.tow.destiny.vex=Vex Mythowrench
 shader.tow.destiny.hive=Hive Bane
+shader.tow.destiny.veist=Veist
 //---Overwatch Shaders---//
 shader.tow.overwatch.dva=D.Va
 shader.tow.overwatch.bastion=Bastion
@@ -112,6 +113,7 @@ shader.tow.overwatch.reaper=Reaper
 shader.tow.overwatch.symmetra=Symmetra
 shader.tow.overwatch.lucio=Lúcio
 shader.tow.overwatch.sombra=536f6d627261
+shader.tow.overwatch.doomfist=Doomfist
 
 //---Config---//
 cfg.tow.title.main=The One Wrench - Configuration Menu
