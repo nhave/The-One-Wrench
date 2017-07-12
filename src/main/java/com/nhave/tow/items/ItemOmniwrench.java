@@ -104,7 +104,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 		ItemStack stackShader = ItemUtil.getItemFromStack(stack, "SHADER");
 		return stackShader != null && stackShader.getItem() instanceof ItemShader && ((ItemShader) stackShader.getItem()).getShader(stackShader) != null;
 	}
-
+	
 	public static Shader getShader(ItemStack stack)
 	{
 		if (hasShader(stack))
