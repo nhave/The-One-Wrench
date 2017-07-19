@@ -71,8 +71,11 @@ public class ItemShader extends ItemBase implements IItemQuality
 		{
 			for(Entry<String, Shader> entry : ShaderRegistry.SHADERS.entrySet())
 			{
-				String key = entry.getKey();
-				list.add(ItemNBTHelper.setString(new ItemStack(item), "SHADERS", "SHADER", key));
+				if (!entry.getValue().isHidden())
+				{
+					String key = entry.getKey();
+					list.add(ItemNBTHelper.setString(new ItemStack(item), "SHADERS", "SHADER", key));
+				}
 			}
 		}
 		else list.add(new ItemStack(item));

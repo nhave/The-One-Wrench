@@ -60,10 +60,11 @@ public class ModShaders
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new ShaderModeSpecific("main.gen4", Reference.MODID + ":shaders/main/gen4", Reference.MODID + ":shader", ColorUtils.white, true).setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.zerodawn", Reference.MODID + ":shaders/main/zerodawn", Reference.MODID + ":shader", 6367010, false).setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.immersive", Reference.MODID + ":shaders/main/immersive", Reference.MODID + ":shader", 5450521, false).setArtist("Voxel_Friend").setQualityColor(StringUtils.ORANGE));
+			//TOWAPI.shaderRegistry.registerShader(SPECIAL_SHADERS, 1, false, new Shader("main.support", Reference.MODID + ":shaders/main/support", Reference.MODID + ":shader", ColorUtils.orange, false).setHidden().setQualityColor(StringUtils.BRIGHT_BLUE));
 			
+			//Shaders: destiny
 			if (ModConfig.enableDestinyShaders)
 			{
-				//Shaders: destiny
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.newmonarchy", Reference.MODID + ":shaders/destiny/newmonarchy", Reference.MODID + ":shaders/destiny/shader", ColorUtils.red, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.deadorbit", Reference.MODID + ":shaders/destiny/deadorbit", Reference.MODID + ":shaders/destiny/shader", ColorUtils.black, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.warcult", Reference.MODID + ":shaders/destiny/warcult", Reference.MODID + ":shaders/destiny/shader", ColorUtils.orange, false).setQualityColor(StringUtils.PURPLE));
@@ -80,11 +81,13 @@ public class ModShaders
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.veist", Reference.MODID + ":shaders/destiny/veist", Reference.MODID + ":shaders/destiny/shader", 3816244, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.omolon", Reference.MODID + ":shaders/destiny/omolon", Reference.MODID + ":shaders/destiny/shader", 8496314, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.hakke", Reference.MODID + ":shaders/destiny/hakke", Reference.MODID + ":shaders/destiny/shader", 11038807, false).setQualityColor(StringUtils.PURPLE));
+				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.siva", Reference.MODID + ":shaders/destiny/siva", Reference.MODID + ":shaders/destiny/shader", ColorUtils.red, false).setQualityColor(StringUtils.PURPLE));
+				TOWAPI.shaderRegistry.registerShader(DESTINY_SHADERS, 1, false, new Shader("destiny.surosv2", Reference.MODID + ":shaders/destiny/surosv2", Reference.MODID + ":shaders/destiny/shader", ColorUtils.white, false).setQualityColor(StringUtils.PURPLE));
 			}
-			
+
+			//Shaders: overwatch
 			if (ModConfig.enableOverwatchShaders)
 			{
-				//Shaders: overwatch
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.dva", Reference.MODID + ":shaders/overwatch/dva", Reference.MODID + ":shaders/overwatch/shader", 16720043, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.bastion", Reference.MODID + ":shaders/overwatch/bastion", Reference.MODID + ":shaders/overwatch/shader", 14465924, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.tracer", Reference.MODID + ":shaders/overwatch/tracer", Reference.MODID + ":shaders/overwatch/shader", 11075583, false).setQualityColor(StringUtils.PURPLE));

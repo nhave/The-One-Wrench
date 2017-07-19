@@ -15,6 +15,7 @@ import com.nhave.nhc.api.items.IWidgetControl;
 import com.nhave.nhc.client.widget.WidgetBase;
 import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.items.ItemChroma;
+import com.nhave.nhc.items.ItemToken;
 import com.nhave.nhc.network.Key;
 import com.nhave.nhc.util.ItemUtil;
 import com.nhave.nhc.util.StringUtils;
@@ -68,12 +69,24 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 			if (ModConfig.enableAllShaders)
 			{
 				String shaderName = StringUtils.localize("tooltip.tow.shader.none");
-				if (hasShader(stack)) shaderName = ItemUtil.getItemFromStack(stack, "SHADER").getDisplayName();
+				String color = StringUtils.YELLOW;
+
+				if (hasToken(stack))
+				{
+					shaderName = StringUtils.localize("item.nhc.token_active.name");
+					color = StringUtils.BRIGHT_BLUE;
+				}
+				else if (hasShader(stack))
+				{
+					shaderName = ItemUtil.getItemFromStack(stack, "SHADER").getDisplayName();
+					color = getShader(stack).getQualityColor();
+					if (color.length() <= 0) color = StringUtils.WHITE;
+				}
 				
-				list.add(StringUtils.localize("tooltip.tow.shader.current") + ": " + StringUtils.format(shaderName, StringUtils.YELLOW, StringUtils.ITALIC));
+				list.add(StringUtils.localize("tooltip.tow.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			}
 			
-			if (!hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma())) list.add(StringUtils.localize("tooltip.tow.chroma.current") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+			if (!hasToken(stack) && (!hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma()))) list.add(StringUtils.localize("tooltip.tow.chroma.current") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
 			
 			list.add(StringUtils.localize("tooltip.tow.mouse.use") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + StringUtils.localize("tooltip.tow.mouse.wheel"), StringUtils.YELLOW, StringUtils.ITALIC) + " " + StringUtils.localize("tooltip.tow.mode.change"));
 			list.add(StringUtils.localize("tooltip.tow.mode") + ": " + StringUtils.format(StringUtils.localize("tooltip.tow.mode." + getWrenchMode(stack).getName()), StringUtils.YELLOW, StringUtils.ITALIC));
@@ -94,8 +107,9 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	@Override
 	public void addToolStationInfo(ItemStack stack, List list)
 	{
-		if (supportsChroma(stack)) list.add(StringUtils.localize("tooltip.nhc.toolstation.chroma") + ": " + StringUtils.format(StringUtils.limitString(getStackInSlot(stack, 0).getDisplayName(), 20), StringUtils.YELLOW, StringUtils.ITALIC));
+		if (!hasToken(stack) && supportsChroma(stack)) list.add(StringUtils.localize("tooltip.nhc.toolstation.chroma") + ": " + StringUtils.format(StringUtils.limitString(getStackInSlot(stack, 0).getDisplayName(), 20), StringUtils.YELLOW, StringUtils.ITALIC));
 		String shader = (getStackInSlot(stack, 1) != null ? getStackInSlot(stack, 1).getDisplayName() : StringUtils.localize("tooltip.tow.shader.none"));
+		if (hasToken(stack)) shader = StringUtils.localize("item.nhc.token_active.name");
 		list.add(StringUtils.localize("tooltip.tow.toolstation.shader") + ": " + StringUtils.format(StringUtils.limitString(shader, 20), StringUtils.YELLOW, StringUtils.ITALIC));
 	}
 	
@@ -113,6 +127,12 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 			return ((ItemShader) stackShader.getItem()).getShader(stackShader);
 		}
 		else return null;
+	}
+	
+	public static boolean hasToken(ItemStack stack)
+	{
+		ItemStack tokenStack = ItemUtil.getItemFromStack(stack, "SHADER");
+		return (tokenStack != null && !tokenStack.isEmpty() && tokenStack.getItem() instanceof ItemToken && ((ItemToken) tokenStack.getItem()).isActive(tokenStack));
 	}
 	
 	@Override

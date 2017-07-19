@@ -12,6 +12,7 @@ item.tow.shaderremover.name=Shader Remover
 item.tow.icons.name=TOW Mod Icons
 item.tow.shaderpackbase.name=Starter Pack
 item.tow.shaderpackbooster.name=Booster Pack
+item.tow.shaderpackpromotion.name=Promotional Pack
 item.tow.shaderpackdestiny.name=Destiny Theme Pack
 item.tow.shaderpackoverwatch.name=Overwatch Theme Pack
 
@@ -38,7 +39,15 @@ tooltip.tow.shader.main.temple=Something suggest that;the people of old knew;of 
 tooltip.tow.shader.main.steam=Steam Power Baby!;I have now idea how;this even works.
 tooltip.tow.shader.main.scorpion=Tell me, was this wrench design;inspired by a scorpion?;No, what makes you think that.
 tooltip.tow.shader.main.gen4=Prepare for the;fourth generation;OmniWrench.
+tooltip.tow.shader.main.support=Only given to special;supporters of the mod.
+tooltip.tow.shader.destiny.siva=Deals bonus damage to Fallen.;If you can find any!
+tooltip.tow.shader.destiny.surosv2=- Elegance in the;face of brutality.
+tooltip.tow.shader.destiny.omolon=- The future is;what we make it.
+tooltip.tow.shader.destiny.hakke=- Functional. Reliable.;Unapologetic.
+tooltip.tow.shader.destiny.veist=- Add motto here.
 tooltip.tow.shader.overwatch.sombra=4861636b2074686520776f726c6421
+tooltip.tow.shader.overwatch.mercy=Shaders Never Die!
+tooltip.tow.shader.overwatch.doomfist=RISING UPPERCUT
 tooltip.tow.chroma.enabled=Chroma Enabled
 tooltip.tow.chroma.current=Active Chroma
 tooltip.tow.mouse.use=Use
@@ -50,6 +59,8 @@ tooltip.tow.shaderpackbase=Grants all five;Basic Shaders
 tooltip.tow.shaderpackbooster=Grants three random Shaders;Can contain Legendaries
 tooltip.tow.shaderpackdestiny=Grants three random Shaders;From the Destiny collection
 tooltip.tow.shaderpackoverwatch=Grants three random Shaders;From the Overwatch collection
+tooltip.tow.shaderpackpromotion.deny=There is nothing of value;in this pack for you!
+tooltip.tow.shaderpackpromotion.access=Congratulations!;You have been granted access;to the Token Of Gratitude.
 
 //---Shaders---//
 //---Core Shaders---//
@@ -88,6 +99,7 @@ shader.tow.main.crystals=Crystals
 shader.tow.main.gen4=Generation IV
 shader.tow.main.zerodawn=Zero Dawn
 shader.tow.main.immersive=Hazardous
+shader.tow.main.support=Token Of Gratitude
 //---Destiny Shaders---//
 shader.tow.destiny.newmonarchy=New Monarchy
 shader.tow.destiny.deadorbit=Dead Orbit
@@ -105,6 +117,8 @@ shader.tow.destiny.hive=Hive Bane
 shader.tow.destiny.veist=Veist
 shader.tow.destiny.omolon=Omolon
 shader.tow.destiny.hakke=Häkke
+shader.tow.destiny.siva=Outbreak
+shader.tow.destiny.surosv2=Suros V2
 //---Overwatch Shaders---//
 shader.tow.overwatch.dva=D.Va
 shader.tow.overwatch.bastion=Bastion

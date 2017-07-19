@@ -1,6 +1,7 @@
 package com.nhave.tow.eventhandlers;
 
 import com.nhave.nhc.events.ToolStationUpdateEvent;
+import com.nhave.nhc.items.ItemToken;
 import com.nhave.nhc.util.ItemUtil;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.items.ItemOmniwrench;
@@ -24,7 +25,7 @@ public class ModEventHandler
 		if (evt.input.getItem() instanceof ItemOmniwrench && evt.mod.getItem() == ModItems.itemShader)
 		{
 			ItemStack stackShader = ItemUtil.getItemFromStack(evt.input, "SHADER");
-			if (stackShader != null)
+			if (stackShader != null && !stackShader.isEmpty() && stackShader.getItem() == ModItems.itemShader)
 			{
 				ItemShader itemShader = (ItemShader) stackShader.getItem();
 				if (itemShader.getShader(stackShader) == itemShader.getShader(evt.mod)) return;
@@ -37,15 +38,30 @@ public class ModEventHandler
 			evt.materialCost=0;
 			evt.output=stack;
 		}
-		if (evt.input.getItem() instanceof ItemOmniwrench && evt.mod.getItem() == ModItems.itemShaderRemover)
+		else if (evt.input.getItem() instanceof ItemOmniwrench && evt.mod.getItem() == ModItems.itemShaderRemover)
 		{
 			ItemStack stackShader = ItemUtil.getItemFromStack(evt.input, "SHADER");
-			if (stackShader == null) return;
+			if (stackShader == null || stackShader.isEmpty()) return;
 			
 			ItemStack stack = evt.input.copy();
 			ItemUtil.removeAllItemFromStack(stack, "SHADER");
 			evt.materialCost=0;
 			evt.output=stack;
+		}
+		else if (evt.input.getItem() instanceof ItemOmniwrench && evt.mod.getItem() instanceof ItemToken)
+		{
+			ItemToken token = (ItemToken) evt.mod.getItem();
+			boolean active = token.isActive(evt.mod);
+			if (active)
+			{
+				ItemStack tokenStack = ItemUtil.getItemFromStack(evt.input, "SHADER");
+				if (tokenStack != null && !tokenStack.isEmpty() && tokenStack.getItem() instanceof ItemToken) return;
+				
+				ItemStack output = evt.input.copy();
+				ItemUtil.addItemToStack(output, evt.mod.copy(), "SHADER");
+				evt.materialCost=0;
+				evt.output=output;
+			}
 		}
 	}
 	

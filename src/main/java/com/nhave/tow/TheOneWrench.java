@@ -10,6 +10,7 @@ import com.nhave.tow.proxy.CommonProxy;
 import com.nhave.tow.registry.ModCrafting;
 import com.nhave.tow.registry.ModIntegration;
 import com.nhave.tow.registry.ModItems;
+import com.nhave.tow.registry.ModShaders;
 import com.nhave.tow.shaders.ShaderRegistry;
 import com.nhave.tow.wrenchmodes.ModeRegistry;
 
@@ -41,6 +42,7 @@ public class TheOneWrench
     	logger = event.getModLog();
 		proxy.setupConfig(new File(event.getModConfigurationDirectory(), "theonewrench.cfg"));
 		
+		ModShaders.init();
     	ModItems.init();
     	ModItems.register();
     	

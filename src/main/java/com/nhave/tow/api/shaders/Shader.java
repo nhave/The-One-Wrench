@@ -14,6 +14,7 @@ public class Shader
 	private String shaderArtist = "nhave";
 	protected int color;
 	protected boolean chromaSupport;
+	protected boolean hidden = false;
 	
 	public Shader(String shaderName, String wrenchModel, String shaderModel, int color, boolean chromaSupport)
 	{
@@ -107,6 +108,25 @@ public class Shader
 	public String getArtist()
 	{
 		return this.shaderArtist;
+	}
+	
+	/**
+	 * Sets the Shader to be hidden.
+	 * 
+	 * @param artist
+	 */
+	public Shader setHidden()
+	{
+		this.hidden = true;
+		return this;
+	}
+	
+	/**
+	 * @return Returns true if the Shader should be hidden.
+	 */
+	public boolean isHidden()
+	{
+		return this.hidden;
 	}
 	
 	/**

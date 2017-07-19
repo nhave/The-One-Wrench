@@ -62,7 +62,6 @@ public class ModItems
 	
 	public static void init()
 	{
-		ModShaders.init();
 		addCreativeTabs();
 		
 		itemOmniWrench = new ItemOmniwrench("wrench");
@@ -72,7 +71,6 @@ public class ModItems
 		itemIcons = new ItemBase("icons").setCreativeTab(null).setHasSubtypes(true);
 		itemShaderPackBase = new ItemShaderPack("shaderpackbase", ModShaders.BASE_SHADERS, ModShaders.BASE_SHADERS.size()).setCreativeTab(ModConfig.enableAllShaders ? TAB_ITEMS : null);
 		itemShaderPackBooster = new ItemShaderPack("shaderpackbooster", ModShaders.ALL_SHADERS, 3).setQuality(StringUtils.LIGHT_BLUE).setCreativeTab(ModConfig.enableAllShaders ? TAB_ITEMS : null);
-		
 		itemShaderPackDestiny = new ItemShaderPack("shaderpackdestiny", ModShaders.DESTINY_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableDestinyShaders ? TAB_ITEMS : null);
 		itemShaderPackOverwatch = new ItemShaderPack("shaderpackoverwatch", ModShaders.OVERWATCH_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableOverwatchShaders ? TAB_ITEMS : null);
 		
@@ -129,6 +127,7 @@ public class ModItems
 	public static void registerRenders()
 	{
 		ModelBakery.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + itemOmniWrench.getRegistryName().getResourcePath()));
+		ModelBakery.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + "shaders/main/support"));
 		
 		if (!ShaderRegistry.isEmpty())
 		{

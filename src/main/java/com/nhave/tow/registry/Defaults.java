@@ -20,6 +20,7 @@ public class Defaults
     public static final boolean enableImmersiveEngineering = true;
     public static final boolean enableXNet = true;
     public static final boolean enablePSI = true;
+    public static final boolean enableSonarCore = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;

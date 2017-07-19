@@ -16,6 +16,7 @@ import com.nhave.tow.integration.handlers.OpenComputersHandler;
 import com.nhave.tow.integration.handlers.PSIHandler;
 import com.nhave.tow.integration.handlers.RFToolsHandler;
 import com.nhave.tow.integration.handlers.RefinedStorageHandler;
+import com.nhave.tow.integration.handlers.SonarCoreHandler;
 import com.nhave.tow.integration.handlers.StorageDrawersHandler;
 import com.nhave.tow.integration.handlers.TechRebornHandler;
 import com.nhave.tow.integration.handlers.TeslaCoreLibHandler;
@@ -208,6 +209,14 @@ public class ModIntegration
 			try
 			{
 				TOWAPI.integrationRegistry.register(new PSIHandler(), "PSI");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("sonarcore") && ModConfig.enableSonarCore)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new SonarCoreHandler(), "SonarCore");
 			}
 			catch (Exception e) {}
 		}
