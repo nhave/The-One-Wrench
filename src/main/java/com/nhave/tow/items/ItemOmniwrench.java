@@ -56,6 +56,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 		this.setMaxStackSize(1);
 		this.setNoRepair();
 		this.setHasSubtypes(true);
+		ItemToken.ITEMS.add(this);
 	}
 	
 	/* =========================================================== Client Code ===============================================================*/
