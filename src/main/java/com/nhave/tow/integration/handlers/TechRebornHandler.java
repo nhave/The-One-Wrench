@@ -3,40 +3,37 @@ package com.nhave.tow.integration.handlers;
 import com.nhave.tow.api.integration.WrenchHandler;
 import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
+import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.mcmultipart.block.TileMultipartContainer;
-import reborncore.mcmultipart.multipart.IMultipart;
-import reborncore.mcmultipart.raytrace.PartMOP;
 import techreborn.blocks.BlockPlayerDetector;
-import techreborn.blocks.generator.BlockCreativePanel;
+import techreborn.blocks.generator.BlockCreativeSolarPanel;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.blocks.generator.BlockWaterMill;
 import techreborn.blocks.storage.BlockEnergyStorage;
+import techreborn.blocks.storage.BlockLSUStorage;
 import techreborn.blocks.transformers.BlockTransformer;
-import techreborn.parts.powerCables.CableMultipart;
+import techreborn.tiles.cable.TileCable;
 
 public class TechRebornHandler extends WrenchHandler
 {
 	private boolean cutWires;
 	private boolean classicMode;
 	
-	public TechRebornHandler(boolean cutWires, boolean classicMode)
+	public TechRebornHandler()
 	{
-		this.cutWires = cutWires;
-		this.classicMode = classicMode;
+		this.cutWires = ModConfig.trCutWires;
+		this.classicMode = ModConfig.trRotation;
 	}
 	
 	@Override
@@ -46,32 +43,18 @@ public class TechRebornHandler extends WrenchHandler
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-	    if (this.cutWires && mode == ModItems.modeWrench && tile != null && tile instanceof TileMultipartContainer && player.isSneaking())
+	    if (this.cutWires && mode == ModItems.modeWrench && tile != null && tile instanceof TileCable && player.isSneaking())
 	    {
-		    RayTraceResult rayTrace = player.rayTrace(5D, 1.0F);
-		    TileMultipartContainer multiPartTile = (TileMultipartContainer) tile;
-		    
-		    if (rayTrace instanceof PartMOP)
-		    {
-		    	IMultipart part = ((PartMOP) rayTrace).partHit;
-		    	if (part instanceof CableMultipart)
-		    	{
-		    		if (!world.isRemote)
-		    		{
-				    	multiPartTile.removePart(part);
-				    	for (ItemStack stack : part.getDrops())
-			        	{
-			        		DismantleHelper.dropBlockAsItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-			            }
-				    	return EnumActionResult.SUCCESS;
-		    		}
-		    		else
-		    		{
-						player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
-						player.swingArm(hand);
-		    		}
-		    	}
-		    }
+	    	if (!world.isRemote)
+    		{
+	    		DismantleHelper.dismantleBlock(world, pos, state, player, false);
+		    	return EnumActionResult.SUCCESS;
+    		}
+    		else
+    		{
+				player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+				player.swingArm(hand);
+    		}
 	    }
 	    
 		return this.classicMode ? wrenchClassic(mode, player, world, pos, side, hitX, hitY, hitZ, hand) : wrenchUnity(mode, player, world, pos, side, hitX, hitY, hitZ, hand);
@@ -87,11 +70,11 @@ public class TechRebornHandler extends WrenchHandler
 		{
 	    	return EnumActionResult.FAIL;
 		}
-	    else if (mode == ModItems.modeWrench && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage || block instanceof BlockTransformer || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativePanel))
+	    else if (mode == ModItems.modeWrench && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage || block instanceof BlockTransformer || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage))
 		{
 	    	if (!player.isSneaking())
 	    	{
-	    		if (block instanceof BlockPlayerDetector) return EnumActionResult.PASS;
+	    		if (block instanceof BlockPlayerDetector || block instanceof BlockLSUStorage) return EnumActionResult.PASS;
 	    		else if (block instanceof BlockMachineBase)
 	    		{
 	    	    	EnumFacing newFacing = ((BlockMachineBase) block).getFacing(state);
@@ -171,7 +154,7 @@ public class TechRebornHandler extends WrenchHandler
 			{
 				newFacing = side;
 			}
-			if (block instanceof BlockPlayerDetector || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativePanel)
+			if (block instanceof BlockPlayerDetector || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage)
 			{
 				DismantleHelper.dismantleBlockPure(world, pos, state, player, false);
 				if (!world.isRemote) return EnumActionResult.SUCCESS;

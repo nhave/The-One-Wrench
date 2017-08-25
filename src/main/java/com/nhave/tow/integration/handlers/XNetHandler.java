@@ -5,6 +5,7 @@ import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.registry.ModItems;
 
 import mcjty.xnet.blocks.generic.GenericCableBlock;
+import mcjty.xnet.blocks.redstoneproxy.RedstoneProxyBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,7 @@ public class XNetHandler extends WrenchHandler
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-		if (mode == ModItems.modeWrench && player.isSneaking() && block instanceof GenericCableBlock)
+		if (mode == ModItems.modeWrench && player.isSneaking() && (block instanceof GenericCableBlock || block instanceof RedstoneProxyBlock))
 		{
 			if (block.removedByPlayer(state, world, pos, player, true))
 			{

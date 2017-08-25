@@ -24,11 +24,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamroots.embers.block.BlockAdvancedEdge;
+import teamroots.embers.block.BlockFluidExtractor;
+import teamroots.embers.block.BlockFluidPipe;
 import teamroots.embers.block.BlockInfernoForgeEdge;
 import teamroots.embers.block.BlockItemPipe;
-import teamroots.embers.block.BlockItemPump;
 import teamroots.embers.block.BlockMechEdge;
-import teamroots.embers.block.BlockPipe;
 import teamroots.embers.block.BlockPump;
 import teamroots.embers.block.BlockStoneEdge;
 import teamroots.embers.block.BlockTEBase;
@@ -70,7 +70,11 @@ public class EmbersHandler extends WrenchHandler implements IDataWipe
 			{
 	    		if (ModConfig.allowEmbersDismantle)
 	    		{
-		    		DismantleHelper.dismantleBlock(world, pos, state, player, (isEdge ? false : true));
+	    			if (isEdge)
+	    			{
+	    				block.onBlockHarvested(world, pos, state, player);
+	    			}
+	    			else DismantleHelper.dismantleBlock(world, pos, state, player, false);
 					player.swingArm(EnumHand.MAIN_HAND);
 					if (!world.isRemote) return EnumActionResult.SUCCESS;
 					else
@@ -80,7 +84,7 @@ public class EmbersHandler extends WrenchHandler implements IDataWipe
 					}
 	    		}
 			}
-	    	else if (block instanceof BlockItemPipe || block instanceof BlockItemPump || block instanceof BlockPipe || block instanceof BlockPump)
+	    	else if (block instanceof BlockItemPipe || block instanceof BlockPump || block instanceof BlockFluidExtractor || block instanceof BlockFluidPipe)
 	    	{
 	    		if (!world.isRemote)
 				{

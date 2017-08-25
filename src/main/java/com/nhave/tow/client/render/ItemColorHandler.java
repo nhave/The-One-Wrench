@@ -17,8 +17,7 @@ public class ItemColorHandler implements IItemColor
 		if (stack.getItem() instanceof ItemOmniwrench)
 		{
 			ItemOmniwrench wrench = (ItemOmniwrench) stack.getItem();
-			boolean chromaSupport = !wrench.hasShader(stack) || (wrench.hasShader(stack) && wrench.getShader(stack).getSupportsChroma());
-			return tintIndex == 1 && chromaSupport ? ShaderManager.getChroma(stack).getColor() : 16777215;
+			return tintIndex == 1 && wrench.supportsChroma(stack) ? ShaderManager.getChroma(stack).getColor() : 16777215;
 		}
 		else if (stack.getItem() instanceof ItemShader)
 		{

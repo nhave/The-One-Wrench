@@ -1,5 +1,6 @@
 package com.nhave.tow.integration.handlers;
 
+import org.cyclops.cyclopscore.config.configurable.ConfigurableBlockContainer;
 import org.cyclops.integrateddynamics.block.BlockCable;
 import org.cyclops.integrateddynamics.item.ItemWrench;
 
@@ -29,23 +30,59 @@ public class IntegratedDynamicsHandler extends WrenchHandler
 	    Block block = bs.getBlock();
 		ItemStack heldItem = player.getHeldItem(hand).copy();
 		
-		if (mode == ModItems.modeWrench && block instanceof BlockCable)
+		if (mode == ModItems.modeWrench)
 		{
-			if (!world.isRemote)
+			if (player.isSneaking() && block instanceof BlockCable)
 			{
-				player.setHeldItem(hand, new ItemStack(ItemWrench.getInstance()));
-				block.onBlockActivated(world, pos, bs, player, hand, side, hitX, hitY, hitZ);
-				player.setHeldItem(hand, heldItem);
-				return EnumActionResult.SUCCESS;
+				if (!world.isRemote)
+				{
+					player.setHeldItem(hand, new ItemStack(ItemWrench.getInstance()));
+					block.onBlockActivated(world, pos, bs, player, hand, side, hitX, hitY, hitZ);
+					player.setHeldItem(hand, heldItem);
+					return EnumActionResult.SUCCESS;
+				}
+				else
+				{
+					SoundEvent soundName = block.getSoundType(bs, world, pos, player).getPlaceSound();
+					player.playSound(soundName, 1.0F, 0.6F);
+					player.swingArm(EnumHand.MAIN_HAND);
+				}
 			}
-			else
+			else if (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && block instanceof ConfigurableBlockContainer)
 			{
-				SoundEvent soundName = block.getSoundType(bs, world, pos, player).getPlaceSound();
-				player.playSound(soundName, 1.0F, 0.6F);
-				player.swingArm(EnumHand.MAIN_HAND);
+				if (player.isSneaking())
+				{
+			    	if (block.removedByPlayer(bs, world, pos, player, true)) block.breakBlock(world, pos, bs);
+				    //block.onBlockHarvested(world, pos, bs, player);
+					block.harvestBlock(world, player, pos, bs, tile, player.getHeldItemMainhand());
+			    	if (!world.isRemote) return EnumActionResult.SUCCESS;
+					else
+					{
+						player.playSound(block.getSoundType(bs, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+						player.swingArm(EnumHand.MAIN_HAND);
+					}
+				}
+				else if (block.rotateBlock(world, pos, side))
+			    {
+					world.markChunkDirty(pos, null);
+			    	if (!world.isRemote) return EnumActionResult.SUCCESS;
+					else
+					{
+						player.playSound(block.getSoundType(bs, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+						player.swingArm(EnumHand.MAIN_HAND);
+					}
+			    }
 			}
 		}
 		
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState bs = world.getBlockState(pos);
+	    Block block = bs.getBlock();
+		return (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && block instanceof ConfigurableBlockContainer);
 	}
 }

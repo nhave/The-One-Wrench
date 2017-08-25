@@ -5,8 +5,12 @@ import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.registry.ModItems;
 
+import li.cil.oc.common.block.Cable;
+import li.cil.oc.common.block.Microcontroller;
+import li.cil.oc.common.block.Raid;
 import li.cil.oc.common.block.Screen;
 import li.cil.oc.common.block.SimpleBlock;
+import li.cil.oc.common.block.Waypoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,7 +37,12 @@ public class OpenComputersHandler extends WrenchHandler
 	    	
 	    	if (player.isSneaking())
 			{
-	    		DismantleHelper.dismantleBlock(world, pos, bs, player, true);
+	    		if (block instanceof Raid || block instanceof Microcontroller || block instanceof Cable)
+	    		{
+	    			if (block.removedByPlayer(bs, world, pos, player, true)) block.breakBlock(world, pos, bs);
+	    		}
+	    		else DismantleHelper.dismantleBlock(world, pos, bs, player, false);
+	    		//DismantleHelper.dismantleBlock(world, pos, bs, player, ((block instanceof Raid || block instanceof Microcontroller) ? false : true));
 				player.swingArm(EnumHand.MAIN_HAND);
 				if (!world.isRemote) return EnumActionResult.SUCCESS;
 				else
@@ -78,6 +87,6 @@ public class OpenComputersHandler extends WrenchHandler
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-		return (mode == ModItems.modeWrench || mode == ModItems.modeRotate) && (block instanceof Screen);
+		return ((mode == ModItems.modeWrench || mode == ModItems.modeRotate) && (block instanceof Screen)) || (mode == ModItems.modeWrench && block instanceof Waypoint);
 	}
 }

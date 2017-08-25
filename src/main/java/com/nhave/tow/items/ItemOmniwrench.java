@@ -6,7 +6,6 @@ import java.util.Set;
 import com.nhave.nhc.api.items.IChromaAcceptorAdv;
 import com.nhave.nhc.api.items.IHudItem;
 import com.nhave.nhc.api.items.IInventoryItem;
-import com.nhave.nhc.api.items.IItemQuality;
 import com.nhave.nhc.api.items.IKeyBound;
 import com.nhave.nhc.api.items.IMouseWheel;
 import com.nhave.nhc.api.items.INHWrench;
@@ -34,6 +33,8 @@ import cofh.api.item.IToolHammer;
 import li.cil.oc.api.internal.Wrench;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,7 +49,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IItemQuality, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
+public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
 {
 	public ItemOmniwrench(String name)
 	{
@@ -63,7 +64,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (StringUtils.isShiftKeyDown())
 		{
@@ -84,17 +85,18 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 					if (color.length() <= 0) color = StringUtils.WHITE;
 				}
 				
-				list.add(StringUtils.localize("tooltip.tow.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
+				tooltip.add(StringUtils.localize("tooltip.tow.shader.current") + ": " + StringUtils.format(shaderName, color, StringUtils.ITALIC));
 			}
 			
-			if (!hasToken(stack) && (!hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma()))) list.add(StringUtils.localize("tooltip.tow.chroma.current") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+			if (!hasToken(stack) && (!hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma()))) tooltip.add(StringUtils.localize("tooltip.tow.chroma.current") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
 			
-			list.add(StringUtils.localize("tooltip.tow.mouse.use") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + StringUtils.localize("tooltip.tow.mouse.wheel"), StringUtils.YELLOW, StringUtils.ITALIC) + " " + StringUtils.localize("tooltip.tow.mode.change"));
-			list.add(StringUtils.localize("tooltip.tow.mode") + ": " + StringUtils.format(StringUtils.localize("tooltip.tow.mode." + getWrenchMode(stack).getName()), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(StringUtils.localize("tooltip.tow.mouse.use") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + StringUtils.localize("tooltip.tow.mouse.wheel"), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(" - " + StringUtils.localize("tooltip.tow.mode.change"));
+			tooltip.add(StringUtils.localize("tooltip.tow.mode") + ": " + StringUtils.format(StringUtils.localize("tooltip.tow.mode." + getWrenchMode(stack).getName()), StringUtils.YELLOW, StringUtils.ITALIC));
 			
-			getWrenchMode(stack).addInformation(stack, player, list, flag);
+			getWrenchMode(stack).addInformation(stack, Minecraft.getMinecraft().player, tooltip, flagIn.isAdvanced());
 		}
-		else list.add(StringUtils.shiftForInfo);
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	@Override
@@ -151,7 +153,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	@Override
 	public boolean supportsChroma(ItemStack stack)
 	{
-		return (!hasShader(stack) || getShader(stack).getSupportsChroma());
+		return (!hasToken(stack) && !hasShader(stack)) || (hasShader(stack) && getShader(stack).getSupportsChroma());
 	}
 	
 	/* =========================================================== Setup Code ===============================================================*/

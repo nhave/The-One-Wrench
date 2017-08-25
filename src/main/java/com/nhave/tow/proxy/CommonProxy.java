@@ -6,6 +6,7 @@ import com.nhave.tow.eventhandlers.ModEventHandler;
 import com.nhave.tow.registry.ModConfig;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy
 {
@@ -14,6 +15,8 @@ public class CommonProxy
 		MinecraftForge.EVENT_BUS.register(new ModConfig(false));
 		ModConfig.init(configFile);
 	}
+	
+	public void preInit(FMLPreInitializationEvent event) {}
 	
 	public void registerRenders() {}
 	

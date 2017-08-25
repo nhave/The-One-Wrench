@@ -29,10 +29,11 @@ public class ModConfig
     public static boolean enableStorageDrawers = Defaults.enableStorageDrawers;
     public static boolean enableRFTools = Defaults.enableRFTools;
     public static boolean enableTeslaCoreLib = Defaults.enableTeslaCoreLib;
-    public static boolean enableImmersiveEngineering = Defaults.enableImmersiveEngineering;
     public static boolean enableXNet = Defaults.enableXNet;
     public static boolean enablePSI = Defaults.enablePSI;
     public static boolean enableSonarCore = Defaults.enableSonarCore;
+    public static boolean enableModularMachinery = Defaults.enableModularMachinery;
+    public static boolean enableFunkyLocomotion = Defaults.enableFunkyLocomotion;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -54,6 +55,9 @@ public class ModConfig
     public static boolean frMachineBlocks = Defaults.frMachineBlocks;
     public static boolean frEngineBlocks = Defaults.frEngineBlocks;
     public static boolean frMailBlocks = Defaults.frMailBlocks;
+    //Integration - Immersive Engineering
+    public static boolean enableImmersiveEngineering = Defaults.enableImmersiveEngineering;
+    public static boolean ieUnity = Defaults.ieUnity;
 	
 	public ModConfig(boolean isClient)
 	{
@@ -111,7 +115,9 @@ public class ModConfig
 		enableForestry = config.get("integration", "EnableForestry", Defaults.enableForestry, "Enable Forestry Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableForestry);
 		enableXNet = config.get("integration", "EnableXNet", Defaults.enableXNet, "Enable XNet Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableXNet);
 		enablePSI = config.get("integration", "EnablePSI", Defaults.enablePSI, "Enable PSI Integration").setRequiresMcRestart(true).getBoolean(Defaults.enablePSI);
-		enableSonarCore = config.get("integration", "EnableSonarCore", Defaults.enableSonarCore, "Enable SonarCore Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableSonarCore);
+		//enableSonarCore = config.get("integration", "EnableSonarCore", Defaults.enableSonarCore, "Enable SonarCore Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableSonarCore);
+		enableModularMachinery = config.get("integration", "EnableModularMachinery", Defaults.enableModularMachinery, "Enable Modular Machinery Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableModularMachinery);
+		enableFunkyLocomotion = config.get("integration", "EnableFunkyLocomotion", Defaults.enableFunkyLocomotion, "Enable Funky Locomotion Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableFunkyLocomotion);
 	    //Integration - IC2
 		config.setCategoryComment("integration.industrialcraft", "Configuration for IC2 Integrations");
 		ic2CutWires = config.get("integration.industrialcraft", "CutWires", Defaults.ic2CutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.ic2CutWires);
@@ -133,6 +139,9 @@ public class ModConfig
 		frMachineBlocks = config.get("integration.forestry", "DismantleMachineBlocks", Defaults.frMachineBlocks, "Allow dismantling of Forestry Machine Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frMachineBlocks);
 		frEngineBlocks = config.get("integration.forestry", "DismantleEngineBlocks", Defaults.frEngineBlocks, "Allow dismantling of Forestry Engine Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frEngineBlocks);
 		frMailBlocks = config.get("integration.forestry", "DismantleMailBlocks", Defaults.frMailBlocks, "Allow dismantling of Forestry Mail Blocks").setRequiresMcRestart(true).getBoolean(Defaults.frMailBlocks);
+	    //Integration - Immersive Engineering
+		config.setCategoryComment("integration.immersiveengineering", "Configuration for Immersive Engineering Integrations");
+		ieUnity = config.get("integration.immersiveengineering", "IEUnityMode", Defaults.ieUnity, "Enable Unity Mode for Immersive Engineering").setRequiresMcRestart(true).getBoolean(Defaults.ieUnity);
 	}
 	
 	public static void loadClientConfig() {}

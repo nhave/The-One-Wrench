@@ -22,4 +22,48 @@ public class ColorUtils
 	public static int magenta = colorCodes[13];
 	public static int orange = colorCodes[14];
 	public static int white = colorCodes[15];
+	
+	public static int RGBtoINT(int r, int g, int b)
+	{
+		return (256 * 256 * r) + (256 * g) + b;
+	}
+	
+	public static int HEXtoINT(String color)
+	{
+		if (color.startsWith("#")) color.replaceFirst("#", "");
+		if (color == null || color.length() != 6) return 0;
+
+		int r = Integer.parseInt(String.valueOf(color.charAt(0)) + String.valueOf(color.charAt(1)), 16);
+		int g = Integer.parseInt(String.valueOf(color.charAt(2)) + String.valueOf(color.charAt(3)), 16);
+		int b = Integer.parseInt(String.valueOf(color.charAt(4)) + String.valueOf(color.charAt(5)), 16);
+		
+		return RGBtoINT(r, g, b);
+	}
+	
+	public static String INTtoHEX(int color)
+	{
+		return String.format("#%06X", (0xFFFFFF & color));
+	}
+	
+	public static String RGBtoHEX(int r, int g, int b)
+	{
+		return INTtoHEX(RGBtoINT(r, g, b));
+	}
+	
+	public static int[] HEXtoRGB (String color)
+	{
+		if (color.startsWith("#")) color.replaceFirst("#", "");
+		if (color == null || color.length() != 6) return new int[] {0, 0, 0};
+
+		int r = Integer.parseInt(String.valueOf(color.charAt(0)) + String.valueOf(color.charAt(1)), 16);
+		int g = Integer.parseInt(String.valueOf(color.charAt(2)) + String.valueOf(color.charAt(3)), 16);
+		int b = Integer.parseInt(String.valueOf(color.charAt(4)) + String.valueOf(color.charAt(5)), 16);
+		
+		return new int[] {r, g, b};
+	}
+	
+	public static int[] INTtoRGB (int color)
+	{
+		return HEXtoRGB(INTtoHEX(color));
+	}
 }

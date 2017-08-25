@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,9 +30,22 @@ public class DismantleHelper
 		BLOCKS.add(name);
 	}
 	
-	public static void dismantleBlock(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player, boolean forceDrops)
+	public static void dismantleBlock(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player, boolean noDrops)
 	{
 		Block block = blockState.getBlock();
+		TileEntity tile = world.getTileEntity(blockPos);
+    	//List drops = block.getDrops(world, blockPos, blockState, 0);
+		
+		block.harvestBlock(world, player, blockPos, blockState, tile, player.getHeldItemMainhand());
+    	if (!noDrops) block.onBlockHarvested(world, blockPos, blockState, player);
+    	//if (block.removedByPlayer(blockState, world, blockPos, player, true)) block.breakBlock(world, blockPos, blockState);
+    	/*if (block.hasTileEntity(blockState))
+        {
+            world.removeTileEntity(blockPos);
+        }*/
+	    world.setBlockToAir(blockPos);
+		
+		/*Block block = blockState.getBlock();
     	List drops = block.getDrops(world, blockPos, blockState, 0);
     	if (block.removedByPlayer(blockState, world, blockPos, player, true)) block.breakBlock(world, blockPos, blockState);
 	    world.setBlockToAir(blockPos);
@@ -42,14 +57,19 @@ public class DismantleHelper
         	{
         		dropBlockAsItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack);
             }
-        }
+        }*/
 	}
 	
 	public static void dismantleBlockPure(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player, boolean forceDrops)
 	{
 		Block block = blockState.getBlock();
+		TileEntity tile = world.getTileEntity(blockPos);
+		
 		if (!world.isRemote) dropBlockAsItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(block));
-		dismantleBlock(world, blockPos, blockState, player, forceDrops);
+    	block.onBlockHarvested(world, blockPos, blockState, player);
+	    world.setBlockToAir(blockPos);
+		
+		//dismantleBlock(world, blockPos, blockState, player, forceDrops);
 	}
 	
 	/**

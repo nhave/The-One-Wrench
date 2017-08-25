@@ -38,10 +38,10 @@ public class ActuallyAdditionsHandler extends WrenchHandler implements IDataWipe
 		if (mode == ModItems.modeWrench && player.isSneaking() && block != null && (block instanceof BlockContainerBase || block instanceof BlockLampPowerer || block instanceof BlockColoredLamp))
 	    {
 			if (block instanceof BlockSmileyCloud) return EnumActionResult.PASS;
-			boolean allDrops = block instanceof BlockContainerBase ? false : true;
+			//boolean allDrops = block instanceof BlockContainerBase ? false : true;
 	    	if (!world.isRemote)
 	    	{
-				DismantleHelper.dismantleBlock(world, pos, state, player, allDrops);
+				DismantleHelper.dismantleBlock(world, pos, state, player, true);
 	    		return EnumActionResult.SUCCESS;
 	    	}
 	    	else player.swingArm(hand);
@@ -101,6 +101,14 @@ public class ActuallyAdditionsHandler extends WrenchHandler implements IDataWipe
 			}
 		}
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean shouldDenyBlockActivate(WrenchMode mode, EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState state = world.getBlockState(pos);
+	    Block block = state.getBlock();
+	    return (!(block instanceof BlockSmileyCloud)) && (block instanceof BlockContainerBase || block instanceof BlockLampPowerer || block instanceof BlockColoredLamp);
 	}
 	
 	@Override

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.nhave.nhc.api.items.IItemQuality;
 import com.nhave.nhc.helpers.ItemHelper;
 import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.helpers.TooltipHelper;
@@ -12,6 +11,7 @@ import com.nhave.nhc.util.StringUtils;
 import com.nhave.tow.api.shaders.Shader;
 import com.nhave.tow.registry.ModItems;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -19,24 +19,17 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class ItemShaderPack extends ItemBase implements IItemQuality
+public class ItemShaderPack extends ItemBase
 {
 	public static final Random rand = new Random();
 	private List<Shader> pool;
 	private int amount;
-	private String quality = "";
 	
 	public ItemShaderPack(String name, List<Shader> pool, int amount)
 	{
 		super(name);
 		this.pool = pool;
 		this.amount = amount;
-	}
-	
-	public ItemShaderPack setQuality(String quality)
-	{
-		this.quality = quality;
-		return this;
 	}
 	
 	@Override
@@ -69,14 +62,12 @@ public class ItemShaderPack extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		TooltipHelper.addHiddenTooltip(list, "tooltip.tow." + this.getItemName(stack), ";");
-	}
-	
-	@Override
-	public String getQualityColor(ItemStack stack)
-	{
-		return this.quality;
+		if (StringUtils.isShiftKeyDown())
+		{
+			TooltipHelper.addHiddenTooltip(tooltip, "tooltip.tow." + this.getItemName(stack), ";", StringUtils.GRAY);
+		}
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 }

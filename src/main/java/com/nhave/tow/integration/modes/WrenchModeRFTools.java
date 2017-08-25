@@ -28,7 +28,8 @@ public class WrenchModeRFTools extends WrenchMode implements IKeyBound
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC) + " " + StringUtils.localize("tooltip.tow.wipe"));
+		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+		list.add(" - " + StringUtils.localize("tooltip.tow.wipe"));
 		GlobalCoordinate b = RFToolsHandler.getCurrentBlock(stack);
         if (b != null)
         {

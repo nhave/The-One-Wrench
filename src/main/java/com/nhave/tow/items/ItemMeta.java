@@ -1,14 +1,13 @@
 package com.nhave.tow.items;
 
-import com.nhave.nhc.api.items.IItemQuality;
 import com.nhave.nhc.util.StringUtils;
+import com.nhave.tow.registry.ModItems;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class ItemMeta extends ItemBase implements IItemQuality
+public class ItemMeta extends ItemBase
 {
 	private String[] rarityNames = new String[] {"", StringUtils.LIGHT_BLUE, StringUtils.PURPLE, StringUtils.ORANGE};
 	private int rarity = 0;
@@ -44,11 +43,12 @@ public class ItemMeta extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
+		if (tab != ModItems.TAB_ITEMS) return;
 		for (int i = 0; i < names.length; ++i)
 		{
-			list.add(new ItemStack(item, 1, i));
+			items.add(new ItemStack(this, 1, i));
 		}
 	}
 	

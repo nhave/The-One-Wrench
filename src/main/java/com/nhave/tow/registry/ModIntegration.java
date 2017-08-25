@@ -9,14 +9,15 @@ import com.nhave.tow.integration.handlers.ActuallyAdditionsHandler;
 import com.nhave.tow.integration.handlers.EmbersHandler;
 import com.nhave.tow.integration.handlers.ExtremeReactorsHandler;
 import com.nhave.tow.integration.handlers.ForestryHandler;
+import com.nhave.tow.integration.handlers.FunkyLocomotionHandler;
 import com.nhave.tow.integration.handlers.ImmersiveEngineeringHandler;
 import com.nhave.tow.integration.handlers.IndustrialCraftHandler;
 import com.nhave.tow.integration.handlers.IntegratedDynamicsHandler;
+import com.nhave.tow.integration.handlers.ModularMachineryHandler;
 import com.nhave.tow.integration.handlers.OpenComputersHandler;
 import com.nhave.tow.integration.handlers.PSIHandler;
 import com.nhave.tow.integration.handlers.RFToolsHandler;
 import com.nhave.tow.integration.handlers.RefinedStorageHandler;
-import com.nhave.tow.integration.handlers.SonarCoreHandler;
 import com.nhave.tow.integration.handlers.StorageDrawersHandler;
 import com.nhave.tow.integration.handlers.TechRebornHandler;
 import com.nhave.tow.integration.handlers.TeslaCoreLibHandler;
@@ -44,25 +45,24 @@ public class ModIntegration
 		if (ModConfig.vanillaDismantle)
 		{
 			TOWAPI.integrationRegistry.register("Vanilla Dismantling");
-			DismantleHelper.addBlock("minecraft:white_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:orange_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:magenta_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:light_blue_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:yellow_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:lime_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:pink_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:gray_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:silver_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:cyan_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:purple_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:blue_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:brown_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:green_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:red_shulker_box/n");
-			DismantleHelper.addBlock("minecraft:black_shulker_box/n");
+			DismantleHelper.addBlock("minecraft:white_shulker_box");
+			DismantleHelper.addBlock("minecraft:orange_shulker_box");
+			DismantleHelper.addBlock("minecraft:magenta_shulker_box");
+			DismantleHelper.addBlock("minecraft:light_blue_shulker_box");
+			DismantleHelper.addBlock("minecraft:yellow_shulker_box");
+			DismantleHelper.addBlock("minecraft:lime_shulker_box");
+			DismantleHelper.addBlock("minecraft:pink_shulker_box");
+			DismantleHelper.addBlock("minecraft:gray_shulker_box");
+			DismantleHelper.addBlock("minecraft:silver_shulker_box");
+			DismantleHelper.addBlock("minecraft:cyan_shulker_box");
+			DismantleHelper.addBlock("minecraft:purple_shulker_box");
+			DismantleHelper.addBlock("minecraft:blue_shulker_box");
+			DismantleHelper.addBlock("minecraft:brown_shulker_box");
+			DismantleHelper.addBlock("minecraft:green_shulker_box");
+			DismantleHelper.addBlock("minecraft:red_shulker_box");
+			DismantleHelper.addBlock("minecraft:black_shulker_box");
 			DismantleHelper.addBlock("minecraft:hopper");
-			DismantleHelper.addBlock("minecraft:ender_chest/p/n");
-		    
+			DismantleHelper.addBlock("minecraft:ender_chest/p");	    
 		}
 		if (Loader.isModLoaded("opencomputers") && ModConfig.enableOpenComputers)
 		{
@@ -87,7 +87,7 @@ public class ModIntegration
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new IndustrialCraftHandler(ModConfig.ic2CutWires, ModConfig.ic2ClassicRotation), "Industrial Craft 2");
+				TOWAPI.integrationRegistry.register(new IndustrialCraftHandler(), "Industrial Craft 2" + " (" + (ModConfig.ic2ClassicRotation ? "Classic" : "Unity") + (ModConfig.ic2CutWires ? "/Wirecutting" : "") + ")");
 			}
 			catch (Exception e) {}
 		}
@@ -104,15 +104,6 @@ public class ModIntegration
 			try
 			{
 				TOWAPI.integrationRegistry.register(new IntegratedDynamicsHandler(), "Integrated Dynamics");
-				DismantleHelper.addBlock("integrateddynamics:variablestore");
-				DismantleHelper.addBlock("integrateddynamics:logic_programmer");
-				DismantleHelper.addBlock("integrateddynamics:energy_battery");
-				DismantleHelper.addBlock("integrateddynamics:creative_energy_battery");
-				DismantleHelper.addBlock("integrateddynamics:coal_generator");
-				DismantleHelper.addBlock("integrateddynamics:proxy");
-				DismantleHelper.addBlock("integrateddynamics:materializer");
-				DismantleHelper.addBlock("integrateddynamics:squeezer");
-				DismantleHelper.addBlock("integrateddynamics:drying_basin");
 			}
 			catch (Exception e) {}
 		}
@@ -128,7 +119,7 @@ public class ModIntegration
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new TechRebornHandler(ModConfig.trCutWires, ModConfig.trRotation), "Tech Reborn");
+				TOWAPI.integrationRegistry.register(new TechRebornHandler(), "Tech Reborn" + " (" + (ModConfig.trRotation ? "Classic" : "Unity") + (ModConfig.trCutWires ? "/Wirecutting" : "") + ")");
 			}
 			catch (Exception e) {}
 		}
@@ -168,7 +159,7 @@ public class ModIntegration
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new EmbersHandler(), "Embers");
+				TOWAPI.integrationRegistry.register(new EmbersHandler(), "Embers" + (ModConfig.allowEmbersDismantle ? " (Dismantling)" : ""));
 			}
 			catch (Exception e) {}
 		}
@@ -176,7 +167,7 @@ public class ModIntegration
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new ImmersiveEngineeringHandler(), "Immersive Engineering");
+				TOWAPI.integrationRegistry.register(new ImmersiveEngineeringHandler(), "Immersive Engineering" + (ModConfig.ieUnity ? " (Unity)" : ""));
 			}
 			catch (Exception e) {}
 			if (event.getSide() == Side.CLIENT)
@@ -212,11 +203,19 @@ public class ModIntegration
 			}
 			catch (Exception e) {}
 		}
-		if (Loader.isModLoaded("sonarcore") && ModConfig.enableSonarCore)
+		if (Loader.isModLoaded("modularmachinery") && ModConfig.enableModularMachinery)
 		{
 			try
 			{
-				TOWAPI.integrationRegistry.register(new SonarCoreHandler(), "SonarCore");
+				TOWAPI.integrationRegistry.register(new ModularMachineryHandler(), "Modular Machinery");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("funkylocomotion") && ModConfig.enableFunkyLocomotion)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new FunkyLocomotionHandler(), "Funky Locomotion");
 			}
 			catch (Exception e) {}
 		}

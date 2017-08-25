@@ -25,7 +25,8 @@ public class WrenchModeEmbers extends WrenchMode implements IKeyBound
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC) + " " + StringUtils.localize("tooltip.tow.wipe"));
+		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+		list.add(" - " + StringUtils.localize("tooltip.tow.wipe"));
 		if (stack.hasTagCompound())
 		{
 			if (stack.getTagCompound().hasKey(EmbersHandler.NBT_TARGET_X) && stack.getTagCompound().hasKey(EmbersHandler.NBT_TARGET_Y) && stack.getTagCompound().hasKey(EmbersHandler.NBT_TARGET_Z))

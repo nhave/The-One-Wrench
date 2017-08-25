@@ -2,6 +2,8 @@ package com.nhave.tow.integration.handlers;
 
 import com.nhave.tow.api.integration.WrenchHandler;
 import com.nhave.tow.api.wrenchmodes.WrenchMode;
+import com.nhave.tow.helpers.DismantleHelper;
+import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
 import blusunrize.immersiveengineering.api.MultiblockHandler;
@@ -13,6 +15,12 @@ import blusunrize.immersiveengineering.common.blocks.BlockIEMultiblock;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IConfigurableSides;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IDirectionalTile;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IHammerInteraction;
+import blusunrize.immersiveengineering.common.blocks.cloth.BlockClothDevice;
+import blusunrize.immersiveengineering.common.blocks.metal.BlockConveyor;
+import blusunrize.immersiveengineering.common.blocks.metal.BlockMetalDevice0;
+import blusunrize.immersiveengineering.common.blocks.metal.BlockMetalDevice1;
+import blusunrize.immersiveengineering.common.blocks.wooden.BlockWoodenDevice0;
+import blusunrize.immersiveengineering.common.blocks.wooden.BlockWoodenDevice1;
 import blusunrize.immersiveengineering.common.util.ItemNBTHelper;
 import blusunrize.immersiveengineering.common.util.Utils;
 import net.minecraft.block.Block;
@@ -33,6 +41,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ImmersiveEngineeringHandler extends WrenchHandler
 {
+	private boolean unityMode;
+	
+	public ImmersiveEngineeringHandler()
+	{
+		this.unityMode = ModConfig.ieUnity;
+	}
+	
 	@Override
 	public EnumActionResult onWrenchUseFirst(WrenchMode mode, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
 	{
@@ -43,6 +58,36 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 		
 		if (mode == ModItems.modeWrench)
 		{
+			//New Block Dismantling and Wire Cutting
+			if (this.unityMode)
+			{
+				if (player.isSneaking() && (tileEntity instanceof IImmersiveConnectable || canDismantle(block, block.getMetaFromState(state))))
+				{
+					DismantleHelper.dismantleBlock(world, pos, state, player, false);
+	    			if (!world.isRemote) return EnumActionResult.SUCCESS;
+					else
+					{
+						player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+						player.swingArm(EnumHand.MAIN_HAND);
+					}
+				}
+				else if (tileEntity instanceof IImmersiveConnectable)
+				{
+					TargetingInfo target = new TargetingInfo(side, hitX, hitY, hitZ);
+					BlockPos masterPos = ((IImmersiveConnectable)tileEntity).getConnectionMaster(null, target);
+					tileEntity = world.getTileEntity(masterPos);
+					if(!(tileEntity instanceof IImmersiveConnectable)) return EnumActionResult.PASS;
+					if (!world.isRemote)
+					{
+						IImmersiveConnectable nodeHere = (IImmersiveConnectable) tileEntity;
+						boolean cut = ImmersiveNetHandler.INSTANCE.clearAllConnectionsFor(Utils.toCC(nodeHere), world, target);
+						IESaveData.setDirty(world.provider.getDimension());
+					}
+					else Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
+					return EnumActionResult.SUCCESS;
+				}
+			}
+			
 			EnumActionResult ret = tryFormMB(player, world, pos, side, hand);
 			if (ret != EnumActionResult.PASS)
 			{
@@ -69,23 +114,65 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 				}
 			}
 		}
-		else if (mode == ModItems.modeTune && tileEntity instanceof IImmersiveConnectable)
+		else if (mode == ModItems.modeTune)
 		{
-			TargetingInfo target = new TargetingInfo(side, hitX, hitY, hitZ);
-			BlockPos masterPos = ((IImmersiveConnectable)tileEntity).getConnectionMaster(null, target);
-			tileEntity = world.getTileEntity(masterPos);
-			if(!(tileEntity instanceof IImmersiveConnectable)) return EnumActionResult.PASS;
-			if (!world.isRemote)
+			//New Hammer Interaction
+			if (this.unityMode && tileEntity instanceof IHammerInteraction)
 			{
-				IImmersiveConnectable nodeHere = (IImmersiveConnectable) tileEntity;
-				boolean cut = ImmersiveNetHandler.INSTANCE.clearAllConnectionsFor(Utils.toCC(nodeHere), world, target);
-				IESaveData.setDirty(world.provider.getDimension());
+				if (!world.isRemote)
+				{
+					ItemStack heldItem = player.getHeldItem(hand).copy();
+					ItemStack hammer = GameRegistry.makeItemStack("immersiveengineering:tool", 0, 1, null);
+					
+					player.setHeldItem(hand, hammer);
+					block.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+					player.setHeldItem(hand, heldItem);
+					return EnumActionResult.SUCCESS;
+				}
+				else
+				{
+					player.playSound(block.getSoundType(state, world, pos, player).getPlaceSound(), 1.0F, 0.6F);
+					player.swingArm(EnumHand.MAIN_HAND);
+				}
 			}
-			else Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
-			return EnumActionResult.SUCCESS;
+			//Old Wire Cutting
+			else if (!this.unityMode && tileEntity instanceof IImmersiveConnectable)
+			{
+				TargetingInfo target = new TargetingInfo(side, hitX, hitY, hitZ);
+				BlockPos masterPos = ((IImmersiveConnectable)tileEntity).getConnectionMaster(null, target);
+				tileEntity = world.getTileEntity(masterPos);
+				if(!(tileEntity instanceof IImmersiveConnectable)) return EnumActionResult.PASS;
+				if (!world.isRemote)
+				{
+					IImmersiveConnectable nodeHere = (IImmersiveConnectable) tileEntity;
+					boolean cut = ImmersiveNetHandler.INSTANCE.clearAllConnectionsFor(Utils.toCC(nodeHere), world, target);
+					IESaveData.setDirty(world.provider.getDimension());
+				}
+				else Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
+				return EnumActionResult.SUCCESS;
+			}
 		}
 		
 		return EnumActionResult.PASS;
+	}
+	
+	public boolean canDismantle(Block block, int meta)
+	{
+		//(block.getRegistryName().toString()).equals("immersiveengineering:metal_decoration0")
+		if (block instanceof BlockConveyor || block instanceof BlockMetalDevice0 || block instanceof BlockMetalDevice1) return true;
+		else if (block instanceof BlockWoodenDevice0)
+		{
+			return (meta > 1 && meta != 4);
+		}
+		else if (block instanceof BlockWoodenDevice1)
+		{
+			return (meta < 2);
+		}
+		else if (block instanceof BlockClothDevice)
+		{
+			return (meta == 2);
+		}
+		return false;
 	}
 	
 	private EnumActionResult tryFormMB(EntityPlayer player, World world, BlockPos pos, EnumFacing side, EnumHand hand)

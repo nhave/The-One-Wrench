@@ -3,7 +3,6 @@ package com.nhave.tow.items;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.nhave.nhc.api.items.IItemQuality;
 import com.nhave.nhc.helpers.ItemNBTHelper;
 import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
@@ -11,13 +10,13 @@ import com.nhave.tow.api.shaders.Shader;
 import com.nhave.tow.registry.ModItems;
 import com.nhave.tow.shaders.ShaderRegistry;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 
-public class ItemShader extends ItemBase implements IItemQuality
+public class ItemShader extends ItemBase
 {
 	public ItemShader(String name)
 	{
@@ -34,27 +33,25 @@ public class ItemShader extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (getShader(stack) == null)
 		{
-			list.add(StringUtils.RED + StringUtils.localize("tooltip.nhc.error.missingnbt"));
+			tooltip.add(StringUtils.RED + StringUtils.localize("tooltip.nhc.error.missingnbt"));
 			return;
 		}
 		if (StringUtils.isShiftKeyDown())
 		{
-			TooltipHelper.addHiddenTooltip(list, "tooltip.tow.shader." + ItemNBTHelper.getString(stack, "SHADERS", "SHADER"), ";", StringUtils.GRAY);
+			tooltip.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
 			
-			if (getShader(stack).getSupportsChroma()) list.add(StringUtils.format(StringUtils.localize("tooltip.tow.chroma.enabled"), StringUtils.YELLOW, StringUtils.ITALIC));
-			list.add(StringUtils.localize("tooltip.tow.shader.artist") + ": " + StringUtils.format(getShader(stack).getArtist(), StringUtils.YELLOW, StringUtils.ITALIC));
-			list.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
-			list.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+			TooltipHelper.addHiddenTooltip(tooltip, "tooltip.tow.shader." + ItemNBTHelper.getString(stack, "SHADERS", "SHADER"), ";", StringUtils.GRAY);
+			
+			if (getShader(stack).getSupportsChroma()) tooltip.add(StringUtils.format(StringUtils.localize("tooltip.tow.chroma.enabled"), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(StringUtils.localize("tooltip.tow.shader.artist") + ": " + StringUtils.format(getShader(stack).getArtist(), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
-		else
-		{
-			list.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
-			list.add(StringUtils.shiftForInfo);
-		}
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	public Shader getShader(ItemStack stack)
@@ -65,8 +62,9 @@ public class ItemShader extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
+		if (tab != ModItems.TAB_SHADERS) return;
 		if (!ShaderRegistry.isEmpty())
 		{
 			for(Entry<String, Shader> entry : ShaderRegistry.SHADERS.entrySet())
@@ -74,11 +72,11 @@ public class ItemShader extends ItemBase implements IItemQuality
 				if (!entry.getValue().isHidden())
 				{
 					String key = entry.getKey();
-					list.add(ItemNBTHelper.setString(new ItemStack(item), "SHADERS", "SHADER", key));
+					items.add(ItemNBTHelper.setString(new ItemStack(this), "SHADERS", "SHADER", key));
 				}
 			}
 		}
-		else list.add(new ItemStack(item));
+		else items.add(new ItemStack(this));
 	}
 	
 	@Override

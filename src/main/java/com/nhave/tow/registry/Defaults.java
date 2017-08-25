@@ -17,10 +17,11 @@ public class Defaults
     public static final boolean enableStorageDrawers = true;
     public static final boolean enableRFTools = true;
     public static final boolean enableTeslaCoreLib = true;
-    public static final boolean enableImmersiveEngineering = true;
     public static final boolean enableXNet = true;
     public static final boolean enablePSI = true;
     public static final boolean enableSonarCore = true;
+    public static final boolean enableModularMachinery = true;
+    public static final boolean enableFunkyLocomotion = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;
@@ -42,4 +43,7 @@ public class Defaults
     public static final boolean frMachineBlocks = true;
     public static final boolean frEngineBlocks = true;
     public static final boolean frMailBlocks = true;
+    //Integration - Immersive Engineering
+    public static final boolean enableImmersiveEngineering = true;
+    public static final boolean ieUnity = true;
 }

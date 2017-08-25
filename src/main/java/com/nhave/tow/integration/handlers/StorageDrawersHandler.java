@@ -3,6 +3,7 @@ package com.nhave.tow.integration.handlers;
 import com.jaquadro.minecraft.storagedrawers.block.BlockController;
 import com.jaquadro.minecraft.storagedrawers.block.BlockDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.BlockFramingTable;
+import com.jaquadro.minecraft.storagedrawers.block.BlockKeyButton;
 import com.jaquadro.minecraft.storagedrawers.block.BlockSlave;
 import com.jaquadro.minecraft.storagedrawers.block.BlockTrim;
 import com.nhave.tow.api.integration.WrenchHandler;
@@ -32,7 +33,7 @@ public class StorageDrawersHandler extends WrenchHandler
 	    Block block = state.getBlock();
 		ItemStack heldItem = player.getHeldItem(hand).copy();
 		
-		if (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockSlave || block instanceof BlockTrim || block instanceof BlockFramingTable)
+		if (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockSlave || block instanceof BlockTrim || block instanceof BlockFramingTable || block instanceof BlockKeyButton)
 		{
 			if (mode == ModItems.modeRotate) return EnumActionResult.FAIL;
 			
@@ -76,6 +77,7 @@ public class StorageDrawersHandler extends WrenchHandler
 					if (!world.isRemote)
 					{
 						player.setHeldItem(hand, new ItemStack(mode == ModItems.modeTune ? (player.isSneaking() ? shroudKey : quantifyKey) : (mode == ModItems.modeUtil && player.isSneaking() ? personalKey : drawerKey)));
+						player.getHeldItem(hand).onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
 						block.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 						player.setHeldItem(hand, heldItem);
 						return EnumActionResult.SUCCESS;
@@ -93,6 +95,6 @@ public class StorageDrawersHandler extends WrenchHandler
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-		return (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockFramingTable);
+		return (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockFramingTable || (mode == ModItems.modeWrench && block instanceof BlockKeyButton && player.isSneaking()));
 	}
 }

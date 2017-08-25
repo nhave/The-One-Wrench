@@ -23,14 +23,14 @@ import com.nhave.tow.wrenchmodes.WrenchModeTune;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -110,24 +110,24 @@ public class ModItems
 		}
 	}
 	
-	public static void register()
+	public static void register(Register<Item> event)
 	{
-		GameRegistry.register(itemOmniWrench);
-		GameRegistry.register(itemComp);
-		GameRegistry.register(itemShaderRemover);
-		GameRegistry.register(itemShader);
-		GameRegistry.register(itemIcons);
-		GameRegistry.register(itemShaderPackBase);
-		GameRegistry.register(itemShaderPackBooster);
-		GameRegistry.register(itemShaderPackDestiny);
-		GameRegistry.register(itemShaderPackOverwatch);
+		event.getRegistry().register(itemOmniWrench);
+		event.getRegistry().register(itemComp);
+		event.getRegistry().register(itemShaderRemover);
+		event.getRegistry().register(itemShader);
+		event.getRegistry().register(itemIcons);
+		event.getRegistry().register(itemShaderPackBase);
+		event.getRegistry().register(itemShaderPackBooster);
+		event.getRegistry().register(itemShaderPackDestiny);
+		event.getRegistry().register(itemShaderPackOverwatch);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void registerRenders()
 	{
-		ModelBakery.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + itemOmniWrench.getRegistryName().getResourcePath()));
-		ModelBakery.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + "shaders/main/support"));
+		ModelLoader.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + itemOmniWrench.getRegistryName().getResourcePath()));
+		ModelLoader.registerItemVariants(itemOmniWrench, new ResourceLocation(Reference.MODID + ":" + "shaders/main/support"));
 		
 		if (!ShaderRegistry.isEmpty())
 		{
@@ -135,7 +135,7 @@ public class ModItems
 			{
 				Shader shader = entry.getValue();
 				shader.registerModels(itemOmniWrench);
-				ModelBakery.registerItemVariants(itemShader, new ResourceLocation(shader.getShaderModel()));
+				ModelLoader.registerItemVariants(itemShader, new ResourceLocation(shader.getShaderModel()));
 			}
 		}
 		
@@ -148,7 +148,11 @@ public class ModItems
 		registerRender(itemShaderPackBooster);
 		registerRender(itemShaderPackDestiny);
 		registerRender(itemShaderPackOverwatch);
-		
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void registerRenderData()
+	{
 		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemColorHandler.INSTANCE, itemOmniWrench);
 		FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(ItemColorHandler.INSTANCE, itemShader);
 	}
@@ -157,7 +161,7 @@ public class ModItems
 	public static void registerRender(Item item)
 	{
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-		renderItem.getItemModelMesher().register(item, 0, new ModelResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath(), "inventory"));
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -167,7 +171,7 @@ public class ModItems
 		{
 			String meta = "";
 			if (i > 0 && !single) meta = "_" + i;
-			ModelBakery.registerItemVariants(item, new ResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath() + meta));
+			ModelLoader.registerItemVariants(item, new ResourceLocation(Reference.MODID + ":" + item.getRegistryName().getResourcePath() + meta));
 		}
 		registerRenderMesh(item, new CustomMeshDefinitionMetaItem(single));
 	}
@@ -176,7 +180,6 @@ public class ModItems
 	public static void registerRenderMesh(Item item, ItemMeshDefinition mesh)
 	{
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-		
-		renderItem.getItemModelMesher().register(item, mesh);
+		ModelLoader.setCustomMeshDefinition(item, mesh);
 	}
 }

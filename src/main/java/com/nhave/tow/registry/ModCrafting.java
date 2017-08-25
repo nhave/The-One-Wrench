@@ -1,55 +1,56 @@
 package com.nhave.tow.registry;
 
+import com.nhave.tow.Reference;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ModCrafting
 {
-	public static void init()
+	private static int recipe = 0;
+	
+	public static void register(Register<IRecipe> event)
 	{
-		GameRegistry.addRecipe(ModItems.itemComp.getItem("claw", 1),
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemComp.getItem("claw", 1),
 			new Object[] {" XY", "XZY", "XY ",
 			'X', Items.IRON_INGOT,
 			'Y', Blocks.OBSIDIAN,
-			'Z', Items.REDSTONE});
-		GameRegistry.addRecipe(ModItems.itemComp.getItem("handle", 1),
+			'Z', Items.REDSTONE}));
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemComp.getItem("handle", 1),
 			new Object[] {" YX", "YZY", "XY ",
 			'X', Items.IRON_INGOT,
 			'Y', Items.QUARTZ,
-			'Z', Items.REDSTONE});
-		GameRegistry.addRecipe(ModItems.itemComp.getItem("piston", 1),
+			'Z', Items.REDSTONE}));
+		addRecipe(event, new ShapedOreRecipe(null, ModItems.itemComp.getItem("piston", 1),
 			new Object[] {"XYX", "ZAZ", "XYX",
 			'X', Blocks.PISTON,
 			'Y', Items.REDSTONE,
 			'Z', Items.IRON_INGOT,
-			'A', Items.EMERALD});
-		GameRegistry.addRecipe(new ItemStack(ModItems.itemOmniWrench),
+			'A', Items.EMERALD}));
+		addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemOmniWrench),
 			new Object[] {" X ", " YX", "Z  ",
 			'X', ModItems.itemComp.getItem("claw", 1),
 			'Y', ModItems.itemComp.getItem("piston", 1),
-			'Z', ModItems.itemComp.getItem("handle", 1)});
+			'Z', ModItems.itemComp.getItem("handle", 1)}));
 		
 		if (ModConfig.enableAllShaders)
 		{
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackBase),
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderPackBase),
 				new Object[] {"XYX", "YZY", "XYX",
 				'X', "nuggetGold",
 				'Y', "dyeWhite",
 				'Z', Items.REDSTONE}));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackBooster),
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderPackBooster),
 				new Object[] {"XYX", "YZY", "XYX",
 				'X', "nuggetGold",
 				'Y', "dyeRed",
 				'Z', Items.EMERALD}));
-			/*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackPromotion),
-				new Object[] {"XYX", "YZY", "XYX",
-				'X', "nuggetGold",
-				'Y', "dyeLightBlue",
-				'Z', Items.REDSTONE}));*/
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderRemover),
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderRemover),
 				new Object[] {"XYX", "YZY", "XYX",
 				'X', "nuggetGold",
 				'Y', "nuggetIron",
@@ -57,21 +58,27 @@ public class ModCrafting
 			
 			if (ModConfig.enableDestinyShaders)
 			{
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackDestiny),
+				addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderPackDestiny),
 					new Object[] {"XYX", "YZY", "XYX",
 					'X', "nuggetGold",
 					'Y', "dyeGreen",
 					'Z', Items.EMERALD}));
 			}
-
+			
 			if (ModConfig.enableOverwatchShaders)
 			{
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemShaderPackOverwatch),
+				addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderPackOverwatch),
 					new Object[] {"XYX", "YZY", "XYX",
 					'X', "nuggetGold",
 					'Y', "dyeOrange",
 					'Z', Items.EMERALD}));
 			}
 		}
+	}
+	
+	public static void addRecipe(Register<IRecipe> event, IRecipe rec)
+	{
+		event.getRegistry().register(rec.setRegistryName(new ResourceLocation(Reference.MODID, "recipe" + recipe)));
+		++recipe;
 	}
 }

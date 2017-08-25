@@ -2,14 +2,15 @@ package com.nhave.tow.items;
 
 import java.util.List;
 
-import com.nhave.nhc.api.items.IItemQuality;
+import com.nhave.nhc.helpers.TooltipHelper;
 import com.nhave.nhc.util.StringUtils;
 import com.nhave.tow.registry.ModItems;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
-public class ItemShaderRemover extends ItemBase implements IItemQuality
+public class ItemShaderRemover extends ItemBase
 {
 	public ItemShaderRemover(String name)
 	{
@@ -19,18 +20,16 @@ public class ItemShaderRemover extends ItemBase implements IItemQuality
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (StringUtils.isShiftKeyDown())
 		{
-			list.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
-			list.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
+			TooltipHelper.addHiddenTooltip(tooltip, "tooltip.tow." + this.getItemName(stack), ";", StringUtils.GRAY);
+			tooltip.add(StringUtils.localize("tooltip.tow.shader.appliesto") + ":");
+			tooltip.add("  " + StringUtils.format(StringUtils.localize("item.tow.wrench.name"), StringUtils.YELLOW, StringUtils.ITALIC));
 		}
-		else
-		{
-			list.add(StringUtils.format(StringUtils.localize("tooltip.tow.shader"), StringUtils.GREEN, StringUtils.ITALIC));
-			list.add(StringUtils.shiftForInfo);
-		}
+		else tooltip.add(StringUtils.shiftForInfo);
 	}
 	
 	@Override

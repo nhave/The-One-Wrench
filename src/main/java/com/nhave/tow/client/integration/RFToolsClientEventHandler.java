@@ -15,9 +15,9 @@ import mcjty.rftools.RFTools;
 import mcjty.rftools.blocks.blockprotector.BlockProtectorTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -88,7 +88,7 @@ public class RFToolsClientEventHandler
         GlStateManager.enableTexture2D();
 
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuffer();
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(yellowglow);
 

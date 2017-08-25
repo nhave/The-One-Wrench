@@ -86,4 +86,32 @@ public class ModEventHandler
 		    }
 	    }
 	}
+	
+	/*@SubscribeEvent()
+    public void onAnvilUpdate(AnvilUpdateEvent evt)
+    {
+		ItemStack left = evt.getLeft();
+		ItemStack right = evt.getRight();
+		
+		if (evt.getLeft() == null || evt.getRight() == null)
+		{
+			return;
+		}
+		if (left.getItem() == ModItems.itemComp && left.getItemDamage() == 3 && right.getItem() == com.nhave.nhc.registry.ModItems.itemEnergyPearl && right.getCount() == 1)
+		{
+			for(Entry<String, Shader> entry : ShaderRegistry.SHADERS.entrySet())
+			{
+				if (entry.getKey().toLowerCase().equals(evt.getName().toLowerCase()))
+				{
+					int cost = (entry.getValue().getQualityColor().equals(StringUtils.ORANGE) ? 7 : (entry.getValue().getQualityColor().equals(StringUtils.PURPLE) ? 5 : (entry.getValue().getQualityColor().equals(StringUtils.ORANGE) ? 3 : 1)));
+					if (left.getCount() == cost)
+					{
+						evt.setOutput(ItemNBTHelper.setString(new ItemStack(ModItems.itemShader), "SHADERS", "SHADER", entry.getKey()));
+						evt.setCost(1);
+						break;
+					}
+				}
+			}
+		}
+    }*/
 }

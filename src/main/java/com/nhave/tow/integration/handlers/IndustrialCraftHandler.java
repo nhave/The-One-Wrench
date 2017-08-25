@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.nhave.tow.api.integration.WrenchHandler;
 import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.helpers.DismantleHelper;
+import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
 import ic2.api.tile.IWrenchable;
@@ -28,10 +29,10 @@ public class IndustrialCraftHandler extends WrenchHandler
 	private boolean cutWires;
 	private boolean classicMode;
 	
-	public IndustrialCraftHandler(boolean cutWires, boolean classicMode)
+	public IndustrialCraftHandler()
 	{
-		this.cutWires = cutWires;
-		this.classicMode = classicMode;
+		this.cutWires = ModConfig.ic2CutWires;
+		this.classicMode = ModConfig.ic2ClassicRotation;
 	}
 	
 	@Override

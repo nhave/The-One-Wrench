@@ -111,7 +111,7 @@ public class WidgetWrench extends WidgetBase
         GlStateManager.disableDepth();
 		
         String text = I18n.translateToLocal("tooltip.tow.mode") + ": " + "§e" + "§o" + I18n.translateToLocal("tooltip.tow.mode." + wrench.getWrenchMode(stack).getName()) + "§r";
-        mc.fontRendererObj.drawStringWithShadow(text, x + 34,  y + (18 * (maxY - 1)) + 7, 16777215);
+        mc.fontRenderer.drawStringWithShadow(text, x + 34,  y + (18 * (maxY - 1)) + 7, 16777215);
         
 		GlStateManager.enableDepth();
         GlStateManager.enableLighting();

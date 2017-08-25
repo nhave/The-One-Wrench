@@ -1,6 +1,7 @@
 package com.nhave.tow.client.integration;
 
 import com.nhave.tow.items.ItemOmniwrench;
+import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
 import blusunrize.immersiveengineering.api.Lib;
@@ -11,11 +12,11 @@ import blusunrize.immersiveengineering.common.Config.IEConfig;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces.IBlockOverlayText;
 import blusunrize.immersiveengineering.common.blocks.wooden.TileEntityTurntable;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -41,7 +42,7 @@ public class IEClientEventHandler
 			
 			if(ClientUtils.mc().objectMouseOver!=null)
 			{
-				boolean hammer = !stack.isEmpty() && stack.getItem() instanceof ItemOmniwrench && ((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeWrench;
+				boolean hammer = !stack.isEmpty() && stack.getItem() instanceof ItemOmniwrench && (((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeWrench || (ModConfig.ieUnity && ((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeTune));
 				RayTraceResult mop = ClientUtils.mc().objectMouseOver;
 				if(mop!=null && mop.getBlockPos()!=null)
 				{
@@ -77,7 +78,7 @@ public class IEClientEventHandler
 			double pz = -TileEntityRendererDispatcher.staticPlayerZ;
 			TileEntity tile = event.getPlayer().world.getTileEntity(event.getTarget().getBlockPos());
 			ItemStack stack = event.getPlayer().getHeldItem(EnumHand.MAIN_HAND);
-			boolean hammer = !stack.isEmpty() && stack.getItem() instanceof ItemOmniwrench && ((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeWrench;
+			boolean hammer = !stack.isEmpty() && stack.getItem() instanceof ItemOmniwrench && (((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeWrench || (ModConfig.ieUnity && ((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeTune));
 			
 			if(hammer && tile instanceof TileEntityTurntable)
 			{
@@ -90,7 +91,7 @@ public class IEClientEventHandler
 				GlStateManager.depthMask(false);
 
 				Tessellator tessellator = Tessellator.getInstance();
-				VertexBuffer vertexbuffer = tessellator.getBuffer();
+				BufferBuilder vertexbuffer = tessellator.getBuffer();
 
 				EnumFacing f = ((TileEntityTurntable)tile).getFacing();
 				double tx = pos.getX()+.5;

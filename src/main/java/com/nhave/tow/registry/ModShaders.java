@@ -60,7 +60,7 @@ public class ModShaders
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new ShaderModeSpecific("main.gen4", Reference.MODID + ":shaders/main/gen4", Reference.MODID + ":shader", ColorUtils.white, true).setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.zerodawn", Reference.MODID + ":shaders/main/zerodawn", Reference.MODID + ":shader", 6367010, false).setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.immersive", Reference.MODID + ":shaders/main/immersive", Reference.MODID + ":shader", 5450521, false).setArtist("Voxel_Friend").setQualityColor(StringUtils.ORANGE));
-			//TOWAPI.shaderRegistry.registerShader(SPECIAL_SHADERS, 1, false, new Shader("main.support", Reference.MODID + ":shaders/main/support", Reference.MODID + ":shader", ColorUtils.orange, false).setHidden().setQualityColor(StringUtils.BRIGHT_BLUE));
+			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new ShaderModeSpecific("main.modularium", Reference.MODID + ":shaders/main/modularium", Reference.MODID + ":shader", 16731648, false).setQualityColor(StringUtils.ORANGE));
 			
 			//Shaders: destiny
 			if (ModConfig.enableDestinyShaders)
@@ -100,6 +100,7 @@ public class ModShaders
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.sombra", Reference.MODID + ":shaders/overwatch/sombra", Reference.MODID + ":shaders/overwatch/shader", 2829662, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.doomfist", Reference.MODID + ":shaders/overwatch/doomfist", Reference.MODID + ":shaders/overwatch/shader", 16774585, false).setQualityColor(StringUtils.PURPLE));
 				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.mercy", Reference.MODID + ":shaders/overwatch/mercy", Reference.MODID + ":shaders/overwatch/shader", 16760410, false).setQualityColor(StringUtils.PURPLE));
+				TOWAPI.shaderRegistry.registerShader(OVERWATCH_SHADERS, 1, false, new Shader("overwatch.dvav2", Reference.MODID + ":shaders/overwatch/dvav2", Reference.MODID + ":shaders/overwatch/shader", 16720043, false).setQualityColor(StringUtils.PURPLE));
 			}
 		}
 	}

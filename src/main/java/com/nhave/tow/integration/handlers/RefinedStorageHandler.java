@@ -3,10 +3,12 @@ package com.nhave.tow.integration.handlers;
 import com.nhave.tow.api.integration.IDataWipe;
 import com.nhave.tow.api.integration.WrenchHandler;
 import com.nhave.tow.api.wrenchmodes.WrenchMode;
+import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.registry.ModItems;
 import com.raoulvdberge.refinedstorage.api.util.IWrenchable;
 import com.raoulvdberge.refinedstorage.block.BlockNode;
 import com.raoulvdberge.refinedstorage.tile.TileNode;
+import com.raoulvdberge.refinedstorage.tile.grid.portable.TilePortableGrid;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -36,32 +38,39 @@ public class RefinedStorageHandler extends WrenchHandler implements IDataWipe
 	    Block block = state.getBlock();
         ItemStack stack = player.getHeldItem(hand);
         
-        if (mode == ModItems.modeRotate && tile instanceof TileNode) return EnumActionResult.FAIL;
+        if (mode == ModItems.modeRotate && (tile instanceof TileNode || tile instanceof TilePortableGrid)) return EnumActionResult.FAIL;
         
         if (mode == ModItems.modeWrench)
 		{
-            if (tile instanceof TileNode)
+            if (tile instanceof TileNode || tile instanceof TilePortableGrid)
             {
             	if (player.isSneaking())
             	{
 	            	if (!world.isRemote)
 	            	{
-		                NBTTagCompound data = new NBTTagCompound();
-		
-		                ((TileNode) tile).writeConfiguration(data);
-		
-		                ItemStack tileStack = state.getBlock().getDrops(world, pos, state, 0).get(0);
-		
-		                if (!tileStack.hasTagCompound())
-		                {
-		                    tileStack.setTagCompound(new NBTTagCompound());
-		                }
-		
-		                tileStack.getTagCompound().setTag(BlockNode.NBT_REFINED_STORAGE_DATA, data);
-		
-		                world.setBlockToAir(pos);
-		
-		                InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), tileStack);
+	            		if (tile instanceof TilePortableGrid)
+	            		{
+	            			DismantleHelper.dismantleBlock(world, pos, state, player, false);
+	            		}
+	            		else
+	            		{
+			                NBTTagCompound data = new NBTTagCompound();
+			                
+			                ((TileNode) tile).writeConfiguration(data);
+			                
+			                ItemStack tileStack = state.getBlock().getDrops(world, pos, state, 0).get(0);
+			                
+			                if (!tileStack.hasTagCompound())
+			                {
+			                    tileStack.setTagCompound(new NBTTagCompound());
+			                }
+			                
+			                tileStack.getTagCompound().setTag(BlockNode.NBT_REFINED_STORAGE_DATA, data);
+			                
+			                world.setBlockToAir(pos);
+			                
+			                InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), tileStack);
+	            		}
 		                
 		                return EnumActionResult.SUCCESS;
 	            	}
