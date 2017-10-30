@@ -19,6 +19,8 @@ public class ModShaders
 	public static final List<Shader> LEGENDARY_SHADERS = new ArrayList<Shader>();
 	public static final List<Shader> DESTINY_SHADERS = new ArrayList<Shader>();
 	public static final List<Shader> OVERWATCH_SHADERS = new ArrayList<Shader>();
+	//Events
+	public static final List<Shader> HALLOWEEN_SHADERS = new ArrayList<Shader>();
 	
 	public static void init()
 	{
@@ -61,6 +63,9 @@ public class ModShaders
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.zerodawn", Reference.MODID + ":shaders/main/zerodawn", Reference.MODID + ":shader", 6367010, false).setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new Shader("main.immersive", Reference.MODID + ":shaders/main/immersive", Reference.MODID + ":shader", 5450521, false).setArtist("Voxel_Friend").setQualityColor(StringUtils.ORANGE));
 			TOWAPI.shaderRegistry.registerShader(LEGENDARY_SHADERS, 1, true, new ShaderModeSpecific("main.modularium", Reference.MODID + ":shaders/main/modularium", Reference.MODID + ":shader", 16731648, false).setQualityColor(StringUtils.ORANGE));
+
+			//Shaders: event
+			TOWAPI.shaderRegistry.registerShader(HALLOWEEN_SHADERS, 1, false, new Shader("event.halloween1", Reference.MODID + ":shaders/event/halloween1", Reference.MODID + ":shaders/event/shader", ColorUtils.orange, false).setQualityColor(StringUtils.PURPLE));
 			
 			//Shaders: destiny
 			if (ModConfig.enableDestinyShaders)

@@ -35,13 +35,14 @@ public class ItemShaderPack extends ItemBase
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
-		if (this.pool.size() > 0 && !playerIn.getEntityWorld().isRemote)
+		List<Shader> pool = getLootPool();
+		if (pool.size() > 0 && !playerIn.getEntityWorld().isRemote)
 		{
 			if (!playerIn.capabilities.isCreativeMode) playerIn.getHeldItem(handIn).shrink(1);
 			List<Shader> newPool = new ArrayList<Shader>();
-			for (int i = 0; i < this.pool.size(); ++i)
+			for (int i = 0; i < pool.size(); ++i)
 			{
-				newPool.add(this.pool.get(i));
+				newPool.add(pool.get(i));
 			}
 			for (int i = 0; i < amount; ++i)
 			{
@@ -61,12 +62,17 @@ public class ItemShaderPack extends ItemBase
 		return new ActionResult(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 	}
 	
+	public List<Shader> getLootPool()
+	{
+		return this.pool;
+	}
+	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (StringUtils.isShiftKeyDown())
 		{
-			TooltipHelper.addHiddenTooltip(tooltip, "tooltip.tow." + this.getItemName(stack), ";", StringUtils.GRAY);
+			TooltipHelper.addSplitString(tooltip, StringUtils.localize("tooltip.tow." + this.getItemName(stack)), ";", StringUtils.GRAY);
 		}
 		else tooltip.add(StringUtils.shiftForInfo);
 	}

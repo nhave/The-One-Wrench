@@ -14,6 +14,7 @@ item.tow.shaderpackbase.name=Starter Pack
 item.tow.shaderpackbooster.name=Booster Pack
 item.tow.shaderpackdestiny.name=Destiny Theme Pack
 item.tow.shaderpackoverwatch.name=Overwatch Theme Pack
+item.tow.shaderpackevent.name=Event Promotional Pack
 
 //---Tooltip---//
 tooltip.tow.mode=Mode
@@ -39,12 +40,14 @@ tooltip.tow.shader.main.steam=Steam Power Baby!;I have no idea how;this even wor
 tooltip.tow.shader.main.scorpion=Tell me, was this wrench design;inspired by a scorpion?;No, what makes you think that.
 tooltip.tow.shader.main.gen4=Prepare for the;fourth generation;OmniWrench.
 tooltip.tow.shader.main.modularium=Multi purpose tool with;replaceable components;to serve every task.
+tooltip.tow.shader.event.halloween1=§6Halloween 2017;§610/24 - 11/7;Spooky!
 tooltip.tow.shader.destiny.siva=Deals bonus damage to Fallen.;If you can find any!
 tooltip.tow.shader.destiny.surosv2=- Elegance in the;face of brutality.
 tooltip.tow.shader.destiny.omolon=- The future is;what we make it.
 tooltip.tow.shader.destiny.hakke=- Functional. Reliable.;Unapologetic.
 tooltip.tow.shader.destiny.veist=- Add motto here.
-tooltip.tow.shader.overwatch.sombra=4861636b2074686520776f726c6421
+//tooltip.tow.shader.overwatch.sombra=4861636b2074686520776f726c6421
+tooltip.tow.shader.overwatch.sombra=§kHack The World
 tooltip.tow.shader.overwatch.mercy=Shaders Never Die!
 tooltip.tow.shader.overwatch.doomfist=RISING UPPERCUT
 tooltip.tow.shader.overwatch.dvav2=Nerf This!
@@ -55,12 +58,15 @@ tooltip.tow.mouse.wheel=Mouse Wheel
 tooltip.tow.wipe=To wipe stored Data
 tooltip.tow.wipe.complete=All stored Data was Wiped
 tooltip.tow.toolstation.shader=Shader
-tooltip.tow.shaderpackbase=Grants all five;Basic Shaders
-tooltip.tow.shaderpackbooster=Grants three random Shaders;Can contain Legendaries
-tooltip.tow.shaderpackdestiny=Grants three random Shaders;From the Destiny collection
-tooltip.tow.shaderpackoverwatch=Grants three random Shaders;From the Overwatch collection
-tooltip.tow.shaderpackpromotion.deny=There is nothing of value;in this pack for you!
+tooltip.tow.shaderpackbase=Grants all five;basic shaders
+tooltip.tow.shaderpackbooster=Grants three random shaders;Can contain Legendaries
+tooltip.tow.shaderpackdestiny=Grants three random shaders;from the Destiny collection
+tooltip.tow.shaderpackoverwatch=Grants three random shaders;from the Overwatch collection
+tooltip.tow.shaderpackevent=Grants one shader from;the current event.
+tooltip.tow.shaderpacknoevent=Currently no obtainable;event shaders
 tooltip.tow.shaderremover=Reverts the OmniWrench back;to its default shader.
+tooltip.tow.event.none=No Ongoing Event
+tooltip.tow.event.halloween=Halloween
 
 //---Shaders---//
 //---Core Shaders---//
@@ -100,6 +106,8 @@ shader.tow.main.gen4=Generation IV
 shader.tow.main.zerodawn=Zero Dawn
 shader.tow.main.immersive=Hazardous
 shader.tow.main.modularium=Modular Multitool
+//---Event Shaders---//
+shader.tow.event.halloween1=Haunted Vegetable
 //---Destiny Shaders---//
 shader.tow.destiny.newmonarchy=New Monarchy
 shader.tow.destiny.deadorbit=Dead Orbit
@@ -129,7 +137,8 @@ shader.tow.overwatch.reinhardt=Reinhardt
 shader.tow.overwatch.reaper=Reaper
 shader.tow.overwatch.symmetra=Symmetra
 shader.tow.overwatch.lucio=Lúcio
-shader.tow.overwatch.sombra=536f6d627261
+//shader.tow.overwatch.sombra=536f6d627261
+shader.tow.overwatch.sombra=Sombra
 shader.tow.overwatch.doomfist=Doomfist
 shader.tow.overwatch.mercy=Mercy
 shader.tow.overwatch.dvav2=D.Va V2

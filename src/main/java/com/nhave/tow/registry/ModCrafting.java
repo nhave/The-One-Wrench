@@ -50,6 +50,11 @@ public class ModCrafting
 				'X', "nuggetGold",
 				'Y', "dyeRed",
 				'Z', Items.EMERALD}));
+			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderPackEvent),
+				new Object[] {"XYX", "YZY", "XYX",
+				'X', "nuggetGold",
+				'Y', "dyePurple",
+				'Z', Items.EMERALD}));
 			addRecipe(event, new ShapedOreRecipe(null, new ItemStack(ModItems.itemShaderRemover),
 				new Object[] {"XYX", "YZY", "XYX",
 				'X', "nuggetGold",

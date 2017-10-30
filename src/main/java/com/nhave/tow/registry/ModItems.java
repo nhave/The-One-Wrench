@@ -16,6 +16,7 @@ import com.nhave.tow.items.ItemMeta;
 import com.nhave.tow.items.ItemOmniwrench;
 import com.nhave.tow.items.ItemShader;
 import com.nhave.tow.items.ItemShaderPack;
+import com.nhave.tow.items.ItemShaderPackEvent;
 import com.nhave.tow.items.ItemShaderRemover;
 import com.nhave.tow.shaders.ShaderRegistry;
 import com.nhave.tow.wrenchmodes.WrenchModeTune;
@@ -54,6 +55,7 @@ public class ModItems
 	public static Item itemShaderPackBooster;
 	public static Item itemShaderPackDestiny;
 	public static Item itemShaderPackOverwatch;
+	public static Item itemShaderPackEvent;
 	
 	public static String[][] craftingComponents = new String[][]
 	{
@@ -73,6 +75,7 @@ public class ModItems
 		itemShaderPackBooster = new ItemShaderPack("shaderpackbooster", ModShaders.ALL_SHADERS, 3).setQuality(StringUtils.LIGHT_BLUE).setCreativeTab(ModConfig.enableAllShaders ? TAB_ITEMS : null);
 		itemShaderPackDestiny = new ItemShaderPack("shaderpackdestiny", ModShaders.DESTINY_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableDestinyShaders ? TAB_ITEMS : null);
 		itemShaderPackOverwatch = new ItemShaderPack("shaderpackoverwatch", ModShaders.OVERWATCH_SHADERS, 3).setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders && ModConfig.enableOverwatchShaders ? TAB_ITEMS : null);
+		itemShaderPackEvent = new ItemShaderPackEvent("shaderpackevent").setQuality(StringUtils.PURPLE).setCreativeTab(ModConfig.enableAllShaders ? TAB_ITEMS : null);
 		
 		modeWrench = TOWAPI.modeRegistry.register("wrench", new ItemStack(itemIcons, 1, 2));
 		modeRotate = TOWAPI.modeRegistry.register("rotate", new ItemStack(itemIcons, 1, 3));
@@ -121,6 +124,7 @@ public class ModItems
 		event.getRegistry().register(itemShaderPackBooster);
 		event.getRegistry().register(itemShaderPackDestiny);
 		event.getRegistry().register(itemShaderPackOverwatch);
+		event.getRegistry().register(itemShaderPackEvent);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -148,6 +152,7 @@ public class ModItems
 		registerRender(itemShaderPackBooster);
 		registerRender(itemShaderPackDestiny);
 		registerRender(itemShaderPackOverwatch);
+		registerRender(itemShaderPackEvent);
 	}
 	
 	@SideOnly(Side.CLIENT)
