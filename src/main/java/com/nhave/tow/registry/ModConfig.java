@@ -34,6 +34,7 @@ public class ModConfig
     public static boolean enableSonarCore = Defaults.enableSonarCore;
     public static boolean enableModularMachinery = Defaults.enableModularMachinery;
     public static boolean enableFunkyLocomotion = Defaults.enableFunkyLocomotion;
+    public static boolean enableEngineersWorkshop = Defaults.enableEngineersWorkshop;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -115,9 +116,10 @@ public class ModConfig
 		enableForestry = config.get("integration", "EnableForestry", Defaults.enableForestry, "Enable Forestry Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableForestry);
 		enableXNet = config.get("integration", "EnableXNet", Defaults.enableXNet, "Enable XNet Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableXNet);
 		enablePSI = config.get("integration", "EnablePSI", Defaults.enablePSI, "Enable PSI Integration").setRequiresMcRestart(true).getBoolean(Defaults.enablePSI);
-		//enableSonarCore = config.get("integration", "EnableSonarCore", Defaults.enableSonarCore, "Enable SonarCore Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableSonarCore);
+		enableSonarCore = config.get("integration", "EnableSonarCore", Defaults.enableSonarCore, "Enable SonarCore Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableSonarCore);
 		enableModularMachinery = config.get("integration", "EnableModularMachinery", Defaults.enableModularMachinery, "Enable Modular Machinery Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableModularMachinery);
 		enableFunkyLocomotion = config.get("integration", "EnableFunkyLocomotion", Defaults.enableFunkyLocomotion, "Enable Funky Locomotion Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableFunkyLocomotion);
+		enableEngineersWorkshop = config.get("integration", "EnableEngineersWorkshop", Defaults.enableEngineersWorkshop, "Enable Engineers Workshop Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableEngineersWorkshop);
 	    //Integration - IC2
 		config.setCategoryComment("integration.industrialcraft", "Configuration for IC2 Integrations");
 		ic2CutWires = config.get("integration.industrialcraft", "CutWires", Defaults.ic2CutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.ic2CutWires);

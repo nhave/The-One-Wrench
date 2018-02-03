@@ -7,6 +7,7 @@ import com.nhave.tow.client.integration.RFToolsClientEventHandler;
 import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.integration.handlers.ActuallyAdditionsHandler;
 import com.nhave.tow.integration.handlers.EmbersHandler;
+import com.nhave.tow.integration.handlers.EngineersWorkshopHandler;
 import com.nhave.tow.integration.handlers.ExtremeReactorsHandler;
 import com.nhave.tow.integration.handlers.ForestryHandler;
 import com.nhave.tow.integration.handlers.FunkyLocomotionHandler;
@@ -225,6 +226,14 @@ public class ModIntegration
 			try
 			{
 				TOWAPI.integrationRegistry.register(new SonarCoreHandler(), "SonarCore");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("engineersworkshop") && ModConfig.enableEngineersWorkshop)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new EngineersWorkshopHandler(), "Engineers Workshop");
 			}
 			catch (Exception e) {}
 		}
