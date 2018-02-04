@@ -23,6 +23,7 @@ public class Defaults
     public static final boolean enableModularMachinery = true;
     public static final boolean enableFunkyLocomotion = true;
     public static final boolean enableEngineersWorkshop = true;
+    public static final boolean enableCyberware = true;
     //Integration - IC2
     public static final boolean enableIC2 = true;
     public static final boolean ic2CutWires = true;
