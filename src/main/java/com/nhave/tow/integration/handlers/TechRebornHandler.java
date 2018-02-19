@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blocks.BlockPlayerDetector;
 import techreborn.blocks.generator.BlockCreativeSolarPanel;
-import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.blocks.generator.BlockWaterMill;
 import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.blocks.storage.BlockLSUStorage;
@@ -66,11 +65,7 @@ public class TechRebornHandler extends WrenchHandler
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-	    if (mode == ModItems.modeRotate && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage))
-		{
-	    	return EnumActionResult.FAIL;
-		}
-	    else if (mode == ModItems.modeWrench && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage || block instanceof BlockTransformer || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage))
+	    if (mode == ModItems.modeWrench && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage || block instanceof BlockTransformer || block instanceof BlockWaterMill || block instanceof BlockCreativeSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage))
 		{
 	    	if (!player.isSneaking())
 	    	{
@@ -122,7 +117,11 @@ public class TechRebornHandler extends WrenchHandler
 					if (!world.isRemote) return EnumActionResult.SUCCESS;
 	    		}
 	    	}
-	    	else DismantleHelper.dismantleBlockPure(world, pos, state, player, false);
+	    	else
+	    	{
+	    		DismantleHelper.dismantleBlockPure(world, pos, state, player, false);
+	    		if (!world.isRemote) return EnumActionResult.SUCCESS;
+	    	}
     		
     		if (world.isRemote)
 			{
@@ -139,11 +138,7 @@ public class TechRebornHandler extends WrenchHandler
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-	    if (mode == ModItems.modeRotate && (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage))
-		{
-	    	return EnumActionResult.FAIL;
-		}
-	    else if (mode == ModItems.modeWrench)
+	    if (mode == ModItems.modeWrench)
 		{
 	    	EnumFacing newFacing = side;
 			if (player.isSneaking())
@@ -154,7 +149,7 @@ public class TechRebornHandler extends WrenchHandler
 			{
 				newFacing = side;
 			}
-			if (block instanceof BlockPlayerDetector || block instanceof BlockWaterMill || block instanceof BlockSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage)
+			if (block instanceof BlockPlayerDetector || block instanceof BlockWaterMill || block instanceof BlockCreativeSolarPanel || block instanceof BlockCreativeSolarPanel || block instanceof BlockLSUStorage)
 			{
 				DismantleHelper.dismantleBlockPure(world, pos, state, player, false);
 				if (!world.isRemote) return EnumActionResult.SUCCESS;
@@ -194,6 +189,14 @@ public class TechRebornHandler extends WrenchHandler
 			}
 		}
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState state = world.getBlockState(pos);
+	    Block block = state.getBlock();
+		return (block instanceof BlockMachineBase || block instanceof BlockEnergyStorage);
 	}
 	
 	@Override

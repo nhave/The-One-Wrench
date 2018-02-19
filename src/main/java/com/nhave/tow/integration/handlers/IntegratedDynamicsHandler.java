@@ -2,6 +2,7 @@ package com.nhave.tow.integration.handlers;
 
 import org.cyclops.cyclopscore.config.configurable.ConfigurableBlockContainer;
 import org.cyclops.integrateddynamics.block.BlockCable;
+import org.cyclops.integrateddynamics.block.BlockLogicProgrammer;
 import org.cyclops.integrateddynamics.item.ItemWrench;
 
 import com.nhave.tow.api.integration.WrenchHandler;
@@ -32,9 +33,9 @@ public class IntegratedDynamicsHandler extends WrenchHandler
 		
 		if (mode == ModItems.modeWrench)
 		{
-			if (player.isSneaking() && block instanceof BlockCable)
+			if (block instanceof BlockCable)
 			{
-				if (!world.isRemote)
+	            if (!world.isRemote)
 				{
 					player.setHeldItem(hand, new ItemStack(ItemWrench.getInstance()));
 					block.onBlockActivated(world, pos, bs, player, hand, side, hitX, hitY, hitZ);
@@ -48,7 +49,7 @@ public class IntegratedDynamicsHandler extends WrenchHandler
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
 			}
-			else if (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && block instanceof ConfigurableBlockContainer)
+			else if (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && (block instanceof ConfigurableBlockContainer || block instanceof BlockLogicProgrammer))
 			{
 				if (player.isSneaking())
 				{
@@ -83,6 +84,6 @@ public class IntegratedDynamicsHandler extends WrenchHandler
 	{
 	    IBlockState bs = world.getBlockState(pos);
 	    Block block = bs.getBlock();
-		return (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && block instanceof ConfigurableBlockContainer);
+		return (block.getRegistryName().getResourceDomain().equals("integrateddynamics") && (block instanceof ConfigurableBlockContainer || block instanceof BlockLogicProgrammer));
 	}
 }

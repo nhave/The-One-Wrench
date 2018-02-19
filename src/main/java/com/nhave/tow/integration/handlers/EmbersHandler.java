@@ -27,9 +27,9 @@ import teamroots.embers.block.BlockAdvancedEdge;
 import teamroots.embers.block.BlockFluidExtractor;
 import teamroots.embers.block.BlockFluidPipe;
 import teamroots.embers.block.BlockInfernoForgeEdge;
+import teamroots.embers.block.BlockItemExtractor;
 import teamroots.embers.block.BlockItemPipe;
 import teamroots.embers.block.BlockMechEdge;
-import teamroots.embers.block.BlockPump;
 import teamroots.embers.block.BlockStoneEdge;
 import teamroots.embers.block.BlockTEBase;
 import teamroots.embers.block.IDial;
@@ -84,7 +84,7 @@ public class EmbersHandler extends WrenchHandler implements IDataWipe
 					}
 	    		}
 			}
-	    	else if (block instanceof BlockItemPipe || block instanceof BlockPump || block instanceof BlockFluidExtractor || block instanceof BlockFluidPipe)
+	    	else if (block instanceof BlockItemPipe || block instanceof BlockItemExtractor || block instanceof BlockFluidExtractor || block instanceof BlockFluidPipe)
 	    	{
 	    		if (!world.isRemote)
 				{

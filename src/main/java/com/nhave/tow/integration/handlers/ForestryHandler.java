@@ -6,21 +6,26 @@ import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.registry.ModConfig;
 import com.nhave.tow.registry.ModItems;
 
-import forestry.apiculture.PluginApiculture;
+import forestry.apiculture.ModuleApiculture;
 import forestry.apiculture.blocks.BlockAlveary;
-import forestry.arboriculture.PluginArboriculture;
-import forestry.core.PluginCore;
+import forestry.arboriculture.ModuleArboriculture;
+import forestry.core.ModuleCore;
 import forestry.core.blocks.BlockBase;
 import forestry.core.tiles.TileUtil;
+import forestry.cultivation.blocks.BlockPlanter;
+import forestry.database.blocks.BlockDatabase;
 import forestry.energy.EnergyHelper;
 import forestry.energy.blocks.BlockEngine;
-import forestry.factory.PluginFactory;
+import forestry.factory.ModuleFactory;
 import forestry.factory.blocks.BlockFactoryPlain;
 import forestry.factory.blocks.BlockFactoryTESR;
 import forestry.farming.blocks.BlockFarm;
+import forestry.greenhouse.blocks.BlockClimatiser;
 import forestry.greenhouse.blocks.BlockGreenhouse;
-import forestry.lepidopterology.PluginLepidopterology;
+import forestry.lepidopterology.ModuleLepidopterology;
 import forestry.mail.blocks.BlockMail;
+import forestry.sorting.blocks.BlockGeneticFilter;
+import forestry.worktable.blocks.BlockWorktable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,15 +66,15 @@ public class ForestryHandler extends WrenchHandler
         IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-	    boolean core = PluginCore.getBlocks() != null;
-	    boolean factory = PluginFactory.getBlocks() != null;
-	    boolean apiculture = PluginApiculture.getBlocks() != null;
-	    boolean arboriculture = PluginArboriculture.getBlocks() != null;
-	    boolean lepidopterology = PluginLepidopterology.getBlocks() != null;
+	    boolean core = ModuleCore.getBlocks() != null;
+	    boolean factory = ModuleFactory.getBlocks() != null;
+	    boolean apiculture = ModuleApiculture.getBlocks() != null;
+	    boolean arboriculture = ModuleArboriculture.getBlocks() != null;
+	    boolean lepidopterology = ModuleLepidopterology.getBlocks() != null;
 	    
 	    if (mode == ModItems.modeRotate)
 	    {
-	    	if ((core && block == PluginCore.getBlocks().escritoire) || (apiculture && (block == PluginApiculture.getBlocks().beeHouse || block == PluginApiculture.getBlocks().apiary || block == PluginApiculture.getBlocks().beeChest)) || (arboriculture && block == PluginArboriculture.getBlocks().treeChest) || (lepidopterology && block == PluginLepidopterology.getBlocks().butterflyChest))
+	    	if ((core && block == ModuleCore.getBlocks().escritoire) || (apiculture && (block == ModuleApiculture.getBlocks().beeHouse || block == ModuleApiculture.getBlocks().apiary || block == ModuleApiculture.getBlocks().beeChest)) || (arboriculture && block == ModuleArboriculture.getBlocks().treeChest) || (lepidopterology && block == ModuleLepidopterology.getBlocks().butterflyChest) || block instanceof BlockWorktable)
 	    	{
 	    		EnumFacing newFacing = state.getValue(((BlockBase) block).FACING);
     	    	if (newFacing == EnumFacing.NORTH) newFacing = EnumFacing.EAST;
@@ -91,7 +96,8 @@ public class ForestryHandler extends WrenchHandler
 	    }
 	    else if (mode == ModItems.modeWrench)
     	{
-    		if (player.isSneaking() && ((this.farmDismantle && block instanceof BlockFarm) || (this.greenhouseDismantle && block instanceof BlockGreenhouse) || (this.alvearyDismantle && block instanceof BlockAlveary) || (this.apiaryDismantle && apiculture && block == PluginApiculture.getBlocks().apiary) || (this.beeHouseDismantle && apiculture && block == PluginApiculture.getBlocks().beeHouse)))
+	    	//player.sendMessage(new TextComponentString("" + block));
+    		if (player.isSneaking() && ((this.farmDismantle && block instanceof BlockFarm) || (this.greenhouseDismantle && (block instanceof BlockGreenhouse || block instanceof BlockClimatiser)) || (this.alvearyDismantle && block instanceof BlockAlveary) || (this.apiaryDismantle && apiculture && block == ModuleApiculture.getBlocks().apiary) || (this.beeHouseDismantle && apiculture && block == ModuleApiculture.getBlocks().beeHouse) || block instanceof BlockPlanter || block instanceof BlockGeneticFilter))
     		{
     			DismantleHelper.dismantleBlock(world, pos, state, player, true);
     			if (!world.isRemote) return EnumActionResult.SUCCESS;
@@ -101,9 +107,9 @@ public class ForestryHandler extends WrenchHandler
 					player.swingArm(EnumHand.MAIN_HAND);
 				}
     		}
-    		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail || (core && block == PluginCore.getBlocks().analyzer))
+    		else if (block instanceof BlockEngine || block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || block instanceof BlockMail || (core && block == ModuleCore.getBlocks().analyzer) || block instanceof BlockDatabase)
 		    {
-	    		if (player.isSneaking() && ((this.engineDismantle && block instanceof BlockEngine) || (this.machineDismantle && (block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || (core && block == PluginCore.getBlocks().analyzer))) || (this.mailDismantle && block instanceof BlockMail)))
+	    		if (player.isSneaking() && ((this.engineDismantle && block instanceof BlockEngine) || (this.machineDismantle && (block instanceof BlockFactoryPlain || block instanceof BlockFactoryTESR || (core && block == ModuleCore.getBlocks().analyzer))) || (this.mailDismantle && block instanceof BlockMail) || block instanceof BlockDatabase))
 				{
 		    		DismantleHelper.dismantleBlock(world, pos, state, player, true);
 	    			if (!world.isRemote) return EnumActionResult.SUCCESS;
@@ -138,7 +144,7 @@ public class ForestryHandler extends WrenchHandler
 	    		}
 	    		else
 	    		{
-	    			if (factory && block == PluginFactory.getBlocks().rainmaker) return EnumActionResult.PASS;
+	    			if (factory && block == ModuleFactory.getBlocks().rainmaker) return EnumActionResult.PASS;
 	    			
 	    			EnumFacing newFacing = state.getValue(((BlockBase) block).FACING);
 	    	    	if (newFacing == EnumFacing.NORTH) newFacing = EnumFacing.EAST;

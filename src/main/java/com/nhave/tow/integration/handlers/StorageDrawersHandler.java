@@ -35,8 +35,6 @@ public class StorageDrawersHandler extends WrenchHandler
 		
 		if (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockSlave || block instanceof BlockTrim || block instanceof BlockFramingTable || block instanceof BlockKeyButton)
 		{
-			if (mode == ModItems.modeRotate) return EnumActionResult.FAIL;
-			
 			if (mode == ModItems.modeWrench)
 			{
 				if (player.isSneaking())
@@ -87,6 +85,14 @@ public class StorageDrawersHandler extends WrenchHandler
 			}
 		}
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState state = world.getBlockState(pos);
+	    Block block = state.getBlock();
+		return (block instanceof BlockDrawers || block instanceof BlockController || block instanceof BlockSlave || block instanceof BlockTrim || block instanceof BlockFramingTable || block instanceof BlockKeyButton);
 	}
 	
 	@Override

@@ -7,6 +7,7 @@ import com.nhave.tow.helpers.DismantleHelper;
 import com.nhave.tow.registry.ModItems;
 import com.raoulvdberge.refinedstorage.api.util.IWrenchable;
 import com.raoulvdberge.refinedstorage.block.BlockNode;
+import com.raoulvdberge.refinedstorage.tile.TileCable;
 import com.raoulvdberge.refinedstorage.tile.TileNode;
 import com.raoulvdberge.refinedstorage.tile.grid.portable.TilePortableGrid;
 
@@ -38,8 +39,6 @@ public class RefinedStorageHandler extends WrenchHandler implements IDataWipe
 	    Block block = state.getBlock();
         ItemStack stack = player.getHeldItem(hand);
         
-        if (mode == ModItems.modeRotate && (tile instanceof TileNode || tile instanceof TilePortableGrid)) return EnumActionResult.FAIL;
-        
         if (mode == ModItems.modeWrench)
 		{
             if (tile instanceof TileNode || tile instanceof TilePortableGrid)
@@ -48,7 +47,7 @@ public class RefinedStorageHandler extends WrenchHandler implements IDataWipe
             	{
 	            	if (!world.isRemote)
 	            	{
-	            		if (tile instanceof TilePortableGrid)
+	            		if (tile instanceof TilePortableGrid || tile instanceof TileCable)
 	            		{
 	            			DismantleHelper.dismantleBlock(world, pos, state, player, false);
 	            		}
@@ -141,6 +140,13 @@ public class RefinedStorageHandler extends WrenchHandler implements IDataWipe
 		}
 		
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+		TileEntity tile = world.getTileEntity(pos);
+		return (tile instanceof TileNode || tile instanceof TilePortableGrid);
 	}
 	
 	@Override

@@ -91,7 +91,7 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 			EnumActionResult ret = tryFormMB(player, world, pos, side, hand);
 			if (ret != EnumActionResult.PASS)
 			{
-				if (world.isRemote && ret != EnumActionResult.PASS) Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
+				if (world.isRemote) Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
 				return ret;
 			}
 			else if (!(block instanceof BlockIEMultiblock) && (tileEntity instanceof IConfigurableSides || (tileEntity instanceof IDirectionalTile && ((IDirectionalTile)tileEntity).canHammerRotate(side, hitX, hitY, hitZ, player)) || tileEntity instanceof IHammerInteraction))
@@ -158,7 +158,6 @@ public class ImmersiveEngineeringHandler extends WrenchHandler
 	
 	public boolean canDismantle(Block block, int meta)
 	{
-		//(block.getRegistryName().toString()).equals("immersiveengineering:metal_decoration0")
 		if (block instanceof BlockConveyor || block instanceof BlockMetalDevice0 || block instanceof BlockMetalDevice1) return true;
 		else if (block instanceof BlockWoodenDevice0)
 		{

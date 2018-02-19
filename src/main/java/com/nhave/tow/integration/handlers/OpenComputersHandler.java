@@ -28,13 +28,8 @@ public class OpenComputersHandler extends WrenchHandler
 	    IBlockState bs = world.getBlockState(pos);
 	    Block block = bs.getBlock();
 	    
-	    if ((mode == ModItems.modeWrench || mode == ModItems.modeRotate) && block instanceof SimpleBlock && !isBlockIgnored(block))
+	    if (mode == ModItems.modeWrench && block instanceof SimpleBlock && !isBlockIgnored(block))
 	    {
-	    	if (mode == ModItems.modeRotate)
-		    {
-		    	return EnumActionResult.FAIL;
-		    }
-	    	
 	    	if (player.isSneaking())
 			{
 	    		if (block instanceof Raid || block instanceof Microcontroller || block instanceof Cable)
@@ -42,7 +37,6 @@ public class OpenComputersHandler extends WrenchHandler
 	    			if (block.removedByPlayer(bs, world, pos, player, true)) block.breakBlock(world, pos, bs);
 	    		}
 	    		else DismantleHelper.dismantleBlock(world, pos, bs, player, false);
-	    		//DismantleHelper.dismantleBlock(world, pos, bs, player, ((block instanceof Raid || block instanceof Microcontroller) ? false : true));
 				player.swingArm(EnumHand.MAIN_HAND);
 				if (!world.isRemote) return EnumActionResult.SUCCESS;
 				else
@@ -82,11 +76,19 @@ public class OpenComputersHandler extends WrenchHandler
 	}
 	
 	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState bs = world.getBlockState(pos);
+	    Block block = bs.getBlock();
+		return block instanceof SimpleBlock && !isBlockIgnored(block);
+	}
+	
+	@Override
 	public boolean shouldDenyBlockActivate(WrenchMode mode, EntityPlayer player, World world, BlockPos pos)
 	{
 	    IBlockState state = world.getBlockState(pos);
 	    Block block = state.getBlock();
 	    
-		return ((mode == ModItems.modeWrench || mode == ModItems.modeRotate) && (block instanceof Screen)) || (mode == ModItems.modeWrench && block instanceof Waypoint);
+		return (mode == ModItems.modeWrench && (block instanceof Screen)) || (mode == ModItems.modeWrench && block instanceof Waypoint);
 	}
 }

@@ -31,7 +31,7 @@ public class TeslaCoreLibHandler extends WrenchHandler
 		    Block block = state.getBlock();
 		    
 	        // test if block implements the interface
-	        if (state.getBlock() instanceof ITeslaWrenchHandler)
+	        if (block instanceof ITeslaWrenchHandler)
 	        {
 	            result = ((ITeslaWrenchHandler)state.getBlock()).onWrenchUse((TeslaWrench) GameRegistry.makeItemStack("teslacorelib:wrench", 0, 1, null).getItem(), player, world, pos, hand, side, hitX, hitY, hitZ);
 	            
@@ -56,5 +56,14 @@ public class TeslaCoreLibHandler extends WrenchHandler
 	        }
 		} 
 	    return result;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+		TileEntity tile = world.getTileEntity(pos);
+        IBlockState state = world.getBlockState(pos);
+	    Block block = state.getBlock();
+		return (block instanceof ITeslaWrenchHandler || ((tile != null) && (tile.hasCapability(TeslaCoreCapabilities.CAPABILITY_WRENCH, null))));
 	}
 }

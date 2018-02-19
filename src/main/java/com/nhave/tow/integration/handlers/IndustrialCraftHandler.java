@@ -61,16 +61,10 @@ public class IndustrialCraftHandler extends WrenchHandler
 	    IBlockState bs = world.getBlockState(pos);
 	    Block block = bs.getBlock();
 	    
-	    if (mode == ModItems.modeWrench || mode == ModItems.modeRotate)
+	    if (mode == ModItems.modeWrench)
 		{
 			if (block instanceof IWrenchable)
 			{
-				//Disallow Rotation mode on IC2 blocks
-			    if (mode == ModItems.modeRotate)
-			    {
-			    	return EnumActionResult.FAIL;
-			    }
-			    
 				IWrenchable wrenchable = (IWrenchable) block;
 				
 				if (!player.isSneaking())
@@ -134,13 +128,10 @@ public class IndustrialCraftHandler extends WrenchHandler
 	    IBlockState bs = world.getBlockState(pos);
 	    Block block = bs.getBlock();
 	    
-		if (mode == ModItems.modeWrench || mode == ModItems.modeRotate)
+		if (mode == ModItems.modeWrench)
 		{
 			if (block instanceof IWrenchable)
 			{
-				//Disallow Rotation mode on IC2 blocks
-			    if (mode == ModItems.modeRotate) return EnumActionResult.FAIL;
-			    
 				IWrenchable wrenchable = (IWrenchable) block;
 				
 				EnumFacing currentFacing = wrenchable.getFacing(world, pos);
@@ -214,5 +205,13 @@ public class IndustrialCraftHandler extends WrenchHandler
 			}
 		}
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public boolean preventBlockRotation(EntityPlayer player, World world, BlockPos pos)
+	{
+	    IBlockState bs = world.getBlockState(pos);
+	    Block block = bs.getBlock();
+		return (block instanceof IWrenchable);
 	}
 }
