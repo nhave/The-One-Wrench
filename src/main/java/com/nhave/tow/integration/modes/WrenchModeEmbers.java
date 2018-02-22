@@ -11,9 +11,12 @@ import com.nhave.tow.api.wrenchmodes.WrenchMode;
 import com.nhave.tow.integration.WrenchRegistry;
 import com.nhave.tow.integration.handlers.EmbersHandler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WrenchModeEmbers extends WrenchMode implements IKeyBound
 {
@@ -23,9 +26,10 @@ public class WrenchModeEmbers extends WrenchMode implements IKeyBound
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName() +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
 		list.add(" - " + StringUtils.localize("tooltip.tow.wipe"));
 		if (stack.hasTagCompound())
 		{

@@ -13,10 +13,13 @@ import com.nhave.tow.integration.handlers.RFToolsHandler;
 
 import mcjty.lib.varia.BlockPosTools;
 import mcjty.lib.varia.GlobalCoordinate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WrenchModeRFTools extends WrenchMode implements IKeyBound
 {
@@ -26,9 +29,10 @@ public class WrenchModeRFTools extends WrenchMode implements IKeyBound
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
 	{
-		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
+		list.add(StringUtils.localize("tooltip.tow.mode.press") + " " + StringUtils.format(Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName() +  "+" + KeyBinds.toggle.getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
 		list.add(" - " + StringUtils.localize("tooltip.tow.wipe"));
 		GlobalCoordinate b = RFToolsHandler.getCurrentBlock(stack);
         if (b != null)

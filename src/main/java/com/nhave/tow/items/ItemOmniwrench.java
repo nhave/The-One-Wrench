@@ -29,6 +29,7 @@ import com.nhave.tow.wrenchmodes.ModeRegistry;
 
 import appeng.api.implementations.items.IAEWrench;
 import blusunrize.immersiveengineering.api.tool.ITool;
+import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
 import li.cil.oc.api.internal.Wrench;
 import net.minecraft.block.Block;
@@ -43,13 +44,14 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool
+public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool, IToolWrench
 {
 	public ItemOmniwrench(String name)
 	{
@@ -90,7 +92,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 			
 			if (!hasToken(stack) && (!hasShader(stack) || (hasShader(stack) && getShader(stack).getSupportsChroma()))) tooltip.add(StringUtils.localize("tooltip.tow.chroma.current") + ": " + StringUtils.format(getStackInSlot(stack, 0).getDisplayName(), StringUtils.YELLOW, StringUtils.ITALIC));
 			
-			tooltip.add(StringUtils.localize("tooltip.tow.mouse.use") + " " + StringUtils.format(StringUtils.localize("tooltip.nhc.details.shift2") +  "+" + StringUtils.localize("tooltip.tow.mouse.wheel"), StringUtils.YELLOW, StringUtils.ITALIC));
+			tooltip.add(StringUtils.localize("tooltip.tow.mouse.use") + " " + StringUtils.format(Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName() +  "+" + StringUtils.localize("tooltip.tow.mouse.wheel"), StringUtils.YELLOW, StringUtils.ITALIC));
 			tooltip.add(" - " + StringUtils.localize("tooltip.tow.mode.change"));
 			tooltip.add(StringUtils.localize("tooltip.tow.mode") + ": " + StringUtils.format(StringUtils.localize("tooltip.tow.mode." + getWrenchMode(stack).getName()), StringUtils.YELLOW, StringUtils.ITALIC));
 			
@@ -105,6 +107,8 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	{
 		list.add(StringUtils.format(this.getItemStackDisplayName(stack), StringUtils.YELLOW, StringUtils.ITALIC));
 		list.add(StringUtils.localize("tooltip.tow.mode") + ": " + StringUtils.format(StringUtils.localize("tooltip.tow.mode." + getWrenchMode(stack).getName()), StringUtils.YELLOW, StringUtils.ITALIC));
+		
+		if (getWrenchMode(stack) instanceof IHudItem) ((IHudItem) getWrenchMode(stack)).addHudInfo(stack, player, list, isArmor);
 	}
 
 	@Override
@@ -354,4 +358,15 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	{
 		return true;
 	}
+	
+	/* =========================================================== Interface: IToolWrench ===============================================================*/
+	
+	@Override
+	public boolean canWrench(EntityPlayer player, EnumHand hand, ItemStack wrench, RayTraceResult rayTrace)
+	{
+		return true;
+	}
+
+	@Override
+	public void wrenchUsed(EntityPlayer player, EnumHand hand, ItemStack wrench, RayTraceResult rayTrace) {}
 }

@@ -36,6 +36,7 @@ public class ModConfig
     public static boolean enableFunkyLocomotion = Defaults.enableFunkyLocomotion;
     public static boolean enableEngineersWorkshop = Defaults.enableEngineersWorkshop;
     public static boolean enableCyberware = Defaults.enableCyberware;
+    public static boolean enableMekanism = Defaults.enableMekanism;
     //Integration - IC2
     public static boolean enableIC2 = Defaults.enableIC2;
     public static boolean ic2CutWires = Defaults.ic2CutWires;
@@ -122,6 +123,7 @@ public class ModConfig
 		enableFunkyLocomotion = config.get("integration", "EnableFunkyLocomotion", Defaults.enableFunkyLocomotion, "Enable Funky Locomotion Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableFunkyLocomotion);
 		enableEngineersWorkshop = config.get("integration", "EnableEngineersWorkshop", Defaults.enableEngineersWorkshop, "Enable Engineers Workshop Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableEngineersWorkshop);
 		enableCyberware = config.get("integration", "EnableCyberware", Defaults.enableCyberware, "Enable Cyberware Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableCyberware);
+		enableMekanism = config.get("integration", "EnableMekanism", Defaults.enableMekanism, "Enable Mekanism Integration").setRequiresMcRestart(true).getBoolean(Defaults.enableMekanism);
 	    //Integration - IC2
 		config.setCategoryComment("integration.industrialcraft", "Configuration for IC2 Integrations");
 		ic2CutWires = config.get("integration.industrialcraft", "CutWires", Defaults.ic2CutWires, "Allow dismantling of wires").setRequiresMcRestart(true).getBoolean(Defaults.ic2CutWires);

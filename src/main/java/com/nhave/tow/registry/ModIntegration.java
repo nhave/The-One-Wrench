@@ -15,6 +15,7 @@ import com.nhave.tow.integration.handlers.FunkyLocomotionHandler;
 import com.nhave.tow.integration.handlers.ImmersiveEngineeringHandler;
 import com.nhave.tow.integration.handlers.IndustrialCraftHandler;
 import com.nhave.tow.integration.handlers.IntegratedDynamicsHandler;
+import com.nhave.tow.integration.handlers.MekanismHandler;
 import com.nhave.tow.integration.handlers.ModularMachineryHandler;
 import com.nhave.tow.integration.handlers.OpenComputersHandler;
 import com.nhave.tow.integration.handlers.PSIHandler;
@@ -35,6 +36,7 @@ public class ModIntegration
 {
 	public static WrenchMode modeRFTools;
 	public static WrenchMode modeEmbers;
+	public static WrenchMode modeMekanism;
 	
 	public static void postInit(FMLPostInitializationEvent event)
 	{
@@ -243,6 +245,14 @@ public class ModIntegration
 			try
 			{
 				TOWAPI.integrationRegistry.register(new CyberwareHandler(), "Cyberware");
+			}
+			catch (Exception e) {}
+		}
+		if (Loader.isModLoaded("mekanism") && ModConfig.enableMekanism)
+		{
+			try
+			{
+				TOWAPI.integrationRegistry.register(new MekanismHandler(), "Mekanism");
 			}
 			catch (Exception e) {}
 		}
