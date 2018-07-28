@@ -48,9 +48,13 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Optional.InterfaceList({
+    @Optional.Interface(iface = "blusunrize.immersiveengineering.api.tool.ITool", modid = "immersiveengineering")
+})
 public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem, IToolStationHud, IMouseWheel, IKeyBound, IChromaAcceptorAdv, IInventoryItem, INHWrench, IToolHammer, Wrench, IAEWrench, ITool, IToolWrench
 {
 	public ItemOmniwrench(String name)
@@ -353,6 +357,7 @@ public class ItemOmniwrench extends ItemBase implements IWidgetControl, IHudItem
 	
 	/* =========================================================== Interface: ITool ===============================================================*/
 	
+	@Optional.Method(modid = "immersiveengineering")
 	@Override
 	public boolean isTool(ItemStack item)
 	{

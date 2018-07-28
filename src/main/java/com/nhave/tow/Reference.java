@@ -7,7 +7,7 @@ public class Reference
     
 	public static final String MODID = "tow";
     public static final String NAME = "The One Wrench";
-    public static final String VERSION = "2.1.1";
+    public static final String VERSION = "2.1.2";
     public static final String DEPENDENCIES = 
     		"required-after:nhc@[" + NHCORE_VERSION + ",)" + LOAD_BEFORE;
     
