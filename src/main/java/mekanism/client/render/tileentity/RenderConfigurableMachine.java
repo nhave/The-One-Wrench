@@ -10,9 +10,13 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.GL11;
 
-import com.nhave.tow.integration.handlers.MekanismHandler;
+import com.nhave.tow.common.content.ModIntegration;
+import com.nhave.tow.common.integration.handler.MekanismHandler;
+import com.nhave.tow.common.item.ItemOmniwrench;
+
+/*import com.nhave.tow.integration.handlers.MekanismHandler;
 import com.nhave.tow.items.ItemOmniwrench;
-import com.nhave.tow.registry.ModIntegration;
+import com.nhave.tow.registry.ModIntegration;*/
 
 import mekanism.api.transmitters.TransmissionType;
 import mekanism.client.render.MekanismRenderer;

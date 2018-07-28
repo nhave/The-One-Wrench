@@ -3,8 +3,9 @@ package com.nhave.tow.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nhave.tow.Reference;
-import com.nhave.tow.registry.ModConfig;
+import com.nhave.lib.library.util.StringUtils;
+import com.nhave.tow.common.content.ModConfig;
+import com.nhave.tow.core.Reference;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.text.translation.I18n;
@@ -18,7 +19,7 @@ public class ModConfigGUI extends GuiConfig
 {
     public ModConfigGUI(GuiScreen parent)
     {
-        super(parent, getConfigElements(), Reference.MODID, false, false, I18n.translateToLocal("cfg.tow.title.main"));
+        super(parent, getConfigElements(), Reference.MODID, false, false, StringUtils.localize("cfg.tow.title.main"));
     }
     
     private static List<IConfigElement> getConfigElements()
@@ -45,7 +46,7 @@ public class ModConfigGUI extends GuiConfig
 							|| (this.owningScreen.allRequireWorldRestart),
 					(this.configElement.requiresMcRestart())
 							|| (this.owningScreen.allRequireMcRestart),
-					GuiConfig.getAbridgedConfigPath(I18n.translateToLocal("cfg.tow.title.common")));
+					GuiConfig.getAbridgedConfigPath(StringUtils.localize("cfg.tow.title.common")));
 		}
 	}
     
@@ -65,7 +66,7 @@ public class ModConfigGUI extends GuiConfig
 							|| (this.owningScreen.allRequireWorldRestart),
 					(this.configElement.requiresMcRestart())
 							|| (this.owningScreen.allRequireMcRestart),
-					GuiConfig.getAbridgedConfigPath(I18n.translateToLocal("cfg.tow.title.integration")));
+					GuiConfig.getAbridgedConfigPath(StringUtils.localize("cfg.tow.title.integration")));
 		}
 	}
 }

@@ -1,8 +1,8 @@
 package com.nhave.tow.client.integration;
 
-import com.nhave.tow.items.ItemOmniwrench;
-import com.nhave.tow.registry.ModConfig;
-import com.nhave.tow.registry.ModItems;
+import com.nhave.tow.common.content.ModConfig;
+import com.nhave.tow.common.content.ModItems;
+import com.nhave.tow.common.item.ItemOmniwrench;
 
 import blusunrize.immersiveengineering.api.Lib;
 import blusunrize.immersiveengineering.client.ClientEventHandler;
@@ -43,6 +43,7 @@ public class IEClientEventHandler
 			if(ClientUtils.mc().objectMouseOver!=null)
 			{
 				boolean hammer = !stack.isEmpty() && stack.getItem() instanceof ItemOmniwrench && (((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeWrench || (ModConfig.ieUnity && ((ItemOmniwrench) stack.getItem()).getWrenchMode(stack) == ModItems.modeTune));
+				
 				RayTraceResult mop = ClientUtils.mc().objectMouseOver;
 				if(mop!=null && mop.getBlockPos()!=null)
 				{

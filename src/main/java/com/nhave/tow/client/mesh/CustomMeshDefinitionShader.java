@@ -1,7 +1,7 @@
 package com.nhave.tow.client.mesh;
 
-import com.nhave.tow.Reference;
-import com.nhave.tow.items.ItemShader;
+import com.nhave.tow.common.item.ItemShader;
+import com.nhave.tow.core.Reference;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

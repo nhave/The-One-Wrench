@@ -1,7 +1,7 @@
 package com.nhave.tow.client.mesh;
 
-import com.nhave.tow.Reference;
-import com.nhave.tow.items.ItemOmniwrench;
+import com.nhave.tow.common.item.ItemOmniwrench;
+import com.nhave.tow.core.Reference;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -15,8 +15,8 @@ public class CustomMeshDefinitionWrench implements ItemMeshDefinition
 	{
 		String name = Reference.MODID + ":" + "wrench";
 		ItemOmniwrench wrench = ((ItemOmniwrench) stack.getItem());
-		if (wrench.hasToken(stack)) return new ModelResourceLocation(new ResourceLocation(Reference.MODID + ":" + "shaders/main/support"), "inventory");
-		else if (wrench.hasShader(stack)) return new ModelResourceLocation(new ResourceLocation(wrench.getShader(stack).getWrenchModel(stack)), "inventory");
+		/*if (wrench.hasToken(stack)) return new ModelResourceLocation(new ResourceLocation(Reference.MODID + ":" + "shaders/main/support"), "inventory");
+		else*/ if (wrench.hasShader(stack)) return new ModelResourceLocation(new ResourceLocation(wrench.getShader(stack).getWrenchModel(stack)), "inventory");
 		
 		return new ModelResourceLocation(new ResourceLocation(name), "inventory");
 	}

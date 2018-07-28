@@ -28,6 +28,7 @@ tooltip.tow.mode.util=Utility
 tooltip.tow.mode.smartwrench=Smart Wrench
 tooltip.tow.mode.embers=Embers
 tooltip.tow.mode.mekanism=Mekanism Config
+tooltip.tow.error.missingnbt=!!MISSING NBT DATA!!
 tooltip.tow.shader=OmniWrench Shader
 tooltip.tow.shader.current=Current Shader
 tooltip.tow.shader.none=No Shader
@@ -46,14 +47,13 @@ tooltip.tow.shader.destiny.siva=Deals bonus damage to Fallen.;If you can find an
 tooltip.tow.shader.destiny.surosv2=- Elegance in the;face of brutality.
 tooltip.tow.shader.destiny.omolon=- The future is;what we make it.
 tooltip.tow.shader.destiny.hakke=- Functional. Reliable.;Unapologetic.
-tooltip.tow.shader.destiny.veist=- Add motto here.
-//tooltip.tow.shader.overwatch.sombra=4861636b2074686520776f726c6421
 tooltip.tow.shader.overwatch.sombra=§kHack The World
 tooltip.tow.shader.overwatch.mercy=Shaders Never Die!
 tooltip.tow.shader.overwatch.doomfist=RISING UPPERCUT
 tooltip.tow.shader.overwatch.dvav2=Nerf This!
 tooltip.tow.chroma.enabled=Chroma Enabled
 tooltip.tow.chroma.current=Active Chroma
+tooltip.tow.chroma.default=White Chroma
 tooltip.tow.mouse.use=Use
 tooltip.tow.mouse.wheel=Mouse Wheel
 tooltip.tow.wipe=To wipe stored Data
@@ -69,6 +69,11 @@ tooltip.tow.shaderpacknoevent=Currently no obtainable;event shaders
 tooltip.tow.shaderremover=Reverts the OmniWrench back;to its default shader.
 tooltip.tow.event.none=No Ongoing Event
 tooltip.tow.event.halloween=Halloween
+tooltip.tow.quality.common=Common
+tooltip.tow.quality.rare=Rare
+tooltip.tow.quality.epic=Epic
+tooltip.tow.quality.legendary=Legendary
+tooltip.tow.color.current=Current Color
 
 //---Shaders---//
 //---Core Shaders---//
@@ -108,6 +113,7 @@ shader.tow.main.gen4=Generation IV
 shader.tow.main.zerodawn=Zero Dawn
 shader.tow.main.immersive=Hazardous
 shader.tow.main.modularium=Modular Multitool
+shader.tow.main.mekanism=Atomic Manipulator
 //---Event Shaders---//
 shader.tow.event.halloween1=Haunted Vegetable
 //---Destiny Shaders---//
@@ -129,6 +135,7 @@ shader.tow.destiny.omolon=Omolon
 shader.tow.destiny.hakke=Häkke
 shader.tow.destiny.siva=Outbreak
 shader.tow.destiny.surosv2=Suros V2
+shader.tow.destiny.whisper=Whispers
 //---Overwatch Shaders---//
 shader.tow.overwatch.dva=D.Va
 shader.tow.overwatch.bastion=Bastion

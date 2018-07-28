@@ -2,6 +2,7 @@
     "parent": "tow:item/omniwrench",
     "textures":
     {
-        "layer0": "tow:items/shaders/main/underwater"
+        "layer0": "tow:items/shaders/main/underwater_0",
+        "layer1": "tow:items/shaders/main/underwater_1"
     }
 }

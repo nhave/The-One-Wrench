@@ -4,12 +4,12 @@ import java.util.Set;
 
 import org.lwjgl.opengl.GL11;
 
-import com.nhave.tow.integration.handlers.RFToolsHandler;
-import com.nhave.tow.items.ItemOmniwrench;
-import com.nhave.tow.registry.ModIntegration;
-import com.nhave.tow.registry.ModItems;
+import com.nhave.tow.common.content.ModIntegration;
+import com.nhave.tow.common.content.ModItems;
+import com.nhave.tow.common.integration.handler.RFToolsHandler;
+import com.nhave.tow.common.item.ItemOmniwrench;
 
-import mcjty.lib.gui.RenderGlowEffect;
+import mcjty.lib.client.RenderGlowEffect;
 import mcjty.lib.varia.GlobalCoordinate;
 import mcjty.rftools.RFTools;
 import mcjty.rftools.blocks.blockprotector.BlockProtectorTileEntity;
@@ -122,7 +122,7 @@ public class RFToolsClientEventHandler
         
         for (BlockPos coordinate : coordinates)
         {
-            mcjty.lib.gui.RenderHelper.renderHighLightedBlocksOutline(buffer, base.getX() + coordinate.getX(), base.getY() + coordinate.getY(), base.getZ() + coordinate.getZ(), .5f, .3f, 0f, 1.0f);
+            mcjty.lib.client.RenderHelper.renderHighLightedBlocksOutline(buffer, base.getX() + coordinate.getX(), base.getY() + coordinate.getY(), base.getZ() + coordinate.getZ(), .5f, .3f, 0f, 1.0f);
         }
         tessellator.draw();
         
